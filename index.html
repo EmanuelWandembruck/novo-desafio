@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,13 @@
     <link rel="stylesheet" href="style.css">
     <style>
         /* Estilos extras para as novas seções */
-        body { cursor: crosshair; }
-        .chapeu-container, .pontos-container, .timeline-container {
+        body {
+            cursor: crosshair;
+        }
+
+        .chapeu-container,
+        .pontos-container,
+        .timeline-container {
             background: rgba(20, 20, 30, 0.85);
             border: 1px solid #d4af37;
             border-radius: 12px;
@@ -18,6 +24,7 @@
             text-align: center;
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
         }
+
         .btn-magic-action {
             background: linear-gradient(135deg, #740001, #ae0001);
             color: #d4af37;
@@ -29,10 +36,12 @@
             transition: all 0.3s;
             margin-top: 15px;
         }
+
         .btn-magic-action:hover {
             transform: scale(1.05);
             box-shadow: 0 0 15px #d4af37;
         }
+
         .resultado-chapeu {
             font-size: 1.5rem;
             font-weight: bold;
@@ -40,6 +49,7 @@
             color: #ffd700;
             min-height: 40px;
         }
+
         .filter-btns {
             display: flex;
             justify-content: center;
@@ -47,8 +57,9 @@
             flex-wrap: wrap;
             margin-bottom: 25px;
         }
+
         .filter-btn {
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.6);
             border: 1px solid #d4af37;
             color: #fff;
             padding: 8px 16px;
@@ -56,41 +67,61 @@
             cursor: pointer;
             transition: 0.3s;
         }
-        .filter-btn.active, .filter-btn:hover {
+
+        .filter-btn.active,
+        .filter-btn:hover {
             background: #d4af37;
             color: #000;
         }
+
         .placar-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
+
         .placar-card {
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             border-radius: 8px;
             padding: 15px;
             border-top: 4px solid #d4af37;
         }
-        .placar-card.grif { border-color: #740001; }
-        .placar-card.sons { border-color: #1a472a; }
-        .placar-card.corv { border-color: #0e1a40; }
-        .placar-card.lufa { border-color: #ecb939; }
+
+        .placar-card.grif {
+            border-color: #740001;
+        }
+
+        .placar-card.sons {
+            border-color: #1a472a;
+        }
+
+        .placar-card.corv {
+            border-color: #0e1a40;
+        }
+
+        .placar-card.lufa {
+            border-color: #ecb939;
+        }
+
         .placar-pontos {
             font-size: 1.8rem;
             color: #d4af37;
             font-weight: bold;
         }
+
         .timeline {
             position: relative;
             text-align: left;
             padding-left: 20px;
             border-left: 2px solid #d4af37;
         }
+
         .timeline-item {
             margin-bottom: 20px;
             position: relative;
         }
+
         .timeline-item::before {
             content: '⚡';
             position: absolute;
@@ -100,6 +131,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Partículas Mágicas (Feitiço da Varinha) -->
@@ -107,7 +139,8 @@
 
     <!-- Áudio de Fundo Mágico -->
     <audio id="bgAudio" loop preload="auto">
-        <source src="https://ia800508.us.archive.org/17/items/harry-potter-theme-song/Harry_Potter_Theme_Song.mp3" type="audio/mpeg">
+        <source src="https://ia800508.us.archive.org/17/items/harry-potter-theme-song/Harry_Potter_Theme_Song.mp3"
+            type="audio/mpeg">
         <source src="hedwigs-theme.mp3" type="audio/mpeg">
     </audio>
 
@@ -119,15 +152,17 @@
 
     <!-- Cabeçalho Cinematográfico -->
     <header>
-        <video class="bg-video" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-mysterious-fog-in-a-dark-forest-42502-large.mp4" type="video/mp4">
+        <video class="bg-video" autoplay loop muted playsinline
+            poster="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-mysterious-fog-in-a-dark-forest-42502-large.mp4"
+                type="video/mp4">
         </video>
         <div class="header-overlay"></div>
 
         <div class="header-content">
             <h1>Mundo Bruxo</h1>
             <p>"A magia atua sobre aqueles que realmente acreditam"</p>
-            
+
             <div class="audio-control">
                 <button id="audioBtn" class="btn-magic">⚡ Som Ambiente: OFF</button>
             </div>
@@ -160,32 +195,41 @@
 
             <div class="jornal-grid">
                 <article class="noticia-card">
-                    <div class="moldura-magica-video" onclick="openLightbox('video', 'https://assets.mixkit.co/videos/preview/mixkit-mysterious-fog-in-a-dark-forest-42502-large.mp4')">
+                    <div class="moldura-magica-video"
+                        onclick="openLightbox('video', 'https://assets.mixkit.co/videos/preview/mixkit-mysterious-fog-in-a-dark-forest-42502-large.mp4')">
                         <video autoplay loop muted playsinline class="video-magico">
-                            <source src="https://assets.mixkit.co/videos/preview/mixkit-mysterious-fog-in-a-dark-forest-42502-large.mp4" type="video/mp4">
+                            <source
+                                src="https://assets.mixkit.co/videos/preview/mixkit-mysterious-fog-in-a-dark-forest-42502-large.mp4"
+                                type="video/mp4">
                         </video>
                         <span class="selo-magico">Foto Mágica em Movimento</span>
                     </div>
                     <div class="noticia-conteudo">
                         <h3>MISTÉRIO NAS TERRAS ALTAS: ATIVIDADE INCOMUM EM HOGWARTS</h3>
                         <p class="autor">Por Rita Skeeter</p>
-                        <p>Fontes anônimas relatam luzes misteriosas sobrevoando a Floresta Proibida durante a madrugada...</p>
+                        <p>Fontes anônimas relatam luzes misteriosas sobrevoando a Floresta Proibida durante a
+                            madrugada...</p>
                     </div>
                 </article>
 
                 <article class="noticia-card">
-                    <div class="moldura-magica" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop')">
-                        <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop" alt="Torre da Astronomia">
+                    <div class="moldura-magica"
+                        onclick="openLightbox('img', 'https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop')">
+                        <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop"
+                            alt="Torre da Astronomia">
                     </div>
                     <div class="noticia-conteudo">
                         <h3>NOVA REFORMA NA TORRE DA ASTRONOMIA</h3>
-                        <p>A diretoria autorizou o encantamento de novos telescópios capazes de mapear galáxias ocultas.</p>
+                        <p>A diretoria autorizou o encantamento de novos telescópios capazes de mapear galáxias ocultas.
+                        </p>
                     </div>
                 </article>
 
                 <article class="noticia-card">
-                    <div class="moldura-magica" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=800&auto=format&fit=crop')">
-                        <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=800&auto=format&fit=crop" alt="Beco Diagonal">
+                    <div class="moldura-magica"
+                        onclick="openLightbox('img', 'https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=800&auto=format&fit=crop')">
+                        <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=800&auto=format&fit=crop"
+                            alt="Beco Diagonal">
                     </div>
                     <div class="noticia-conteudo">
                         <h3>NOVIDADES NO BECO DIAGONAL</h3>
@@ -232,7 +276,8 @@
             <h2>As Quatro Casas</h2>
             <div class="grid-3d">
                 <div class="casa-card grifinoria card-tilt">
-                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop" alt="Grifinória" class="personagem-foto">
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop"
+                        alt="Grifinória" class="personagem-foto">
                     <h3>Grifinória</h3>
                     <p><strong>Fundador:</strong> Godric Gryffindor</p>
                     <p><strong>Valores:</strong> Coragem, bravura e ousadia.</p>
@@ -240,7 +285,8 @@
                 </div>
 
                 <div class="casa-card sonserina card-tilt">
-                    <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop" alt="Sonserina" class="personagem-foto">
+                    <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop"
+                        alt="Sonserina" class="personagem-foto">
                     <h3>Sonserina</h3>
                     <p><strong>Fundador:</strong> Salazar Slytherin</p>
                     <p><strong>Valores:</strong> Ambição, astúcia e liderança.</p>
@@ -248,7 +294,8 @@
                 </div>
 
                 <div class="casa-card corvinal card-tilt">
-                    <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=800&auto=format&fit=crop" alt="Corvinal" class="personagem-foto">
+                    <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=800&auto=format&fit=crop"
+                        alt="Corvinal" class="personagem-foto">
                     <h3>Corvinal</h3>
                     <p><strong>Fundador:</strong> Rowena Ravenclaw</p>
                     <p><strong>Valores:</strong> Sabedoria, inteligência e criatividade.</p>
@@ -256,7 +303,8 @@
                 </div>
 
                 <div class="casa-card lufa-lufa card-tilt">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" alt="Lufa-Lufa" class="personagem-foto">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop"
+                        alt="Lufa-Lufa" class="personagem-foto">
                     <h3>Lufa-Lufa</h3>
                     <p><strong>Fundador:</strong> Helga Hufflepuff</p>
                     <p><strong>Valores:</strong> Lealdade, dedicação e paciência.</p>
@@ -268,7 +316,7 @@
         <!-- SEÇÃO: PERSONAGENS COM FILTRO -->
         <section id="personagens">
             <h2>Personagens em Destaque</h2>
-            
+
             <!-- Botões de Filtro -->
             <div class="filter-btns">
                 <button class="filter-btn active" onclick="filtrarPersonagens('todos')">Todos</button>
@@ -278,8 +326,10 @@
 
             <div class="grid-3d">
                 <div class="casa-card grifinoria card-tilt p-card" data-casa="grifinoria">
-                    <div class="video-frame-p" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop')">
-                        <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop" alt="Harry Potter">
+                    <div class="video-frame-p"
+                        onclick="openLightbox('img', 'https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop')">
+                        <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop"
+                            alt="Harry Potter">
                     </div>
                     <h3>Harry Potter</h3>
                     <p><strong>Casa:</strong> Grifinória</p>
@@ -287,8 +337,10 @@
                 </div>
 
                 <div class="casa-card grifinoria card-tilt p-card" data-casa="grifinoria">
-                    <div class="video-frame-p" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&auto=format&fit=crop')">
-                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&auto=format&fit=crop" alt="Hermione Granger">
+                    <div class="video-frame-p"
+                        onclick="openLightbox('img', 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&auto=format&fit=crop')">
+                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&auto=format&fit=crop"
+                            alt="Hermione Granger">
                     </div>
                     <h3>Hermione Granger</h3>
                     <p><strong>Casa:</strong> Grifinória</p>
@@ -296,8 +348,10 @@
                 </div>
 
                 <div class="casa-card sonserina card-tilt p-card" data-casa="sonserina">
-                    <div class="video-frame-p" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop')">
-                        <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop" alt="Severo Snape">
+                    <div class="video-frame-p"
+                        onclick="openLightbox('img', 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop')">
+                        <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop"
+                            alt="Severo Snape">
                     </div>
                     <h3>Severo Snape</h3>
                     <p><strong>Casa:</strong> Sonserina</p>
@@ -316,7 +370,8 @@
                 </div>
                 <div class="timeline-item">
                     <h4>1993 - O Prisioneiro de Azkaban</h4>
-                    <p>A descoberta sobre Sirius Black e o domínio do feitiço Expecto Patronum contra os Dementadores.</p>
+                    <p>A descoberta sobre Sirius Black e o domínio do feitiço Expecto Patronum contra os Dementadores.
+                    </p>
                 </div>
                 <div class="timeline-item">
                     <h4>1998 - A Batalha de Hogwarts</h4>
@@ -329,20 +384,28 @@
         <section id="cinema">
             <h2>Galeria e Vídeos de Hogwarts</h2>
             <div class="galeria-grid">
-                <div class="galeria-item" onclick="openLightbox('video', 'https://assets.mixkit.co/videos/preview/mixkit-tree-branches-in-the-breeze-41318-large.mp4')">
-                    <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=800&auto=format&fit=crop">
-                        <source src="https://assets.mixkit.co/videos/preview/mixkit-tree-branches-in-the-breeze-41318-large.mp4" type="video/mp4">
+                <div class="galeria-item"
+                    onclick="openLightbox('video', 'https://assets.mixkit.co/videos/preview/mixkit-tree-branches-in-the-breeze-41318-large.mp4')">
+                    <video autoplay loop muted playsinline
+                        poster="https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=800&auto=format&fit=crop">
+                        <source
+                            src="https://assets.mixkit.co/videos/preview/mixkit-tree-branches-in-the-breeze-41318-large.mp4"
+                            type="video/mp4">
                     </video>
                     <div class="galeria-hover">🎥 Floresta Proibida</div>
                 </div>
 
-                <div class="galeria-item" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop')">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" alt="Castelo de Hogwarts">
+                <div class="galeria-item"
+                    onclick="openLightbox('img', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop"
+                        alt="Castelo de Hogwarts">
                     <div class="galeria-hover">✨ Visão do Castelo</div>
                 </div>
 
-                <div class="galeria-item" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1551269901-5c5e14c25df7?q=80&w=800&auto=format&fit=crop')">
-                    <img src="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?q=80&w=800&auto=format&fit=crop" alt="Relíquias Mágicas">
+                <div class="galeria-item"
+                    onclick="openLightbox('img', 'https://images.unsplash.com/photo-1551269901-5c5e14c25df7?q=80&w=800&auto=format&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?q=80&w=800&auto=format&fit=crop"
+                        alt="Relíquias Mágicas">
                     <div class="galeria-hover">🔮 Relíquias Mágicas</div>
                 </div>
             </div>
@@ -358,7 +421,8 @@
                 </div>
                 <div class="feitico-item">
                     <span class="nome-feitico">Expecto Patronum</span>
-                    <span class="efeito-feitico">Conjura um guardião prateado feito de pura luz e pensamentos felizes.</span>
+                    <span class="efeito-feitico">Conjura um guardião prateado feito de pura luz e pensamentos
+                        felizes.</span>
                 </div>
                 <div class="feitico-item">
                     <span class="nome-feitico">Expelliarmus</span>
@@ -403,25 +467,25 @@
         // 2. CHAPÉU SELETOR INTERATIVO
         function sortearCasa() {
             const casas = [
-                { nome: 'GRIFINÓRIA!', cor: '#740001', desc: 'Onde habitam os corajosos de coração!' },
-                { nome: 'SONSERINA!', cor: '#1a472a', desc: 'Onde você fará seus verdadeiros amigos para atingir a grandeza!' },
-                { nome: 'CORVINAL!', cor: '#0e1a40', desc: 'Onde o espírito de estudo e aprendizado sempre prevalecem!' },
-                { nome: 'LUFA-LUFA!', cor: '#ecb939', desc: 'Onde seus moradores são justos, leais e pacientes!' }
+                {nome: 'GRIFINÓRIA!', cor: '#740001', desc: 'Onde habitam os corajosos de coração!'},
+                {nome: 'SONSERINA!', cor: '#1a472a', desc: 'Onde você fará seus verdadeiros amigos para atingir a grandeza!'},
+                {nome: 'CORVINAL!', cor: '#0e1a40', desc: 'Onde o espírito de estudo e aprendizado sempre prevalecem!'},
+                {nome: 'LUFA-LUFA!', cor: '#ecb939', desc: 'Onde seus moradores são justos, leais e pacientes!'}
             ];
             const display = document.getElementById('resultadoChapeu');
             display.style.color = '#ffd700';
             display.innerHTML = "Hum... difícil. Muito difícil... Onde devo colocá-lo?";
-            
+
             setTimeout(() => {
                 const sorteio = casas[Math.floor(Math.random() * casas.length)];
                 display.style.color = sorteio.cor;
                 display.innerHTML = `<strong>${sorteio.nome}</strong><br><small style="font-size: 1rem; color: #fff;">${sorteio.desc}</small>`;
-                
+
                 // Adiciona pontos para a casa sorteada no placar!
-                if(sorteio.nome.includes('GRIFINÓRIA')) document.getElementById('ptsGrif').innerText = parseInt(document.getElementById('ptsGrif').innerText) + 10;
-                if(sorteio.nome.includes('SONSERINA')) document.getElementById('ptsSons').innerText = parseInt(document.getElementById('ptsSons').innerText) + 10;
-                if(sorteio.nome.includes('CORVINAL')) document.getElementById('ptsCorv').innerText = parseInt(document.getElementById('ptsCorv').innerText) + 10;
-                if(sorteio.nome.includes('LUFA-LUFA')) document.getElementById('ptsLufa').innerText = parseInt(document.getElementById('ptsLufa').innerText) + 10;
+                if (sorteio.nome.includes('GRIFINÓRIA')) document.getElementById('ptsGrif').innerText = parseInt(document.getElementById('ptsGrif').innerText) + 10;
+                if (sorteio.nome.includes('SONSERINA')) document.getElementById('ptsSons').innerText = parseInt(document.getElementById('ptsSons').innerText) + 10;
+                if (sorteio.nome.includes('CORVINAL')) document.getElementById('ptsCorv').innerText = parseInt(document.getElementById('ptsCorv').innerText) + 10;
+                if (sorteio.nome.includes('LUFA-LUFA')) document.getElementById('ptsLufa').innerText = parseInt(document.getElementById('ptsLufa').innerText) + 10;
             }, 2000);
         }
 
@@ -429,7 +493,7 @@
         function filtrarPersonagens(casa) {
             const cards = document.querySelectorAll('.p-card');
             const btns = document.querySelectorAll('.filter-btn');
-            
+
             btns.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
@@ -532,26 +596,27 @@
         animate();
     </script>
 
-<script>
-  // Pega o botão e o áudio da página
-  const botao = document.getElementById('btnAudio');
-  const som = document.getElementById('audioAmbiente');
+    <script>
+        // Pega o botão e o áudio da página
+        const botao = document.getElementById('btnAudio');
+        const som = document.getElementById('audioAmbiente');
 
-  // Adiciona a ação de clique no botão
-  botao.addEventListener('click', function() {
-    
-    // Verifica se a música está pausada
-    if (som.paused) {
-      som.play();                            // Toca o som
-      botao.classList.add('active');         // Aplica o brilho de botão ligado (CSS)
-      botao.innerText = 'Som Ambiente: ON';  // Muda o texto para ON
-    } else {
-      som.pause();                           // Pausa o som
-      botao.classList.remove('active');      // Remove o brilho
-      botao.innerText = 'Som Ambiente: OFF'; // Muda o texto para OFF
-    }
-    
-  });
-</script>
+        // Adiciona a ação de clique no botão
+        botao.addEventListener('click', function () {
+
+            // Verifica se a música está pausada
+            if (som.paused) {
+                som.play();                            // Toca o som
+                botao.classList.add('active');         // Aplica o brilho de botão ligado (CSS)
+                botao.innerText = 'Som Ambiente: ON';  // Muda o texto para ON
+            } else {
+                som.pause();                           // Pausa o som
+                botao.classList.remove('active');      // Remove o brilho
+                botao.innerText = 'Som Ambiente: OFF'; // Muda o texto para OFF
+            }
+
+        });
+    </script>
 </body>
+
 </html>
