@@ -11,10 +11,10 @@
     <!-- Partículas Mágicas (Interatividade com Cursor) -->
     <canvas id="magicCanvas"></canvas>
 
-    <!-- Áudio de Fundo Mágico (Tema de Harry Potter) -->
+    <!-- Áudio de Fundo Mágico -->
     <audio id="bgAudio" loop preload="auto">
-        <source src="harry-potter-theme.mp3" type="audio/mpeg">
-        Seu navegador não suporta a execução de áudio.
+        <source src="hedwigs-theme.mp3" type="audio/mpeg">
+        <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Modal Lightbox (Ampliação de Mídia) -->
@@ -220,24 +220,67 @@
         <p>"Malfeito feito" — O Profeta Diário &copy; Todos os direitos reservados à comunidade bruxa.</p>
     </footer>
 
-    <!-- INTERATIVIDADE SCRIPT -->
+    <!-- SCRIPT DE INTERATIVIDADE CORRIGIDO -->
     <script>
-        // Controlar Áudio Ambiente
         const audio = document.getElementById('bgAudio');
         const audioBtn = document.getElementById('audioBtn');
         let isPlaying = false;
 
-        audioBtn.addEventListener('click', () => {
+        // Toca as notas principais do Hedwig's Theme via sintetizador caso nenhum arquivo MP3 funcione
+        function playHedwigsThemeSynth() {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+            const ctx = new AudioCtx();
+            
+            const notes = [
+                { f: 493.88, d: 0.4 }, // B4
+                { f: 659.25, d: 0.6 }, // E5
+                { f: 783.99, d: 0.3 }, // G5
+                { f: 739.99, d: 0.3 }, // F#5
+                { f: 659.25, d: 0.7 }, // E5
+                { f: 987.77, d: 0.4 }, // B5
+                { f: 880.00, d: 0.8 }, // A5
+                { f: 739.99, d: 0.8 }  // F#5
+            ];
+
+            let time = ctx.currentTime;
+            notes.forEach(note => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(note.f, time);
+                
+                gain.gain.setValueAtTime(0.001, time);
+                gain.gain.exponentialRampToValueAtTime(0.2, time + 0.05);
+                gain.gain.exponentialRampToValueAtTime(0.001, time + note.d - 0.05);
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.start(time);
+                osc.stop(time + note.d);
+                time += note.d + 0.05;
+            });
+        }
+
+        audioBtn.addEventListener('click', async () => {
             if (!isPlaying) {
-                audio.play().then(() => {
+                try {
+                    audio.volume = 0.5;
+                    await audio.play();
                     audioBtn.innerText = '⚡ Som Ambiente: ON';
                     audioBtn.classList.add('active');
                     isPlaying = true;
-                }).catch(err => {
-                    console.error("Certifique-se de que o arquivo harry-potter-theme.mp3 está na mesma pasta do projeto.", err);
-                });
+                } catch (error) {
+                    console.warn("Arquivo de áudio não carregou, ativando melodia sintética de reserva...", error);
+                    playHedwigsThemeSynth();
+                    audioBtn.innerText = '⚡ Som Ambiente: ON (Sintetizador)';
+                    audioBtn.classList.add('active');
+                    isPlaying = true;
+                }
             } else {
                 audio.pause();
+                audio.currentTime = 0;
                 audioBtn.innerText = '⚡ Som Ambiente: OFF';
                 audioBtn.classList.remove('active');
                 isPlaying = false;
