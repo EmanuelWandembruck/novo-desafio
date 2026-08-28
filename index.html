@@ -5,19 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mundo Bruxo - O Profeta Diário</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos extras para as novas seções */
+        body { cursor: crosshair; }
+        .chapeu-container, .pontos-container, .timeline-container {
+            background: rgba(20, 20, 30, 0.85);
+            border: 1px solid #d4af37;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 40px auto;
+            max-width: 900px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .btn-magic-action {
+            background: linear-gradient(135deg, #740001, #ae0001);
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+        .btn-magic-action:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #d4af37;
+        }
+        .resultado-chapeu {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #ffd700;
+            min-height: 40px;
+        }
+        .filter-btns {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        .filter-btn {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid #d4af37;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: #d4af37;
+            color: #000;
+        }
+        .placar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .placar-card {
+            background: rgba(0,0,0,0.5);
+            border-radius: 8px;
+            padding: 15px;
+            border-top: 4px solid #d4af37;
+        }
+        .placar-card.grif { border-color: #740001; }
+        .placar-card.sons { border-color: #1a472a; }
+        .placar-card.corv { border-color: #0e1a40; }
+        .placar-card.lufa { border-color: #ecb939; }
+        .placar-pontos {
+            font-size: 1.8rem;
+            color: #d4af37;
+            font-weight: bold;
+        }
+        .timeline {
+            position: relative;
+            text-align: left;
+            padding-left: 20px;
+            border-left: 2px solid #d4af37;
+        }
+        .timeline-item {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '⚡';
+            position: absolute;
+            left: -31px;
+            top: 0;
+            background: #000;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Partículas Mágicas (Interatividade com Cursor) -->
+    <!-- Partículas Mágicas (Feitiço da Varinha) -->
     <canvas id="magicCanvas"></canvas>
 
-    <!-- Áudio de Fundo Mágico (Com a música Hedwig's Theme) -->
+    <!-- Áudio de Fundo Mágico -->
     <audio id="bgAudio" loop preload="auto">
         <source src="https://ia800508.us.archive.org/17/items/harry-potter-theme-song/Harry_Potter_Theme_Song.mp3" type="audio/mpeg">
         <source src="hedwigs-theme.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Modal Lightbox (Ampliação de Mídia) -->
+    <!-- Modal Lightbox -->
     <div id="lightboxModal" class="lightbox" aria-hidden="true">
         <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
         <div class="lightbox-body" id="lightboxBody"></div>
@@ -41,8 +135,11 @@
             <nav>
                 <ul>
                     <li><a href="#noticias">O Profeta Diário</a></li>
+                    <li><a href="#chapeu">Chapéu Seletor</a></li>
+                    <li><a href="#placar">Taça das Casas</a></li>
                     <li><a href="#casas">Casas</a></li>
                     <li><a href="#personagens">Personagens</a></li>
+                    <li><a href="#historia">Linha do Tempo</a></li>
                     <li><a href="#cinema">Galeria Mágica</a></li>
                     <li><a href="#feiticos">Grimório</a></li>
                 </ul>
@@ -62,7 +159,6 @@
             </div>
 
             <div class="jornal-grid">
-                <!-- Notícia Principal -->
                 <article class="noticia-card">
                     <div class="moldura-magica-video" onclick="openLightbox('video', 'https://assets.mixkit.co/videos/preview/mixkit-mysterious-fog-in-a-dark-forest-42502-large.mp4')">
                         <video autoplay loop muted playsinline class="video-magico">
@@ -73,35 +169,65 @@
                     <div class="noticia-conteudo">
                         <h3>MISTÉRIO NAS TERRAS ALTAS: ATIVIDADE INCOMUM EM HOGWARTS</h3>
                         <p class="autor">Por Rita Skeeter</p>
-                        <p>Fontes anônimas relatam luzes misteriosas sobrevoando a Floresta Proibida durante a madrugada. O Ministério da Magia pede calma, mas testemunhas afirmam ter visto criaturas não identificadas ao redor dos portões do castelo...</p>
+                        <p>Fontes anônimas relatam luzes misteriosas sobrevoando a Floresta Proibida durante a madrugada...</p>
                     </div>
                 </article>
 
-                <!-- Notícia Secundária 1 -->
                 <article class="noticia-card">
                     <div class="moldura-magica" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop')">
                         <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop" alt="Torre da Astronomia">
                     </div>
                     <div class="noticia-conteudo">
                         <h3>NOVA REFORMA NA TORRE DA ASTRONOMIA</h3>
-                        <p>A diretoria autorizou o encantamento de novos telescópios capazes de mapear galáxias ocultas por feitiços de ilusão.</p>
+                        <p>A diretoria autorizou o encantamento de novos telescópios capazes de mapear galáxias ocultas.</p>
                     </div>
                 </article>
 
-                <!-- Notícia Secundária 2 -->
                 <article class="noticia-card">
                     <div class="moldura-magica" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=800&auto=format&fit=crop')">
                         <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=800&auto=format&fit=crop" alt="Beco Diagonal">
                     </div>
                     <div class="noticia-conteudo">
                         <h3>NOVIDADES NO BECO DIAGONAL</h3>
-                        <p>A loja de petiscos feitiço lançou novas poções de metamorfose temporária que prometem virar febre entre os estudantes.</p>
+                        <p>A loja de petiscos feitiço lançou novas poções de metamorfose temporária.</p>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- SEÇÃO: CASAS DE HOGWARTS (CARDS 3D) -->
+        <!-- NOVO: SEÇÃO CHAPÉU SELETOR -->
+        <section id="chapeu" class="chapeu-container">
+            <h2>🎩 O Chapéu Seletor</h2>
+            <p>Descubra a qual casa de Hogwarts você pertence verdadeiramente!</p>
+            <button class="btn-magic-action" onclick="sortearCasa()">Colocar o Chapéu Seletor</button>
+            <div id="resultadoChapeu" class="resultado-chapeu"></div>
+        </section>
+
+        <!-- NOVO: CAMPEONATO DE HOGWARTS (PONTUAÇÃO) -->
+        <section id="placar" class="pontos-container">
+            <h2>🏆 Taça das Casas de Hogwarts</h2>
+            <p>Pontuação da corrida pelas ampulhetas de rubis, esmeraldas, safiras e topázios:</p>
+            <div class="placar-grid">
+                <div class="placar-card grif">
+                    <h3>Grifinória</h3>
+                    <div class="placar-pontos" id="ptsGrif">480</div>
+                </div>
+                <div class="placar-card sons">
+                    <h3>Sonserina</h3>
+                    <div class="placar-pontos" id="ptsSons">470</div>
+                </div>
+                <div class="placar-card corv">
+                    <h3>Corvinal</h3>
+                    <div class="placar-pontos" id="ptsCorv">420</div>
+                </div>
+                <div class="placar-card lufa">
+                    <h3>Lufa-Lufa</h3>
+                    <div class="placar-pontos" id="ptsLufa">435</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: CASAS DE HOGWARTS -->
         <section id="casas">
             <h2>As Quatro Casas</h2>
             <div class="grid-3d">
@@ -109,7 +235,7 @@
                     <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop" alt="Grifinória" class="personagem-foto">
                     <h3>Grifinória</h3>
                     <p><strong>Fundador:</strong> Godric Gryffindor</p>
-                    <p><strong>Valores:</strong> Coragem, bravura, ousadia e cavaleirismo.</p>
+                    <p><strong>Valores:</strong> Coragem, bravura e ousadia.</p>
                     <p><strong>Cores:</strong> Vermelho e Dourado</p>
                 </div>
 
@@ -117,7 +243,7 @@
                     <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop" alt="Sonserina" class="personagem-foto">
                     <h3>Sonserina</h3>
                     <p><strong>Fundador:</strong> Salazar Slytherin</p>
-                    <p><strong>Valores:</strong> Ambição, astúcia, liderança e desenvoltura.</p>
+                    <p><strong>Valores:</strong> Ambição, astúcia e liderança.</p>
                     <p><strong>Cores:</strong> Verde e Prata</p>
                 </div>
 
@@ -139,11 +265,19 @@
             </div>
         </section>
 
-        <!-- SEÇÃO: PERSONAGENS DESTAQUE -->
+        <!-- SEÇÃO: PERSONAGENS COM FILTRO -->
         <section id="personagens">
             <h2>Personagens em Destaque</h2>
+            
+            <!-- Botões de Filtro -->
+            <div class="filter-btns">
+                <button class="filter-btn active" onclick="filtrarPersonagens('todos')">Todos</button>
+                <button class="filter-btn" onclick="filtrarPersonagens('grifinoria')">Grifinória</button>
+                <button class="filter-btn" onclick="filtrarPersonagens('sonserina')">Sonserina</button>
+            </div>
+
             <div class="grid-3d">
-                <div class="casa-card grifinoria card-tilt">
+                <div class="casa-card grifinoria card-tilt p-card" data-casa="grifinoria">
                     <div class="video-frame-p" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop')">
                         <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop" alt="Harry Potter">
                     </div>
@@ -152,7 +286,7 @@
                     <p>O Menino Que Sobreviveu, líder da resistência e mestre da Varinha das Varinhas.</p>
                 </div>
 
-                <div class="casa-card grifinoria card-tilt">
+                <div class="casa-card grifinoria card-tilt p-card" data-casa="grifinoria">
                     <div class="video-frame-p" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&auto=format&fit=crop')">
                         <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&auto=format&fit=crop" alt="Hermione Granger">
                     </div>
@@ -161,13 +295,32 @@
                     <p>A bruxa mais brilhante de sua época, estrategista e conhecedora das artes mágicas.</p>
                 </div>
 
-                <div class="casa-card sonserina card-tilt">
+                <div class="casa-card sonserina card-tilt p-card" data-casa="sonserina">
                     <div class="video-frame-p" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop')">
                         <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop" alt="Severo Snape">
                     </div>
                     <h3>Severo Snape</h3>
                     <p><strong>Casa:</strong> Sonserina</p>
                     <p>Mestre das Poções, ocultista experiente e guardião das sombras de Hogwarts.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOVO: LINHA DO TEMPO MÁGICA -->
+        <section id="historia" class="timeline-container">
+            <h2>📜 A Jornada do Menino Que Sobreviveu</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>1991 - A Carta de Hogwarts</h4>
+                    <p>Harry descobre sua herança bruxa no seu 11º aniversário e embarca no Expresso de Hogwarts.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>1993 - O Prisioneiro de Azkaban</h4>
+                    <p>A descoberta sobre Sirius Black e o domínio do feitiço Expecto Patronum contra os Dementadores.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>1998 - A Batalha de Hogwarts</h4>
+                    <p>A derrocada final de Voldemort e a restauração da paz no Mundo Bruxo.</p>
                 </div>
             </div>
         </section>
@@ -220,48 +373,12 @@
         <p>"Malfeito feito" — O Profeta Diário &copy; Todos os direitos reservados à comunidade bruxa.</p>
     </footer>
 
-    <!-- SCRIPT DE INTERATIVIDADE -->
+    <!-- SCRIPTS -->
     <script>
+        // 1. ÁUDIO DE FUNDO
         const audio = document.getElementById('bgAudio');
         const audioBtn = document.getElementById('audioBtn');
         let isPlaying = false;
-
-        // Melodia de sintetizador reserva caso o navegador não consiga carregar o áudio externo
-        function playHedwigsThemeSynth() {
-            const AudioCtx = window.AudioContext || window.webkitAudioContext;
-            if (!AudioCtx) return;
-            const ctx = new AudioCtx();
-            
-            const notes = [
-                { f: 493.88, d: 0.4 }, // B4
-                { f: 659.25, d: 0.6 }, // E5
-                { f: 783.99, d: 0.3 }, // G5
-                { f: 739.99, d: 0.3 }, // F#5
-                { f: 659.25, d: 0.7 }, // E5
-                { f: 987.77, d: 0.4 }, // B5
-                { f: 880.00, d: 0.8 }, // A5
-                { f: 739.99, d: 0.8 }  // F#5
-            ];
-
-            let time = ctx.currentTime;
-            notes.forEach(note => {
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(note.f, time);
-                
-                gain.gain.setValueAtTime(0.001, time);
-                gain.gain.exponentialRampToValueAtTime(0.2, time + 0.05);
-                gain.gain.exponentialRampToValueAtTime(0.001, time + note.d - 0.05);
-                
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                
-                osc.start(time);
-                osc.stop(time + note.d);
-                time += note.d + 0.05;
-            });
-        }
 
         audioBtn.addEventListener('click', async () => {
             if (!isPlaying) {
@@ -272,11 +389,7 @@
                     audioBtn.classList.add('active');
                     isPlaying = true;
                 } catch (error) {
-                    console.warn("Arquivo de áudio não carregou, ativando melodia sintética de reserva...", error);
-                    playHedwigsThemeSynth();
-                    audioBtn.innerText = '⚡ Som Ambiente: ON (Sintetizador)';
-                    audioBtn.classList.add('active');
-                    isPlaying = true;
+                    audioBtn.innerText = '⚡ Som Ambiente: OFF (Erro)';
                 }
             } else {
                 audio.pause();
@@ -287,7 +400,49 @@
             }
         });
 
-        // Modal Lightbox
+        // 2. CHAPÉU SELETOR INTERATIVO
+        function sortearCasa() {
+            const casas = [
+                { nome: 'GRIFINÓRIA!', cor: '#740001', desc: 'Onde habitam os corajosos de coração!' },
+                { nome: 'SONSERINA!', cor: '#1a472a', desc: 'Onde você fará seus verdadeiros amigos para atingir a grandeza!' },
+                { nome: 'CORVINAL!', cor: '#0e1a40', desc: 'Onde o espírito de estudo e aprendizado sempre prevalecem!' },
+                { nome: 'LUFA-LUFA!', cor: '#ecb939', desc: 'Onde seus moradores são justos, leais e pacientes!' }
+            ];
+            const display = document.getElementById('resultadoChapeu');
+            display.style.color = '#ffd700';
+            display.innerHTML = "Hum... difícil. Muito difícil... Onde devo colocá-lo?";
+            
+            setTimeout(() => {
+                const sorteio = casas[Math.floor(Math.random() * casas.length)];
+                display.style.color = sorteio.cor;
+                display.innerHTML = `<strong>${sorteio.nome}</strong><br><small style="font-size: 1rem; color: #fff;">${sorteio.desc}</small>`;
+                
+                // Adiciona pontos para a casa sorteada no placar!
+                if(sorteio.nome.includes('GRIFINÓRIA')) document.getElementById('ptsGrif').innerText = parseInt(document.getElementById('ptsGrif').innerText) + 10;
+                if(sorteio.nome.includes('SONSERINA')) document.getElementById('ptsSons').innerText = parseInt(document.getElementById('ptsSons').innerText) + 10;
+                if(sorteio.nome.includes('CORVINAL')) document.getElementById('ptsCorv').innerText = parseInt(document.getElementById('ptsCorv').innerText) + 10;
+                if(sorteio.nome.includes('LUFA-LUFA')) document.getElementById('ptsLufa').innerText = parseInt(document.getElementById('ptsLufa').innerText) + 10;
+            }, 2000);
+        }
+
+        // 3. FILTRO DE PERSONAGENS
+        function filtrarPersonagens(casa) {
+            const cards = document.querySelectorAll('.p-card');
+            const btns = document.querySelectorAll('.filter-btn');
+            
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (casa === 'todos' || card.getAttribute('data-casa') === casa) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 4. LIGHTBOX
         const lightbox = document.getElementById('lightboxModal');
         const lightboxBody = document.getElementById('lightboxBody');
 
@@ -309,14 +464,12 @@
         }
 
         lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                closeLightbox();
-            }
+            if (e.target === lightbox) closeLightbox();
         });
 
-        // Efeito Tilt 3D nos Cards
-        const cards = document.querySelectorAll('.card-tilt');
-        cards.forEach(card => {
+        // 5. EFEITO TILT 3D NOS CARDS
+        const cards3D = document.querySelectorAll('.card-tilt');
+        cards3D.forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left - rect.width / 2;
@@ -329,7 +482,7 @@
             });
         });
 
-        // Canvas de Partículas Mágicas
+        // 6. CANVAS - FAÍSCAS DE VARINHA NO CURSOR
         const canvas = document.getElementById('magicCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -342,14 +495,14 @@
 
         const particles = [];
         window.addEventListener('mousemove', (e) => {
-            for (let i = 0; i < 2; i++) {
+            for (let i = 0; i < 3; i++) {
                 particles.push({
                     x: e.clientX,
                     y: e.clientY,
-                    size: Math.random() * 3 + 1,
-                    speedX: (Math.random() - 0.5) * 2,
-                    speedY: (Math.random() - 0.5) * 2 - 1,
-                    color: `hsl(${Math.random() * 40 + 35}, 100%, 75%)`,
+                    size: Math.random() * 4 + 1,
+                    speedX: (Math.random() - 0.5) * 3,
+                    speedY: (Math.random() - 0.5) * 3,
+                    color: `hsl(${Math.random() * 50 + 40}, 100%, 70%)`, // Cores douradas/mágicas
                     life: 1
                 });
             }
@@ -367,7 +520,7 @@
 
                 p.x += p.speedX;
                 p.y += p.speedY;
-                p.life -= 0.03;
+                p.life -= 0.025;
 
                 if (p.life <= 0) {
                     particles.splice(i, 1);
