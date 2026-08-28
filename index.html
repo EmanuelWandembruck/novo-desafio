@@ -531,5 +531,27 @@
         }
         animate();
     </script>
+
+<script>
+  // Pega o botão e o áudio da página
+  const botao = document.getElementById('btnAudio');
+  const som = document.getElementById('audioAmbiente');
+
+  // Adiciona a ação de clique no botão
+  botao.addEventListener('click', function() {
+    
+    // Verifica se a música está pausada
+    if (som.paused) {
+      som.play();                            // Toca o som
+      botao.classList.add('active');         // Aplica o brilho de botão ligado (CSS)
+      botao.innerText = 'Som Ambiente: ON';  // Muda o texto para ON
+    } else {
+      som.pause();                           // Pausa o som
+      botao.classList.remove('active');      // Remove o brilho
+      botao.innerText = 'Som Ambiente: OFF'; // Muda o texto para OFF
+    }
+    
+  });
+</script>
 </body>
 </html>
