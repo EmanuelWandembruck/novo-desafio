@@ -3,158 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mundo Bruxo - Hogwarts Digital</title>
+    <title>Mundo Bruxo - Edição O Profeta Diário</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;700&family=Fauna+One&family=MedievalSharp&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;800&family=Fauna+One&family=MedievalSharp&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Canvas para efeito de faíscas mágicas ao mover o cursor -->
+    <!-- Partículas Mágicas Interativas -->
     <canvas id="magicCanvas"></canvas>
 
+    <!-- Áudio Mágico de Fundo -->
+    <audio id="bgAudio" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Modal Lightbox para Ampliar Fotos e Vídeos -->
+    <div id="lightboxModal" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <div class="lightbox-body" id="lightboxBody"></div>
+    </div>
+
+    <!-- Banner com Vídeo de Fundo -->
     <header>
-        <h1>Mundo Bruxo</h1>
-        <p>"A magia atua sobre aqueles que realmente acreditam"</p>
-        <nav>
-            <ul>
-                <li><a href="#casas">Casas</a></li>
-                <li><a href="#personagens">Personagens</a></li>
-                <li><a href="#feiticos">Feitiços</a></li>
-                <li><a href="#reliquias">Relíquias</a></li>
-            </ul>
-        </nav>
+        <video class="bg-video" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-starry-night-sky-with-a-full-moon-41572-large.mp4" type="video/mp4">
+        </video>
+        <div class="header-overlay"></div>
+
+        <div class="header-content">
+            <h1>Mundo Bruxo</h1>
+            <p>"A magia atua sobre aqueles que realmente acreditam"</p>
+            
+            <div class="audio-control">
+                <button id="audioBtn" class="btn-magic">⚡ Som Ambiente: OFF</button>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="#noticias">O Profeta Diário</a></li>
+                    <li><a href="#casas">Casas</a></li>
+                    <li><a href="#personagens">Personagens</a></li>
+                    <li><a href="#cinema">Galeria Mágica</a></li>
+                    <li><a href="#feiticos">Grimório</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
-        <!-- SEÇÃO: CASAS DE HOGWARTS -->
+
+        <!-- SEÇÃO: JORNAL O PROFETA DIÁRIO (NOTÍCIAS MÁGICAS) -->
+        <section id="noticias" class="secao-jornal">
+            <div class="jornal-header">
+                <span class="jornal-edicao">Edição Extraordinária • Preço: 5 Nuques</span>
+                <h2 class="jornal-titulo">O Profeta Diário</h2>
+                <div class="jornal-linha-dupla"></div>
+            </div>
+
+            <div class="jornal-grid">
+                <!-- Notícia Principal -->
+                <article class="noticia-card noticia-destaque">
+                    <div class="moldura-magica-video" onclick="openLightbox('video', 'https://assets.mixkit.co/videos/preview/mixkit-mysterious-fog-in-a-dark-forest-42502-large.mp4')">
+                        <video autoplay loop muted playsinline class="video-magico">
+                            <source src="https://assets.mixkit.co/videos/preview/mixkit-mysterious-fog-in-a-dark-forest-42502-large.mp4" type="video/mp4">
+                        </video>
+                        <span class="selo-magico">Foto Mágica em Movimento</span>
+                    </div>
+                    <div class="noticia-conteudo">
+                        <h3>MISTÉRIO NAS TERRAS ALTAS: ATIVIDADE INCOMUM EM HOGWARTS</h3>
+                        <p class="autor">Por Rita Skeeter</p>
+                        <p>Fontes anônimas relatam luzes misteriosas sobrevoando a Floresta Proibida durante a madrugada. O Ministério da Magia pede calma, mas testemunhas afirmam ter visto criaturas não identificadas ao redor dos portões do castelo...</p>
+                    </div>
+                </article>
+
+                <!-- Notícia Secundária 1 -->
+                <article class="noticia-card">
+                    <div class="moldura-magica" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop')">
+                        <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop" alt="Torre da Astronomia">
+                    </div>
+                    <div class="noticia-conteudo">
+                        <h3>NOVA REFORMA NA TORRE DA ASTRONOMIA</h3>
+                        <p>A diretoria autorizou o encantamento de novos telescópios capazes de mapear galáxias ocultas por feitiços de ilusão.</p>
+                    </div>
+                </article>
+
+                <!-- Notícia Secundária 2 -->
+                <article class="noticia-card">
+                    <div class="moldura-magica" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=800&auto=format&fit=crop')">
+                        <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=800&auto=format&fit=crop" alt="Beco Diagonal">
+                    </div>
+                    <div class="noticia-conteudo">
+                        <h3>NOVIDADES NO BECO DIAGONAL</h3>
+                        <p>A loja de petiscos feitiço lançou novas poções de metamorfose temporária que prometem virar febre entre os estudantes.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: CASAS DE HOGWARTS (CARDS 3D) -->
         <section id="casas">
-            <h2>As Casas de Hogwarts</h2>
-            <div class="grid-casas">
-                <div class="casa-card grifinoria">
+            <h2>As Quatro Casas</h2>
+            <div class="grid-3d">
+                <div class="casa-card grifinoria card-tilt">
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop" alt="Grifinória" class="personagem-foto">
                     <h3>Grifinória</h3>
                     <p><strong>Fundador:</strong> Godric Gryffindor</p>
                     <p><strong>Valores:</strong> Coragem, bravura, ousadia e cavaleirismo.</p>
-                    <p><strong>Símbolo:</strong> Leão | <strong>Cores:</strong> Vermelho e Dourado</p>
+                    <p><strong>Cores:</strong> Vermelho e Dourado</p>
                 </div>
-                <div class="casa-card sonserina">
+
+                <div class="casa-card sonserina card-tilt">
+                    <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop" alt="Sonserina" class="personagem-foto">
                     <h3>Sonserina</h3>
                     <p><strong>Fundador:</strong> Salazar Slytherin</p>
                     <p><strong>Valores:</strong> Ambição, astúcia, liderança e desenvoltura.</p>
-                    <p><strong>Símbolo:</strong> Serpente | <strong>Cores:</strong> Verde e Prata</p>
+                    <p><strong>Cores:</strong> Verde e Prata</p>
                 </div>
-                <div class="casa-card corvinal">
+
+                <div class="casa-card corvinal card-tilt">
+                    <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=800&auto=format&fit=crop" alt="Corvinal" class="personagem-foto">
                     <h3>Corvinal</h3>
                     <p><strong>Fundador:</strong> Rowena Ravenclaw</p>
-                    <p><strong>Valores:</strong> Sabedoria, inteligência, criatividade e aprendizado.</p>
-                    <p><strong>Símbolo:</strong> Águia | <strong>Cores:</strong> Azul e Bronze</p>
+                    <p><strong>Valores:</strong> Sabedoria, inteligência e criatividade.</p>
+                    <p><strong>Cores:</strong> Azul e Bronze</p>
                 </div>
-                <div class="casa-card lufa-lufa">
+
+                <div class="casa-card lufa-lufa card-tilt">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" alt="Lufa-Lufa" class="personagem-foto">
                     <h3>Lufa-Lufa</h3>
                     <p><strong>Fundador:</strong> Helga Hufflepuff</p>
-                    <p><strong>Valores:</strong> Lealdade, dedicação, paciência e trabalho duro.</p>
-                    <p><strong>Símbolo:</strong> Texugo | <strong>Cores:</strong> Amarelo e Preto</p>
+                    <p><strong>Valores:</strong> Lealdade, dedicação e paciência.</p>
+                    <p><strong>Cores:</strong> Amarelo e Preto</p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO: PERSONAGENS -->
+        <!-- SEÇÃO: PERSONAGENS COM VÍDEOS / GIFS MÁGICOS -->
         <section id="personagens">
-            <h2>Personagens Marcantes</h2>
-            <div class="grid-casas">
-                <div class="casa-card grifinoria">
+            <h2>Personagens em Destaque</h2>
+            <div class="grid-3d">
+                <div class="casa-card grifinoria card-tilt">
+                    <div class="video-frame-p" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop')">
+                        <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=800&auto=format&fit=crop" alt="Harry Potter">
+                    </div>
                     <h3>Harry Potter</h3>
                     <p><strong>Casa:</strong> Grifinória</p>
-                    <p>O Menino Que Sobreviveu, famoso por derrotar Lord Voldemort e liderar a resistência bruxa.</p>
+                    <p>O Menino Que Sobreviveu, líder da resistência e mestre da Varinha das Varinhas.</p>
                 </div>
-                <div class="casa-card grifinoria">
+
+                <div class="casa-card grifinoria card-tilt">
+                    <div class="video-frame-p" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&auto=format&fit=crop')">
+                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&auto=format&fit=crop" alt="Hermione Granger">
+                    </div>
                     <h3>Hermione Granger</h3>
                     <p><strong>Casa:</strong> Grifinória</p>
-                    <p>A bruxa mais brilhante de sua era, fundamental na resolução de mistérios e feitiços complexos.</p>
+                    <p>A bruxa mais brilhante de sua época, estrategista e conhecedora das artes mágicas.</p>
                 </div>
-                <div class="casa-card grifinoria">
-                    <h3>Ron Weasley</h3>
-                    <p><strong>Casa:</strong> Grifinória</p>
-                    <p>Leal amigo do Trio de Ouro, habilidoso em xadrez bruxo e corajoso nas horas mais difíceis.</p>
-                </div>
-                <div class="casa-card grifinoria">
-                    <h3>Alvo Dumbledore</h3>
-                    <p><strong>Casa:</strong> Grifinória</p>
-                    <p>Considerado o maior diretor de Hogwarts, mestre da Varinha das Varinhas e guardião do bem.</p>
-                </div>
-                <div class="casa-card sonserina">
+
+                <div class="casa-card sonserina card-tilt">
+                    <div class="video-frame-p" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop')">
+                        <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop" alt="Severo Snape">
+                    </div>
                     <h3>Severo Snape</h3>
                     <p><strong>Casa:</strong> Sonserina</p>
-                    <p>Mestre das Poções, agente duplo destemido e protetor silencioso guiado por seu eterno amor.</p>
-                </div>
-                <div class="casa-card sonserina">
-                    <h3>Lord Voldemort</h3>
-                    <p><strong>Casa:</strong> Sonserina</p>
-                    <p>O Bruxo das Trevas mais temido da história, líder dos Comensais da Morte em busca da imortalidade.</p>
+                    <p>Mestre das Poções, ocultista experiente e guardião das sombras de Hogwarts.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO: FEITIÇOS -->
+        <!-- SEÇÃO: GALERIA MÁGICA (LIGHTBOX) -->
+        <section id="cinema">
+            <h2>Galeria e Vídeos de Hogwarts</h2>
+            <div class="galeria-grid">
+                <div class="galeria-item" onclick="openLightbox('video', 'https://assets.mixkit.co/videos/preview/mixkit-tree-branches-in-the-breeze-41318-large.mp4')">
+                    <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=800&auto=format&fit=crop">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-tree-branches-in-the-breeze-41318-large.mp4" type="video/mp4">
+                    </video>
+                    <div class="galeria-hover">🎥 Floresta Proibida</div>
+                </div>
+
+                <div class="galeria-item" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" alt="Grande Salão">
+                    <div class="galeria-hover">✨ Visão do Castelo</div>
+                </div>
+
+                <div class="galeria-item" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1551269901-5c5e14c25df7?q=80&w=800&auto=format&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?q=80&w=800&auto=format&fit=crop" alt="Artefatos Mágicos">
+                    <div class="galeria-hover">🔮 Relíquias Mágicas</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: GRIMÓRIO DE FEITIÇOS -->
         <section id="feiticos">
             <h2>Grimório de Feitiços</h2>
             <div class="feiticos-container">
                 <div class="feitico-item">
                     <span class="nome-feitico">Lumos / Nox</span>
-                    <span class="efeito-feitico">Cria uma fonte de luz na ponta da varinha / Apaga a luz.</span>
-                </div>
-                <div class="feitico-item">
-                    <span class="nome-feitico">Expelliarmus</span>
-                    <span class="efeito-feitico">Desarma o oponente fazendo o objeto voar da sua mão.</span>
+                    <span class="efeito-feitico">Cria uma luz na ponta da varinha / Apaga a iluminação.</span>
                 </div>
                 <div class="feitico-item">
                     <span class="nome-feitico">Expecto Patronum</span>
-                    <span class="efeito-feitico">Conjura um guardião prateado feito de sentimentos positivos contra Dementadores.</span>
+                    <span class="efeito-feitico">Conjura um guardião prateado feito de pura luz e pensamentos felizes.</span>
                 </div>
                 <div class="feitico-item">
-                    <span class="nome-feitico">Wingardium Leviosa</span>
-                    <span class="efeito-feitico">Faz objetos flutuarem no ar sob comando do bruxo.</span>
-                </div>
-                <div class="feitico-item">
-                    <span class="nome-feitico">Accio</span>
-                    <span class="efeito-feitico">Atrai objetos distantes diretamente até as mãos de quem o conjura.</span>
+                    <span class="nome-feitico">Expelliarmus</span>
+                    <span class="efeito-feitico">Feitiço de desarmamento supremo.</span>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO: RELÍQUIAS DA MORTE -->
-        <section id="reliquias">
-            <h2>As Relíquias da Morte</h2>
-            <div class="grid-casas">
-                <div class="casa-card">
-                    <h3>Varinha das Varinhas</h3>
-                    <p>A varinha mais poderosa já criada, imbatível em duelos quando dominada por seu verdadeiro mestre.</p>
-                </div>
-                <div class="casa-card">
-                    <h3>Pedra da Ressurreição</h3>
-                    <p>Permite trazer sombras de entes queridos falecidos de volta ao mundo dos vivos.</p>
-                </div>
-                <div class="casa-card">
-                    <h3>Capa da Invisibilidade</h3>
-                    <p>Concede invisibilidade total e permanente a quem a vestir, imune a feitiços reveladores comuns.</p>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer>
-        <p>"Malfeito feito" — Site temático de fã dedicado à magia de Hogwarts.</p>
+        <p>"Malfeito feito" — O Profeta Diário &copy; Todos os direitos reservados à comunidade bruxa.</p>
     </footer>
 
-    <!-- Script JavaScript para o efeito interativo de rastros mágicos no mouse -->
+    <!-- SCRIPT EM JAVASCRIPT INTEGRADO PARA SOM, LIGHTBOX, PARTÍCULAS E INÉRCIA 3D -->
     <script>
+        // 1. Áudio Ambiente
+        const audio = document.getElementById('bgAudio');
+        const audioBtn = document.getElementById('audioBtn');
+        let isPlaying = false;
+
+        audioBtn.addEventListener('click', () => {
+            if (!isPlaying) {
+                audio.play();
+                audioBtn.innerText = '⚡ Som Ambiente: ON';
+                audioBtn.classList.add('active');
+            } else {
+                audio.pause();
+                audioBtn.innerText = '⚡ Som Ambiente: OFF';
+                audioBtn.classList.remove('active');
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // 2. Modal Lightbox
+        const lightbox = document.getElementById('lightboxModal');
+        const lightboxBody = document.getElementById('lightboxBody');
+        const lightboxClose = document.querySelector('.lightbox-close');
+
+        function openLightbox(type, src) {
+            lightboxBody.innerHTML = '';
+            if (type === 'video') {
+                lightboxBody.innerHTML = `<video controls autoplay class="lightbox-media"><source src="${src}" type="video/mp4"></video>`;
+            } else {
+                lightboxBody.innerHTML = `<img src="${src}" class="lightbox-media">`;
+            }
+            lightbox.style.display = 'flex';
+        }
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.style.display = 'none';
+            lightboxBody.innerHTML = '';
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.style.display = 'none';
+                lightboxBody.innerHTML = '';
+            }
+        });
+
+        // 3. Efeito Tilt 3D nos Cards ao passar o Mouse
+        const cards = document.querySelectorAll('.card-tilt');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                card.style.transform = `perspective(1000px) rotateX(${-y / 12}deg) rotateY(${x / 12}deg) translateY(-10px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+            });
+        });
+
+        // 4. Faíscas Mágicas no Cursor (Canvas)
         const canvas = document.getElementById('magicCanvas');
         const ctx = canvas.getContext('2d');
-
-        canvas.style.position = 'fixed';
-        canvas.style.top = '0';
-        canvas.style.left = '0';
-        canvas.style.pointerEvents = 'none';
-        canvas.style.zIndex = '9999';
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -164,16 +293,15 @@
         resizeCanvas();
 
         const particles = [];
-
         window.addEventListener('mousemove', (e) => {
             for (let i = 0; i < 3; i++) {
                 particles.push({
                     x: e.clientX,
                     y: e.clientY,
                     size: Math.random() * 4 + 1,
-                    speedX: (Math.random() - 0.5) * 2,
-                    speedY: (Math.random() - 0.5) * 2 - 1,
-                    color: `hsl(${Math.random() * 40 + 40}, 100%, 70%)`,
+                    speedX: (Math.random() - 0.5) * 2.5,
+                    speedY: (Math.random() - 0.5) * 2.5 - 1,
+                    color: `hsl(${Math.random() * 40 + 35}, 100%, 75%)`,
                     life: 1
                 });
             }
@@ -191,7 +319,7 @@
 
                 p.x += p.speedX;
                 p.y += p.speedY;
-                p.life -= 0.02;
+                p.life -= 0.025;
 
                 if (p.life <= 0) {
                     particles.splice(i, 1);
