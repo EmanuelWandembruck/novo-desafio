@@ -3,256 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mundo Bruxo - Hogwarts</title>
-    <!-- Fonte temática estilo medieval/mágica -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;700&family=Fauna+One&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Estilos Gerais */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #0d0a14;
-            background-image: 
-                radial-gradient(circle at 50% 20%, rgba(59, 29, 92, 0.4), transparent 60%),
-                radial-gradient(circle at 80% 80%, rgba(184, 134, 11, 0.15), transparent 50%);
-            color: #e0d8c3;
-            font-family: 'Fauna One', serif;
-            min-height: 100vh;
-        }
-
-        /* Cabeçalho Imersivo com Imagem de Fundo */
-        header {
-            position: relative;
-            height: 70vh;
-            background: linear-gradient(to bottom, rgba(13, 10, 20, 0.3), #0d0a14),
-                        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border-bottom: 2px solid #b8860b;
-            box-shadow: 0 0 25px rgba(184, 134, 11, 0.3);
-        }
-
-        header h1 {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: 3.5rem;
-            color: #f3e5ab;
-            text-shadow: 0 0 10px #b8860b, 0 0 20px #8b0000;
-            margin-bottom: 10px;
-            animation: brilhoMagico 4s infinite alternate;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            color: #d4af37;
-        }
-
-        /* Navegação */
-        nav {
-            margin-top: 30px;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        nav a {
-            color: #f3e5ab;
-            text-decoration: none;
-            font-family: 'Cinzel', serif;
-            font-weight: bold;
-            padding: 10px 20px;
-            border: 1px solid #b8860b;
-            border-radius: 4px;
-            background: rgba(13, 10, 20, 0.7);
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover {
-            background: #b8860b;
-            color: #0d0a14;
-            box-shadow: 0 0 15px #f3e5ab;
-            transform: translateY(-3px);
-        }
-
-        /* Conteúdo Principal */
-        main {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        h2 {
-            font-family: 'Cinzel', serif;
-            color: #f3e5ab;
-            text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 30px;
-            text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
-            border-bottom: 1px solid rgba(184, 134, 11, 0.3);
-            padding-bottom: 10px;
-        }
-
-        section {
-            margin-bottom: 60px;
-        }
-
-        /* Cards das Casas */
-        .grid-casas {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .casa-card {
-            background: rgba(25, 20, 35, 0.8);
-            border: 1px solid #4a3b5c;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .casa-card:hover {
-            transform: translateY(-8px);
-        }
-
-        /* Cores Temáticas no Hover das Casas */
-        .grifinoria:hover { border-color: #740001; box-shadow: 0 0 20px #740001; }
-        .sonserina:hover { border-color: #1a472a; box-shadow: 0 0 20px #1a472a; }
-        .corvinal:hover { border-color: #0e1a40; box-shadow: 0 0 20px #222f5b; }
-        .lufa-lufa:hover { border-color: #ecb939; box-shadow: 0 0 20px #ecb939; }
-
-        .casa-card h3 {
-            font-family: 'Cinzel', serif;
-            margin-bottom: 10px;
-            color: #f3e5ab;
-        }
-
-        /* Tabela / Lista de Feitiços com Visual de Pergaminho */
-        .feiticos-container {
-            background: #191423;
-            border: 1px solid #b8860b;
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
-        }
-
-        .feitico-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px dashed rgba(184, 134, 11, 0.3);
-        }
-
-        .feitico-item:last-child {
-            border-bottom: none;
-        }
-
-        .nome-feitico {
-            font-family: 'Cinzel', serif;
-            color: #d4af37;
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-
-        .efeito-feitico {
-            color: #c0b7a2;
-            font-style: italic;
-        }
-
-        /* Animações */
-        @keyframes brilhoMagico {
-            0% {
-                text-shadow: 0 0 10px #b8860b, 0 0 20px #8b0000;
-            }
-            100% {
-                text-shadow: 0 0 20px #f3e5ab, 0 0 35px #d4af37, 0 0 10px #ffffff;
-            }
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            border-top: 1px solid rgba(184, 134, 11, 0.3);
-            color: #8c8275;
-            font-size: 0.9rem;
-        }
-    </style>
+    <title>Mundo Bruxo - Hogwarts Digital</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;700&family=Fauna+One&family=MedievalSharp&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <!-- Canvas para efeito de faíscas mágicas ao mover o cursor -->
+    <canvas id="magicCanvas"></canvas>
+
     <header>
         <h1>Mundo Bruxo</h1>
-        <p>Bem-vindo à Escola de Magia e Bruxaria de Hogwarts</p>
+        <p>"A magia atua sobre aqueles que realmente acreditam"</p>
         <nav>
             <ul>
                 <li><a href="#casas">Casas</a></li>
+                <li><a href="#personagens">Personagens</a></li>
                 <li><a href="#feiticos">Feitiços</a></li>
+                <li><a href="#reliquias">Relíquias</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
+        <!-- SEÇÃO: CASAS DE HOGWARTS -->
         <section id="casas">
-            <h2>As Quatro Casas</h2>
+            <h2>As Casas de Hogwarts</h2>
             <div class="grid-casas">
                 <div class="casa-card grifinoria">
                     <h3>Grifinória</h3>
-                    <p>Coragem, bravura e determinação.</p>
+                    <p><strong>Fundador:</strong> Godric Gryffindor</p>
+                    <p><strong>Valores:</strong> Coragem, bravura, ousadia e cavaleirismo.</p>
+                    <p><strong>Símbolo:</strong> Leão | <strong>Cores:</strong> Vermelho e Dourado</p>
                 </div>
                 <div class="casa-card sonserina">
                     <h3>Sonserina</h3>
-                    <p>Ambição, astúcia e liderança.</p>
+                    <p><strong>Fundador:</strong> Salazar Slytherin</p>
+                    <p><strong>Valores:</strong> Ambição, astúcia, liderança e desenvoltura.</p>
+                    <p><strong>Símbolo:</strong> Serpente | <strong>Cores:</strong> Verde e Prata</p>
                 </div>
                 <div class="casa-card corvinal">
                     <h3>Corvinal</h3>
-                    <p>Sabedoria, inteligência e criatividade.</p>
+                    <p><strong>Fundador:</strong> Rowena Ravenclaw</p>
+                    <p><strong>Valores:</strong> Sabedoria, inteligência, criatividade e aprendizado.</p>
+                    <p><strong>Símbolo:</strong> Águia | <strong>Cores:</strong> Azul e Bronze</p>
                 </div>
                 <div class="casa-card lufa-lufa">
                     <h3>Lufa-Lufa</h3>
-                    <p>Lealdade, dedicação e paciência.</p>
+                    <p><strong>Fundador:</strong> Helga Hufflepuff</p>
+                    <p><strong>Valores:</strong> Lealdade, dedicação, paciência e trabalho duro.</p>
+                    <p><strong>Símbolo:</strong> Texugo | <strong>Cores:</strong> Amarelo e Preto</p>
                 </div>
             </div>
         </section>
 
+        <!-- SEÇÃO: PERSONAGENS -->
+        <section id="personagens">
+            <h2>Personagens Marcantes</h2>
+            <div class="grid-casas">
+                <div class="casa-card grifinoria">
+                    <h3>Harry Potter</h3>
+                    <p><strong>Casa:</strong> Grifinória</p>
+                    <p>O Menino Que Sobreviveu, famoso por derrotar Lord Voldemort e liderar a resistência bruxa.</p>
+                </div>
+                <div class="casa-card grifinoria">
+                    <h3>Hermione Granger</h3>
+                    <p><strong>Casa:</strong> Grifinória</p>
+                    <p>A bruxa mais brilhante de sua era, fundamental na resolução de mistérios e feitiços complexos.</p>
+                </div>
+                <div class="casa-card grifinoria">
+                    <h3>Ron Weasley</h3>
+                    <p><strong>Casa:</strong> Grifinória</p>
+                    <p>Leal amigo do Trio de Ouro, habilidoso em xadrez bruxo e corajoso nas horas mais difíceis.</p>
+                </div>
+                <div class="casa-card grifinoria">
+                    <h3>Alvo Dumbledore</h3>
+                    <p><strong>Casa:</strong> Grifinória</p>
+                    <p>Considerado o maior diretor de Hogwarts, mestre da Varinha das Varinhas e guardião do bem.</p>
+                </div>
+                <div class="casa-card sonserina">
+                    <h3>Severo Snape</h3>
+                    <p><strong>Casa:</strong> Sonserina</p>
+                    <p>Mestre das Poções, agente duplo destemido e protetor silencioso guiado por seu eterno amor.</p>
+                </div>
+                <div class="casa-card sonserina">
+                    <h3>Lord Voldemort</h3>
+                    <p><strong>Casa:</strong> Sonserina</p>
+                    <p>O Bruxo das Trevas mais temido da história, líder dos Comensais da Morte em busca da imortalidade.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: FEITIÇOS -->
         <section id="feiticos">
-            <h2>Livro de Feitiços</h2>
+            <h2>Grimório de Feitiços</h2>
             <div class="feiticos-container">
                 <div class="feitico-item">
-                    <span class="nome-feitico">Lumos</span>
-                    <span class="efeito-feitico">Cria uma luz na ponta da varinha</span>
+                    <span class="nome-feitico">Lumos / Nox</span>
+                    <span class="efeito-feitico">Cria uma fonte de luz na ponta da varinha / Apaga a luz.</span>
                 </div>
                 <div class="feitico-item">
                     <span class="nome-feitico">Expelliarmus</span>
-                    <span class="efeito-feitico">Desarma o oponente</span>
+                    <span class="efeito-feitico">Desarma o oponente fazendo o objeto voar da sua mão.</span>
                 </div>
                 <div class="feitico-item">
                     <span class="nome-feitico">Expecto Patronum</span>
-                    <span class="efeito-feitico">Conjura um Patrono para afastar Dementadores</span>
+                    <span class="efeito-feitico">Conjura um guardião prateado feito de sentimentos positivos contra Dementadores.</span>
                 </div>
                 <div class="feitico-item">
                     <span class="nome-feitico">Wingardium Leviosa</span>
-                    <span class="efeito-feitico">Faz objetos flutuarem</span>
+                    <span class="efeito-feitico">Faz objetos flutuarem no ar sob comando do bruxo.</span>
+                </div>
+                <div class="feitico-item">
+                    <span class="nome-feitico">Accio</span>
+                    <span class="efeito-feitico">Atrai objetos distantes diretamente até as mãos de quem o conjura.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: RELÍQUIAS DA MORTE -->
+        <section id="reliquias">
+            <h2>As Relíquias da Morte</h2>
+            <div class="grid-casas">
+                <div class="casa-card">
+                    <h3>Varinha das Varinhas</h3>
+                    <p>A varinha mais poderosa já criada, imbatível em duelos quando dominada por seu verdadeiro mestre.</p>
+                </div>
+                <div class="casa-card">
+                    <h3>Pedra da Ressurreição</h3>
+                    <p>Permite trazer sombras de entes queridos falecidos de volta ao mundo dos vivos.</p>
+                </div>
+                <div class="casa-card">
+                    <h3>Capa da Invisibilidade</h3>
+                    <p>Concede invisibilidade total e permanente a quem a vestir, imune a feitiços reveladores comuns.</p>
                 </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>Malfeito feito • Site temático de fã</p>
+        <p>"Malfeito feito" — Site temático de fã dedicado à magia de Hogwarts.</p>
     </footer>
 
+    <!-- Script JavaScript para o efeito interativo de rastros mágicos no mouse -->
+    <script>
+        const canvas = document.getElementById('magicCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = '9999';
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particles = [];
+
+        window.addEventListener('mousemove', (e) => {
+            for (let i = 0; i < 3; i++) {
+                particles.push({
+                    x: e.clientX,
+                    y: e.clientY,
+                    size: Math.random() * 4 + 1,
+                    speedX: (Math.random() - 0.5) * 2,
+                    speedY: (Math.random() - 0.5) * 2 - 1,
+                    color: `hsl(${Math.random() * 40 + 40}, 100%, 70%)`,
+                    life: 1
+                });
+            }
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.life;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                p.x += p.speedX;
+                p.y += p.speedY;
+                p.life -= 0.02;
+
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 </html>
