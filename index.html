@@ -9,11 +9,12 @@
 </head>
 <body>
 
-    <!-- Canvas para efeitos de feitiços/partículas -->
+    <!-- Canvas para efeito de partículas/mágica no fundo -->
     <canvas id="magicCanvas"></canvas>
 
     <!-- CABEÇALHO CINEMATOGRÁFICO -->
     <header>
+        <!-- Vídeo ou imagem de fundo do cabeçalho -->
         <video class="bg-video" autoplay loop muted playsinline>
             <source src="https://assets.mixkit.co/videos/preview/mixkit-starry-night-sky-with-clouds-26330-large.mp4" type="video/mp4">
         </video>
@@ -24,10 +25,11 @@
             <h1>Hogwarts</h1>
             <p>Escola de Magia e Bruxaria</p>
 
-            <!-- CONTROLE DE ÁUDIO COM MÚSICA TEMA DE HARRY POTTER -->
+            <!-- CONTROLE DE ÁUDIO (BOTÃO + ÁUDIO) -->
             <div class="audio-control">
-                <audio id="audioAmbiente" loop preload="auto">
-                    <source src="https://ia800302.us.archive.org/16/items/HarryPotterThemeSong/Harry_Potter_Theme_Song.mp3" type="audio/mpeg">
+                <audio id="audioAmbiente" loop>
+                    <!-- Trilha sonora de fundo temática -->
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
                 </audio>
                 <button id="btnAudio" class="btn-magic">Som Ambiente: OFF</button>
             </div>
@@ -57,10 +59,8 @@
 
             <div class="jornal-grid">
                 <article class="noticia-card">
-                    <div class="moldura-magica-video">
-                        <video class="video-magico" autoplay loop muted playsinline>
-                            <source src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4" type="video/mp4">
-                        </video>
+                    <div class="moldura-magica">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Hogwarts Express">
                         <span class="selo-magico">Exclusivo</span>
                     </div>
                     <div class="noticia-conteudo">
@@ -84,32 +84,32 @@
             </div>
         </section>
 
-        <!-- SEÇÃO: CASAS DE HOGWARTS (CARDS 3D) -->
+        <!-- SEÇÃO: CASAS DE HOGWARTS -->
         <section id="casas">
             <h2>Casas de Hogwarts</h2>
             <div class="grid-3d">
                 <div class="casa-card grifinoria">
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=500&q=80" alt="Grifinória">
                     <h3>Grifinória</h3>
-                    <p>Onde habitam os corajosos de coração, sua ousadia e nobreza destacam os alunos da Grifinória.</p>
+                    <p>Coragem, bravura e determinação.</p>
                 </div>
 
                 <div class="casa-card sonserina">
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=500&q=80" alt="Sonserina">
                     <h3>Sonserina</h3>
-                    <p>Usa qualquer meio para atingir os fins. Astúcia, ambição e recurso são suas marcas registradas.</p>
+                    <p>Ambição, astúcia e liderança.</p>
                 </div>
 
                 <div class="casa-card corvinal">
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=500&q=80" alt="Corvinal">
                     <h3>Corvinal</h3>
-                    <p>A mente sem limites é o maior tesouro do homem. Mentes afiadas e busca pelo saber.</p>
+                    <p>Sabedoria, inteligência e criatividade.</p>
                 </div>
 
                 <div class="casa-card lufa-lufa">
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=500&q=80" alt="Lufa-Lufa">
                     <h3>Lufa-Lufa</h3>
-                    <p>Onde seus membros são justos e leais, pacientes, verdadeiros e sem medo da dor.</p>
+                    <p>Lealdade, paciência e dedicação.</p>
                 </div>
             </div>
         </section>
@@ -119,15 +119,15 @@
             <h2>Galeria Mágica</h2>
             <div class="galeria-grid">
                 <div class="galeria-item">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Plataforma 9 3/4">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Expresso de Hogwarts">
                     <div class="galeria-hover">Plataforma 9 ¾</div>
                 </div>
                 <div class="galeria-item">
-                    <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=600&q=80" alt="Castelo ao Luar">
+                    <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=600&q=80" alt="Castelo de Hogwarts">
                     <div class="galeria-hover">Castelo ao Luar</div>
                 </div>
                 <div class="galeria-item">
-                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80" alt="Biblioteca Restrita">
+                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80" alt="Livro Antigo">
                     <div class="galeria-hover">Biblioteca Restrita</div>
                 </div>
             </div>
@@ -139,41 +139,32 @@
             <div class="feiticos-container">
                 <div class="feitico-item">
                     <span class="nome-feitico">Lumos</span>
-                    <span class="efeito-feitico">Cria uma luz na ponta da varinha do bruxo.</span>
+                    <span class="efeito-feitico">Cria uma luz na ponta da varinha.</span>
                 </div>
                 <div class="feitico-item">
                     <span class="nome-feitico">Expecto Patronum</span>
-                    <span class="efeito-feitico">Conjura um guardião mágico de energia positiva.</span>
+                    <span class="efeito-feitico">Conjura um guardião mágico de luz.</span>
                 </div>
                 <div class="feitico-item">
                     <span class="nome-feitico">Wingardium Leviosa</span>
-                    <span class="efeito-feitico">Faz objetos flutuarem no ar sob comando.</span>
+                    <span class="efeito-feitico">Faz objetos levitarem no ar.</span>
                 </div>
                 <div class="feitico-item">
                     <span class="nome-feitico">Alohomora</span>
-                    <span class="efeito-feitico">Destranca fechaduras e portas trancadas por magia comum.</span>
+                    <span class="efeito-feitico">Destranca portas e trincos selados.</span>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- MODAL LIGHTBOX -->
-    <div class="lightbox" id="lightbox">
-        <span class="lightbox-close" id="lightboxClose">&times;</span>
-        <div class="lightbox-body">
-            <img class="lightbox-media" id="lightboxImg" src="" alt="Ampliação Mágica">
-        </div>
-    </div>
-
     <!-- RODAPÉ -->
     <footer>
         <p>"Malfeito Feito" — Propriedade do Mapa do Maroto</p>
     </footer>
 
-    <!-- SCRIPT DE ÁUDIO E INTERAÇÕES -->
+    <!-- SCRIPT DO BOTÃO DE ÁUDIO -->
     <script>
-        // Lógica do Áudio Tema
         const btnAudio = document.getElementById('btnAudio');
         const audioAmbiente = document.getElementById('audioAmbiente');
 
@@ -188,24 +179,6 @@
                 btnAudio.textContent = 'Som Ambiente: OFF';
             }
         });
-
-        // Lógica da Lightbox (Galeria)
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const lightboxClose = document.getElementById('lightboxClose');
-
-        document.querySelectorAll('.galeria-item img, .moldura-magica img').forEach(img => {
-            img.addEventListener('click', () => {
-                lightbox.style.display = 'flex';
-                lightboxImg.src = img.src;
-            });
-        });
-
-        if (lightboxClose) {
-            lightboxClose.addEventListener('click', () => {
-                lightbox.style.display = 'none';
-            });
-        }
     </script>
 </body>
 </html>
