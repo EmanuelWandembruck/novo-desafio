@@ -1,17 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;800&family=Fauna+One&family=MedievalSharp&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;800&family=Fauna+One&family=MedievalSharp&family=UnifrakturMaguntia&display=swap');
 
 /* ===================================================
-   PALETA E VARIÁVEIS MÁGICAS EXPANDIDAS
+   VARIÁVEIS DE CORES & CONFIGURAÇÕES MÁGICAS
    =================================================== */
 :root {
-    --bg-deep: #05030a;
-    --bg-card: rgba(18, 12, 28, 0.85);
+    --bg-deep: #030206;
+    --bg-card: rgba(15, 10, 25, 0.88);
     --gold-primary: #d4af37;
-    --gold-bright: #fff3c4;
+    --gold-bright: #fff2c2;
     --gold-glow: rgba(212, 175, 55, 0.6);
-    --purple-magic: rgba(120, 50, 180, 0.35);
+    --purple-magic: rgba(120, 50, 180, 0.4);
     
-    /* Cores das Casas de Hogwarts */
+    /* Cores do Jornal "O Profeta Diário" */
+    --jornal-bg: #e6d5b8;
+    --jornal-bg-dark: #ccb997;
+    --jornal-ink: #1a140f;
+    --jornal-border: #3b2d1d;
+
+    /* Cores Oficiais das Casas */
     --gryff-red: #8b0000;
     --gryff-gold: #ffc83b;
     --slyth-green: #0d5c2d;
@@ -32,6 +38,17 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Canvas de Partículas em Segundo Plano */
+#magicCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999;
+}
+
 /* ===================================================
    BARRA DE ROLAGEM MÁGICA
    =================================================== */
@@ -45,7 +62,7 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #1c102b, var(--gold-primary), #1c102b);
+    background: linear-gradient(180deg, #180a29, var(--gold-primary), #180a29);
     border-radius: 6px;
     border: 1px solid var(--gold-bright);
     box-shadow: 0 0 10px var(--gold-glow);
@@ -57,14 +74,14 @@ html {
 }
 
 /* ===================================================
-   CORPO E PLANO DE FUNDO MULTILAYER
+   CORPO E PLANO DE FUNDO
    =================================================== */
 body {
     background-color: var(--bg-deep);
     background-image: 
         radial-gradient(circle at 50% 10%, var(--purple-magic), transparent 60%),
-        radial-gradient(circle at 85% 85%, rgba(212, 175, 55, 0.15), transparent 50%),
-        radial-gradient(circle at 15% 50%, rgba(13, 92, 45, 0.2), transparent 50%),
+        radial-gradient(circle at 85% 85%, rgba(212, 175, 55, 0.12), transparent 50%),
+        radial-gradient(circle at 15% 50%, rgba(13, 92, 45, 0.15), transparent 50%),
         radial-gradient(circle at 50% 90%, rgba(139, 0, 0, 0.15), transparent 60%);
     background-attachment: fixed;
     color: #e2d9c8;
@@ -74,45 +91,99 @@ body {
 }
 
 /* ===================================================
-   CABEÇALHO E HERO SECTION
+   CABEÇALHO COM VÍDEO BACKGROUND
    =================================================== */
 header {
     position: relative;
-    height: 95vh;
+    height: 100vh;
+    width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    background: linear-gradient(to bottom, rgba(5, 3, 10, 0.4), var(--bg-deep)),
-                url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    overflow: hidden;
     border-bottom: 2px solid var(--gold-primary);
     box-shadow: 0 10px 50px rgba(0, 0, 0, 0.95), 0 0 35px var(--gold-glow);
 }
 
+.bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 1;
+    filter: brightness(45%) contrast(110%);
+}
+
+.header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(5, 3, 10, 0.3) 0%, rgba(3, 2, 6, 0.85) 100%);
+    z-index: 2;
+}
+
+.header-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 0 20px;
+}
+
 header h1 {
     font-family: 'Cinzel Decorative', serif;
-    font-size: 5.5rem;
+    font-size: 5.8rem;
     color: var(--gold-bright);
     text-transform: uppercase;
     letter-spacing: 6px;
-    text-shadow: 0 0 15px var(--gold-primary), 0 0 30px #8b0000;
+    text-shadow: 0 0 20px var(--gold-primary), 0 0 40px #8b0000;
     animation: auraMagica 4s infinite alternate, flutuar 5s ease-in-out infinite;
 }
 
 header p {
     font-family: 'MedievalSharp', cursive;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     color: var(--gold-primary);
     text-shadow: 0 0 12px rgba(0, 0, 0, 0.9), 0 0 10px var(--gold-glow);
     margin-top: 15px;
-    max-width: 650px;
-    padding: 0 20px;
+}
+
+/* Botão de Controle de Áudio */
+.audio-control {
+    margin-top: 25px;
+}
+
+.btn-magic {
+    background: rgba(15, 10, 25, 0.85);
+    color: var(--gold-bright);
+    border: 2px solid var(--gold-primary);
+    padding: 12px 26px;
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.btn-magic:hover, .btn-magic.active {
+    background: var(--gold-primary);
+    color: #030206;
+    box-shadow: 0 0 25px var(--gold-bright), 0 0 40px var(--gold-primary);
+    transform: scale(1.08);
 }
 
 /* Navegação Lumos */
 nav {
-    margin-top: 45px;
+    margin-top: 35px;
 }
 
 nav ul {
@@ -124,123 +195,225 @@ nav ul {
 }
 
 nav a {
-    position: relative;
     color: var(--gold-bright);
     text-decoration: none;
     font-family: 'Cinzel', serif;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    padding: 12px 28px;
+    padding: 12px 24px;
     border: 1px solid var(--gold-primary);
-    border-radius: 6px;
+    border-radius: 8px;
     background: rgba(10, 6, 20, 0.85);
     backdrop-filter: blur(10px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    overflow: hidden;
-}
-
-nav a::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 243, 196, 0.4) 0%, transparent 60%);
-    transform: scale(0);
-    transition: transform 0.5s ease;
-}
-
-nav a:hover::before {
-    transform: scale(1);
+    transition: all 0.4s ease;
+    display: inline-block;
 }
 
 nav a:hover {
-    color: #05030a;
+    color: #030206;
     background: var(--gold-primary);
-    box-shadow: 0 0 25px var(--gold-bright), 0 0 50px var(--gold-primary);
-    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 25px var(--gold-bright);
+    transform: translateY(-5px);
 }
 
 /* ===================================================
    CONTEÚDO PRINCIPAL E SEÇÕES
    =================================================== */
 main {
-    max-width: 1300px;
+    max-width: 1350px;
     margin: 0 auto;
-    padding: 80px 20px;
+    padding: 90px 20px;
 }
 
 section {
-    margin-bottom: 120px;
+    margin-bottom: 140px;
 }
 
 h2 {
     font-family: 'Cinzel Decorative', serif;
     color: var(--gold-bright);
     text-align: center;
-    font-size: 3rem;
-    margin-bottom: 50px;
+    font-size: 3.2rem;
+    margin-bottom: 55px;
     text-shadow: 0 0 20px var(--gold-glow);
-    position: relative;
-}
-
-h2::after {
-    content: '⚡';
-    display: block;
-    font-size: 1.6rem;
-    margin-top: 15px;
-    color: var(--gold-primary);
-    animation: pulsoEletrico 2s infinite alternate;
 }
 
 /* ===================================================
-   GRID DE CARDS E FOTOS
+   SEÇÃO JORNAL "O PROFETA DIÁRIO"
    =================================================== */
-.grid-casas {
+.secao-jornal {
+    background: linear-gradient(135deg, var(--jornal-bg) 0%, var(--jornal-bg-dark) 100%);
+    color: var(--jornal-ink);
+    border: 8px double var(--jornal-border);
+    border-radius: 6px;
+    padding: 45px 35px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), inset 0 0 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.jornal-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.jornal-edicao {
+    font-family: 'Fauna One', serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #5a432e;
+}
+
+.jornal-titulo {
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-size: 5.5rem;
+    color: var(--jornal-ink);
+    margin: 10px 0;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.15);
+}
+
+.jornal-linha-dupla {
+    height: 6px;
+    border-top: 2px solid var(--jornal-border);
+    border-bottom: 1px solid var(--jornal-border);
+    margin-top: 10px;
+}
+
+.jornal-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 30px;
+}
+
+.noticia-card {
+    border-right: 1px solid rgba(59, 45, 29, 0.3);
+    padding-right: 20px;
+}
+
+.noticia-card:last-child {
+    border-right: none;
+    padding-right: 0;
+}
+
+.noticia-conteudo h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #2b1d0c;
+}
+
+.noticia-conteudo .autor {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    color: #6e4e2e;
+}
+
+.noticia-conteudo p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #22180f;
+}
+
+/* Frames das Notícias com Efeito Mágico */
+.moldura-magica-video, .moldura-magica {
+    position: relative;
+    border: 3px solid var(--jornal-border);
+    overflow: hidden;
+    cursor: pointer;
+    background: #000;
+    box-shadow: 3px 3px 12px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+
+.moldura-magica-video:hover, .moldura-magica:hover {
+    transform: scale(1.02);
+}
+
+.video-magico {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    filter: sepia(50%) contrast(120%) brightness(90%);
+    transition: filter 0.5s ease;
+}
+
+.moldura-magica-video:hover .video-magico {
+    filter: sepia(0%) contrast(100%) brightness(100%);
+}
+
+.moldura-magica img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    filter: sepia(60%) contrast(110%);
+    transition: filter 0.5s ease;
+}
+
+.moldura-magica:hover img {
+    filter: sepia(0%);
+}
+
+.selo-magico {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.75);
+    color: var(--gold-bright);
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: 'Cinzel', serif;
+}
+
+/* ===================================================
+   CARDS 3D DE CASAS E PERSONAGENS
+   =================================================== */
+.grid-3d {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     gap: 35px;
+    perspective: 1000px;
 }
 
 .casa-card {
-    position: relative;
     background: var(--bg-card);
     border: 1px solid rgba(212, 175, 55, 0.35);
     border-radius: 16px;
     padding: 25px;
     text-align: center;
     backdrop-filter: blur(12px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+    transition: transform 0.1s linear, box-shadow 0.4s ease, border-color 0.4s ease;
+    transform-style: preserve-3d;
 }
 
-/* Estilização Avançada para Imagens */
-.casa-card img,
-.personagem-foto {
+.personagem-foto, .video-frame-p img {
     width: 100%;
-    height: 240px;
+    height: 250px;
     object-fit: cover;
     border-radius: 12px;
     border: 2px solid var(--gold-primary);
     margin-bottom: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9);
-    filter: sepia(30%) contrast(115%) brightness(90%);
-    transition: all 0.5s ease;
+    cursor: pointer;
+    transition: transform 0.4s ease;
 }
 
-.casa-card:hover img,
-.casa-card:hover .personagem-foto {
-    transform: scale(1.06);
-    filter: sepia(0%) contrast(100%) brightness(105%);
-    box-shadow: 0 0 25px var(--gold-glow);
+.video-frame-p {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
 }
 
 .casa-card h3 {
     font-family: 'Cinzel', serif;
     font-size: 1.8rem;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     color: var(--gold-bright);
 }
 
@@ -248,69 +421,87 @@ h2::after {
     font-size: 0.95rem;
     line-height: 1.6;
     color: #d1c5b0;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
-.casa-card strong {
-    color: var(--gold-bright);
-}
-
-/* ===================================================
-   EFEITOS DE HOVER PERSONALIZADOS POR CASA
-   =================================================== */
-/* Grifinória */
-.grifinoria {
-    border-color: rgba(255, 200, 59, 0.4);
-}
+/* HOVER DAS CASAS */
 .grifinoria:hover {
-    transform: translateY(-12px) scale(1.02);
     border-color: var(--gryff-gold);
     box-shadow: 0 15px 40px rgba(139, 0, 0, 0.85), 0 0 30px var(--gryff-gold);
 }
-.grifinoria h3 { color: var(--gryff-gold); }
 
-/* Sonserina */
-.sonserina {
-    border-color: rgba(13, 92, 45, 0.6);
-}
 .sonserina:hover {
-    transform: translateY(-12px) scale(1.02);
     border-color: var(--slyth-silver);
     box-shadow: 0 15px 40px rgba(13, 92, 45, 0.9), 0 0 30px var(--slyth-silver);
 }
-.sonserina h3 { color: #2ecc71; }
 
-/* Corvinal */
-.corvinal {
-    border-color: rgba(19, 56, 99, 0.8);
-}
 .corvinal:hover {
-    transform: translateY(-12px) scale(1.02);
     border-color: var(--raven-bronze);
     box-shadow: 0 15px 40px rgba(19, 56, 99, 0.95), 0 0 30px var(--raven-bronze);
 }
-.corvinal h3 { color: #3498db; }
 
-/* Lufa-Lufa */
-.lufa-lufa {
-    border-color: rgba(245, 176, 0, 0.5);
-}
 .lufa-lufa:hover {
-    transform: translateY(-12px) scale(1.02);
     border-color: var(--huff-yellow);
     box-shadow: 0 15px 40px rgba(245, 176, 0, 0.7), 0 0 30px var(--huff-yellow);
 }
-.lufa-lufa h3 { color: var(--huff-yellow); }
 
 /* ===================================================
-   GRIMÓRIO DE FEITIÇOS (ESTILO PERGAMINHO ESCURO)
+   GALERIA MÁGICA
+   =================================================== */
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.galeria-item {
+    position: relative;
+    height: 260px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 2px solid var(--gold-primary);
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+}
+
+.galeria-item video, .galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.galeria-hover {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 3, 10, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    color: var(--gold-bright);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.galeria-item:hover video, .galeria-item:hover img {
+    transform: scale(1.12);
+}
+
+.galeria-item:hover .galeria-hover {
+    opacity: 1;
+}
+
+/* ===================================================
+   GRIMÓRIO DE FEITIÇOS
    =================================================== */
 .feiticos-container {
-    background: linear-gradient(145deg, #181126 0%, #080510 100%);
+    background: linear-gradient(145deg, #160e24 0%, #06040c 100%);
     border: 2px solid var(--gold-primary);
     border-radius: 16px;
     padding: 40px;
-    box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.95), 0 0 30px rgba(212, 175, 55, 0.3);
+    box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.95), 0 0 30px rgba(212, 175, 55, 0.25);
 }
 
 .feitico-item {
@@ -325,11 +516,6 @@ h2::after {
 .feitico-item:hover {
     background: rgba(212, 175, 55, 0.12);
     padding-left: 32px;
-    border-bottom-color: var(--gold-bright);
-}
-
-.feitico-item:last-child {
-    border-bottom: none;
 }
 
 .nome-feitico {
@@ -337,91 +523,86 @@ h2::after {
     color: var(--gold-bright);
     font-size: 1.35rem;
     font-weight: bold;
-    text-shadow: 0 0 10px var(--gold-glow);
 }
 
 .efeito-feitico {
     color: #cbbba1;
     font-style: italic;
     font-size: 1.1rem;
-    max-width: 60%;
-    text-align: right;
 }
 
 /* ===================================================
-   RODAPÉ
+   MODAL LIGHTBOX
+   =================================================== */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(15px);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 45px;
+    font-size: 3.5rem;
+    color: var(--gold-bright);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.lightbox-close:hover {
+    color: #e74c3c;
+}
+
+.lightbox-body {
+    max-width: 85%;
+    max-height: 85%;
+}
+
+.lightbox-media {
+    max-width: 100%;
+    max-height: 80vh;
+    border: 3px solid var(--gold-primary);
+    border-radius: 12px;
+    box-shadow: 0 0 50px var(--gold-glow);
+}
+
+/* ===================================================
+   RODAPÉ E ANIMAÇÕES
    =================================================== */
 footer {
     text-align: center;
-    padding: 45px;
+    padding: 50px;
     border-top: 2px solid rgba(212, 175, 55, 0.4);
     background: #020105;
     color: #a09280;
     font-family: 'MedievalSharp', cursive;
     font-size: 1.25rem;
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.9);
 }
 
-/* ===================================================
-   ANIMAÇÕES
-   =================================================== */
 @keyframes auraMagica {
-    0% {
-        text-shadow: 0 0 12px var(--gold-primary), 0 0 25px rgba(139, 0, 0, 0.8);
-    }
-    50% {
-        text-shadow: 0 0 30px var(--gold-bright), 0 0 50px var(--gold-primary), 0 0 70px rgba(120, 50, 180, 0.9);
-    }
-    100% {
-        text-shadow: 0 0 18px var(--gold-primary), 0 0 35px rgba(13, 92, 45, 0.8);
-    }
+    0% { text-shadow: 0 0 12px var(--gold-primary), 0 0 25px rgba(139, 0, 0, 0.8); }
+    50% { text-shadow: 0 0 30px var(--gold-bright), 0 0 50px var(--gold-primary), 0 0 70px rgba(120, 50, 180, 0.9); }
+    100% { text-shadow: 0 0 18px var(--gold-primary), 0 0 35px rgba(13, 92, 45, 0.8); }
 }
 
 @keyframes flutuar {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-16px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-16px); }
 }
 
-@keyframes pulsoEletrico {
-    0% {
-        opacity: 0.5;
-        transform: scale(0.9);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1.2);
-    }
-}
-
-/* ===================================================
-   RESPONSIVIDADE (MOBILE & TABLET)
-   =================================================== */
-@media (max-width: 868px) {
-    header h1 {
-        font-size: 3.2rem;
-    }
-
-    header p {
-        font-size: 1.2rem;
-    }
-
-    nav ul {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .feitico-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .efeito-feitico {
-        max-width: 100%;
-        text-align: left;
-    }
+/* RESPONSIVIDADE */
+@media (max-width: 992px) {
+    .jornal-grid { grid-template-columns: 1fr; }
+    .noticia-card { border-right: none; border-bottom: 1px solid rgba(59, 45, 29, 0.3); padding-bottom: 20px; padding-right: 0; }
+    header h1 { font-size: 3.5rem; }
+    .jornal-titulo { font-size: 3.8rem; }
 }
