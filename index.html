@@ -3,30 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mundo Bruxo - Edição O Profeta Diário</title>
+    <title>Mundo Bruxo - O Profeta Diário</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;800&family=Fauna+One&family=MedievalSharp&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Partículas Mágicas Interativas -->
+    <!-- Partículas Mágicas (Interatividade com Cursor) -->
     <canvas id="magicCanvas"></canvas>
 
-    <!-- Áudio Mágico de Fundo -->
-    <audio id="bgAudio" loop>
+    <!-- Áudio de Fundo Mágico -->
+    <audio id="bgAudio" loop preload="none">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Modal Lightbox para Ampliar Fotos e Vídeos -->
-    <div id="lightboxModal" class="lightbox">
-        <span class="lightbox-close">&times;</span>
+    <!-- Modal Lightbox (Ampliação de Mídia) -->
+    <div id="lightboxModal" class="lightbox" aria-hidden="true">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
         <div class="lightbox-body" id="lightboxBody"></div>
     </div>
 
-    <!-- Banner com Vídeo de Fundo -->
+    <!-- Cabeçalho Cinematográfico -->
     <header>
         <video class="bg-video" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-starry-night-sky-with-a-full-moon-41572-large.mp4" type="video/mp4">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-mysterious-fog-in-a-dark-forest-42502-large.mp4" type="video/mp4">
         </video>
         <div class="header-overlay"></div>
 
@@ -50,9 +49,10 @@
         </div>
     </header>
 
+    <!-- Conteúdo Principal -->
     <main>
 
-        <!-- SEÇÃO: JORNAL O PROFETA DIÁRIO (NOTÍCIAS MÁGICAS) -->
+        <!-- SEÇÃO: JORNAL O PROFETA DIÁRIO -->
         <section id="noticias" class="secao-jornal">
             <div class="jornal-header">
                 <span class="jornal-edicao">Edição Extraordinária • Preço: 5 Nuques</span>
@@ -62,7 +62,7 @@
 
             <div class="jornal-grid">
                 <!-- Notícia Principal -->
-                <article class="noticia-card noticia-destaque">
+                <article class="noticia-card">
                     <div class="moldura-magica-video" onclick="openLightbox('video', 'https://assets.mixkit.co/videos/preview/mixkit-mysterious-fog-in-a-dark-forest-42502-large.mp4')">
                         <video autoplay loop muted playsinline class="video-magico">
                             <source src="https://assets.mixkit.co/videos/preview/mixkit-mysterious-fog-in-a-dark-forest-42502-large.mp4" type="video/mp4">
@@ -138,7 +138,7 @@
             </div>
         </section>
 
-        <!-- SEÇÃO: PERSONAGENS COM VÍDEOS / GIFS MÁGICOS -->
+        <!-- SEÇÃO: PERSONAGENS DESTAQUE -->
         <section id="personagens">
             <h2>Personagens em Destaque</h2>
             <div class="grid-3d">
@@ -171,7 +171,7 @@
             </div>
         </section>
 
-        <!-- SEÇÃO: GALERIA MÁGICA (LIGHTBOX) -->
+        <!-- SEÇÃO: GALERIA MÁGICA -->
         <section id="cinema">
             <h2>Galeria e Vídeos de Hogwarts</h2>
             <div class="galeria-grid">
@@ -183,12 +183,12 @@
                 </div>
 
                 <div class="galeria-item" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop')">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" alt="Grande Salão">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" alt="Castelo de Hogwarts">
                     <div class="galeria-hover">✨ Visão do Castelo</div>
                 </div>
 
                 <div class="galeria-item" onclick="openLightbox('img', 'https://images.unsplash.com/photo-1551269901-5c5e14c25df7?q=80&w=800&auto=format&fit=crop')">
-                    <img src="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?q=80&w=800&auto=format&fit=crop" alt="Artefatos Mágicos">
+                    <img src="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?q=80&w=800&auto=format&fit=crop" alt="Relíquias Mágicas">
                     <div class="galeria-hover">🔮 Relíquias Mágicas</div>
                 </div>
             </div>
@@ -219,16 +219,16 @@
         <p>"Malfeito feito" — O Profeta Diário &copy; Todos os direitos reservados à comunidade bruxa.</p>
     </footer>
 
-    <!-- SCRIPT EM JAVASCRIPT INTEGRADO PARA SOM, LIGHTBOX, PARTÍCULAS E INÉRCIA 3D -->
+    <!-- INTERATIVIDADE SCRIPT -->
     <script>
-        // 1. Áudio Ambiente
+        // Controlar Áudio Ambiente
         const audio = document.getElementById('bgAudio');
         const audioBtn = document.getElementById('audioBtn');
         let isPlaying = false;
 
         audioBtn.addEventListener('click', () => {
             if (!isPlaying) {
-                audio.play();
+                audio.play().catch(() => {});
                 audioBtn.innerText = '⚡ Som Ambiente: ON';
                 audioBtn.classList.add('active');
             } else {
@@ -239,41 +239,41 @@
             isPlaying = !isPlaying;
         });
 
-        // 2. Modal Lightbox
+        // Modal Lightbox
         const lightbox = document.getElementById('lightboxModal');
         const lightboxBody = document.getElementById('lightboxBody');
-        const lightboxClose = document.querySelector('.lightbox-close');
 
         function openLightbox(type, src) {
             lightboxBody.innerHTML = '';
             if (type === 'video') {
                 lightboxBody.innerHTML = `<video controls autoplay class="lightbox-media"><source src="${src}" type="video/mp4"></video>`;
             } else {
-                lightboxBody.innerHTML = `<img src="${src}" class="lightbox-media">`;
+                lightboxBody.innerHTML = `<img src="${src}" class="lightbox-media" alt="Mídia Ampliada">`;
             }
             lightbox.style.display = 'flex';
+            lightbox.setAttribute('aria-hidden', 'false');
         }
 
-        lightboxClose.addEventListener('click', () => {
+        function closeLightbox() {
             lightbox.style.display = 'none';
             lightboxBody.innerHTML = '';
-        });
+            lightbox.setAttribute('aria-hidden', 'true');
+        }
 
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) {
-                lightbox.style.display = 'none';
-                lightboxBody.innerHTML = '';
+                closeLightbox();
             }
         });
 
-        // 3. Efeito Tilt 3D nos Cards ao passar o Mouse
+        // Efeito Tilt 3D nos Cards
         const cards = document.querySelectorAll('.card-tilt');
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
-                card.style.transform = `perspective(1000px) rotateX(${-y / 12}deg) rotateY(${x / 12}deg) translateY(-10px)`;
+                card.style.transform = `perspective(1000px) rotateX(${-y / 15}deg) rotateY(${x / 15}deg) translateY(-8px)`;
             });
 
             card.addEventListener('mouseleave', () => {
@@ -281,7 +281,7 @@
             });
         });
 
-        // 4. Faíscas Mágicas no Cursor (Canvas)
+        // Canvas de Partículas Mágicas
         const canvas = document.getElementById('magicCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -294,13 +294,13 @@
 
         const particles = [];
         window.addEventListener('mousemove', (e) => {
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 2; i++) {
                 particles.push({
                     x: e.clientX,
                     y: e.clientY,
-                    size: Math.random() * 4 + 1,
-                    speedX: (Math.random() - 0.5) * 2.5,
-                    speedY: (Math.random() - 0.5) * 2.5 - 1,
+                    size: Math.random() * 3 + 1,
+                    speedX: (Math.random() - 0.5) * 2,
+                    speedY: (Math.random() - 0.5) * 2 - 1,
                     color: `hsl(${Math.random() * 40 + 35}, 100%, 75%)`,
                     life: 1
                 });
@@ -319,7 +319,7 @@
 
                 p.x += p.speedX;
                 p.y += p.speedY;
-                p.life -= 0.025;
+                p.life -= 0.03;
 
                 if (p.life <= 0) {
                     particles.splice(i, 1);
