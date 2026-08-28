@@ -11,9 +11,10 @@
     <!-- Partículas Mágicas (Interatividade com Cursor) -->
     <canvas id="magicCanvas"></canvas>
 
-    <!-- Áudio de Fundo Mágico -->
-    <audio id="bgAudio" loop preload="none">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <!-- Áudio de Fundo Mágico (Tema de Harry Potter) -->
+    <audio id="bgAudio" loop preload="auto">
+        <source src="harry-potter-theme.mp3" type="audio/mpeg">
+        Seu navegador não suporta a execução de áudio.
     </audio>
 
     <!-- Modal Lightbox (Ampliação de Mídia) -->
@@ -228,15 +229,19 @@
 
         audioBtn.addEventListener('click', () => {
             if (!isPlaying) {
-                audio.play().catch(() => {});
-                audioBtn.innerText = '⚡ Som Ambiente: ON';
-                audioBtn.classList.add('active');
+                audio.play().then(() => {
+                    audioBtn.innerText = '⚡ Som Ambiente: ON';
+                    audioBtn.classList.add('active');
+                    isPlaying = true;
+                }).catch(err => {
+                    console.error("Certifique-se de que o arquivo harry-potter-theme.mp3 está na mesma pasta do projeto.", err);
+                });
             } else {
                 audio.pause();
                 audioBtn.innerText = '⚡ Som Ambiente: OFF';
                 audioBtn.classList.remove('active');
+                isPlaying = false;
             }
-            isPlaying = !isPlaying;
         });
 
         // Modal Lightbox
@@ -332,6 +337,3 @@
     </script>
 </body>
 </html>
-<audio id="bgAudio" loop preload="none">
-    <source src="harry-potter-theme.mp3" type="audio/mpeg">
-</audio>
