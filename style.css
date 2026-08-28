@@ -28,7 +28,7 @@
     --huff-dark: #2e261f;
 }
 
-* {
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -54,21 +54,30 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Neblina sutil em camadas */
+/* Seleção de texto temática */
+::selection {
+    background: var(--gold-primary);
+    color: var(--bg-deep);
+}
+
+/* Neblina otimizada */
 body::before {
     content: '';
     position: fixed;
     top: 0;
     left: 0;
     width: 200%;
-    height: 200%;
+    height: 100%;
     background: url('https://raw.githubusercontent.com/daniel-hug/fog-effect/master/fog-1.png') repeat-x;
-    background-size: 55% 100%;
-    opacity: 0.15;
+    background-size: 50% 100%;
+    opacity: 0.12;
     z-index: 0;
     pointer-events: none;
+    will-change: transform;
     animation: moverNeblina 60s linear infinite;
 }
 
@@ -82,7 +91,7 @@ body::before {
     z-index: 999;
 }
 
-/* Barra de rolagem */
+/* Barra de rolagem estilizada */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -98,7 +107,7 @@ body::before {
 }
 
 /* ===================================================
-   CABEÇALHO CINEMATOGRÁFICO (ORGANIZAÇÃO EM FLEX)
+   CABEÇALHO CINEMATOGRÁFICO
    =================================================== */
 header {
     position: relative;
@@ -125,15 +134,13 @@ header {
     object-fit: cover;
     z-index: 1;
     filter: brightness(40%) contrast(125%) saturate(120%) hue-rotate(-10deg);
+    will-change: transform;
     animation: zoomCinematico 25s ease-in-out infinite alternate;
 }
 
 .header-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: 
         radial-gradient(ellipse at center, rgba(5, 3, 10, 0.2) 0%, rgba(2, 1, 5, 0.88) 85%),
         linear-gradient(to bottom, rgba(5, 3, 10, 0.6) 0%, transparent 40%, rgba(3, 2, 6, 0.95) 100%);
@@ -171,10 +178,7 @@ header h1 {
     text-transform: uppercase;
     letter-spacing: 6px;
     line-height: 1.1;
-    text-shadow: 
-        0 0 10px var(--gold-bright),
-        0 0 25px var(--gold-primary),
-        0 0 50px rgba(120, 50, 180, 0.8);
+    will-change: filter, transform;
     animation: auraMagicaSuprema 3.5s infinite alternate, flutuar 6s ease-in-out infinite;
 }
 
@@ -200,7 +204,7 @@ header p {
     border-radius: 30px;
     cursor: pointer;
     backdrop-filter: blur(10px);
-    transition: all 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
@@ -418,7 +422,7 @@ h2 {
     text-align: center;
     backdrop-filter: blur(12px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
-    transition: transform 0.2s ease-out, box-shadow 0.4s ease, border-color 0.4s ease;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease, border-color 0.4s ease;
     transform-style: preserve-3d;
 }
 
@@ -447,6 +451,7 @@ h2 {
     margin-bottom: 8px;
 }
 
+/* Cores específicas de cada casa no hover */
 .grifinoria:hover {
     border-color: var(--gryff-gold);
     box-shadow: 0 15px 40px rgba(139, 0, 0, 0.85), 0 0 30px var(--gryff-gold);
@@ -536,6 +541,10 @@ h2 {
     transition: all 0.3s ease;
 }
 
+.feitico-item:last-child {
+    border-bottom: none;
+}
+
 .feitico-item:hover {
     background: rgba(212, 175, 55, 0.1);
     padding-left: 25px;
@@ -562,8 +571,7 @@ h2 {
 .lightbox {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.92);
@@ -581,6 +589,8 @@ h2 {
     color: var(--gold-bright);
     cursor: pointer;
     z-index: 10001;
+    line-height: 1;
+    transition: color 0.2s ease;
 }
 
 .lightbox-close:hover {
@@ -620,7 +630,7 @@ footer {
 
 @keyframes moverNeblina {
     0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(-50%, -20px, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
 }
 
 @keyframes zoomCinematico {
@@ -645,10 +655,25 @@ footer {
     50% { transform: translateY(-12px); }
 }
 
+/* Redução de movimento para acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    body::before, .bg-video, header h1 {
+        animation: none;
+    }
+}
+
 /* ===================================================
    RESPONSIVIDADE (MOBILE & TABLET)
    =================================================== */
 @media (max-width: 768px) {
+    main {
+        padding: 40px 15px;
+    }
+
+    section {
+        margin-bottom: 80px;
+    }
+
     .secao-jornal {
         padding: 25px 15px;
     }
@@ -663,6 +688,7 @@ footer {
     .feitico-item {
         flex-direction: column;
         align-items: flex-start;
+        gap: 5px;
     }
 
     .efeito-feitico {
@@ -675,7 +701,7 @@ footer {
     }
 
     nav a {
-        width: 80%;
+        width: 100%;
         text-align: center;
     }
 }
