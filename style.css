@@ -1,23 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;800&family=Fauna+One&family=MedievalSharp&family=UnifrakturMaguntia&display=swap');
 
 /* ===================================================
-   VARIÁVEIS DE CORES & CONFIGURAÇÕES MÁGICAS
+   VARIÁVEIS DE CORES & MÁGICA
    =================================================== */
 :root {
-    --bg-deep: #030206;
+    --bg-deep: #020105;
     --bg-card: rgba(15, 10, 25, 0.88);
     --gold-primary: #d4af37;
     --gold-bright: #fff2c2;
     --gold-glow: rgba(212, 175, 55, 0.6);
     --purple-magic: rgba(120, 50, 180, 0.4);
     
-    /* Cores do Jornal "O Profeta Diário" */
+    /* Jornal O Profeta Diário */
     --jornal-bg: #e6d5b8;
     --jornal-bg-dark: #ccb997;
     --jornal-ink: #1a140f;
     --jornal-border: #3b2d1d;
 
-    /* Cores Oficiais das Casas */
+    /* Casas de Hogwarts */
     --gryff-red: #8b0000;
     --gryff-gold: #ffc83b;
     --slyth-green: #0d5c2d;
@@ -38,7 +38,40 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Canvas de Partículas em Segundo Plano */
+/* ===================================================
+   ESTRUTURA GERAL E PLANO DE FUNDO
+   =================================================== */
+body {
+    background-color: var(--bg-deep);
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(120, 50, 180, 0.35) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(212, 175, 55, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 15% 70%, rgba(13, 92, 45, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 100%, rgba(139, 0, 0, 0.25) 0%, transparent 60%);
+    background-attachment: fixed;
+    color: #e2d9c8;
+    font-family: 'Fauna One', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Neblina sutil em camadas */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: url('https://raw.githubusercontent.com/daniel-hug/fog-effect/master/fog-1.png') repeat-x;
+    background-size: 55% 100%;
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+    animation: moverNeblina 60s linear infinite;
+}
+
 #magicCanvas {
     position: fixed;
     top: 0;
@@ -49,60 +82,35 @@ html {
     z-index: 999;
 }
 
-/* ===================================================
-   BARRA DE ROLAGEM MÁGICA
-   =================================================== */
+/* Barra de rolagem */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
     background: var(--bg-deep);
-    border-left: 1px solid rgba(212, 175, 55, 0.2);
 }
 
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #180a29, var(--gold-primary), #180a29);
-    border-radius: 6px;
+    border-radius: 5px;
     border: 1px solid var(--gold-bright);
-    box-shadow: 0 0 10px var(--gold-glow);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--gold-primary);
-    box-shadow: 0 0 20px var(--gold-bright);
 }
 
 /* ===================================================
-   CORPO E PLANO DE FUNDO
-   =================================================== */
-body {
-    background-color: var(--bg-deep);
-    background-image: 
-        radial-gradient(circle at 50% 10%, var(--purple-magic), transparent 60%),
-        radial-gradient(circle at 85% 85%, rgba(212, 175, 55, 0.12), transparent 50%),
-        radial-gradient(circle at 15% 50%, rgba(13, 92, 45, 0.15), transparent 50%),
-        radial-gradient(circle at 50% 90%, rgba(139, 0, 0, 0.15), transparent 60%);
-    background-attachment: fixed;
-    color: #e2d9c8;
-    font-family: 'Fauna One', serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-/* ===================================================
-   CABEÇALHO COM VÍDEO BACKGROUND
+   CABEÇALHO CINEMATOGRÁFICO (ORGANIZAÇÃO EM FLEX)
    =================================================== */
 header {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    border-bottom: 2px solid var(--gold-primary);
-    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.95), 0 0 35px var(--gold-glow);
+    border-bottom: 3px solid var(--gold-primary);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 50px var(--gold-glow);
+    padding: 40px 20px;
 }
 
 .bg-video {
@@ -113,10 +121,11 @@ header {
     min-height: 100%;
     width: auto;
     height: auto;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(1.05);
     object-fit: cover;
     z-index: 1;
-    filter: brightness(45%) contrast(110%);
+    filter: brightness(40%) contrast(125%) saturate(120%) hue-rotate(-10deg);
+    animation: zoomCinematico 25s ease-in-out infinite alternate;
 }
 
 .header-overlay {
@@ -125,45 +134,66 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(5, 3, 10, 0.3) 0%, rgba(3, 2, 6, 0.85) 100%);
+    background: 
+        radial-gradient(ellipse at center, rgba(5, 3, 10, 0.2) 0%, rgba(2, 1, 5, 0.88) 85%),
+        linear-gradient(to bottom, rgba(5, 3, 10, 0.6) 0%, transparent 40%, rgba(3, 2, 6, 0.95) 100%);
     z-index: 2;
+    pointer-events: none;
+}
+
+.header-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 8px;
+    box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.15);
+    pointer-events: none;
 }
 
 .header-content {
     position: relative;
     z-index: 3;
     text-align: center;
-    padding: 0 20px;
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
 }
 
 header h1 {
     font-family: 'Cinzel Decorative', serif;
-    font-size: 5.8rem;
+    font-size: clamp(2.8rem, 8vw, 5.8rem);
     color: var(--gold-bright);
     text-transform: uppercase;
     letter-spacing: 6px;
-    text-shadow: 0 0 20px var(--gold-primary), 0 0 40px #8b0000;
-    animation: auraMagica 4s infinite alternate, flutuar 5s ease-in-out infinite;
+    line-height: 1.1;
+    text-shadow: 
+        0 0 10px var(--gold-bright),
+        0 0 25px var(--gold-primary),
+        0 0 50px rgba(120, 50, 180, 0.8);
+    animation: auraMagicaSuprema 3.5s infinite alternate, flutuar 6s ease-in-out infinite;
 }
 
 header p {
     font-family: 'MedievalSharp', cursive;
-    font-size: 1.7rem;
+    font-size: clamp(1.1rem, 2.5vw, 1.7rem);
     color: var(--gold-primary);
     text-shadow: 0 0 12px rgba(0, 0, 0, 0.9), 0 0 10px var(--gold-glow);
-    margin-top: 15px;
 }
 
-/* Botão de Controle de Áudio */
 .audio-control {
-    margin-top: 25px;
+    margin-top: 10px;
 }
 
 .btn-magic {
     background: rgba(15, 10, 25, 0.85);
     color: var(--gold-bright);
     border: 2px solid var(--gold-primary);
-    padding: 12px 26px;
+    padding: 12px 28px;
     font-family: 'Cinzel', serif;
     font-size: 1rem;
     font-weight: 700;
@@ -178,18 +208,18 @@ header p {
     background: var(--gold-primary);
     color: #030206;
     box-shadow: 0 0 25px var(--gold-bright), 0 0 40px var(--gold-primary);
-    transform: scale(1.08);
+    transform: scale(1.05);
 }
 
-/* Navegação Lumos */
 nav {
-    margin-top: 35px;
+    margin-top: 15px;
+    width: 100%;
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -198,48 +228,50 @@ nav a {
     color: var(--gold-bright);
     text-decoration: none;
     font-family: 'Cinzel', serif;
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 700;
-    padding: 12px 24px;
+    padding: 10px 20px;
     border: 1px solid var(--gold-primary);
     border-radius: 8px;
     background: rgba(10, 6, 20, 0.85);
     backdrop-filter: blur(10px);
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
     display: inline-block;
 }
 
 nav a:hover {
     color: #030206;
     background: var(--gold-primary);
-    box-shadow: 0 0 25px var(--gold-bright);
-    transform: translateY(-5px);
+    box-shadow: 0 0 20px var(--gold-bright);
+    transform: translateY(-3px);
 }
 
 /* ===================================================
-   CONTEÚDO PRINCIPAL E SEÇÕES
+   CONTEÚDO PRINCIPAL & SEÇÕES
    =================================================== */
 main {
+    position: relative;
+    z-index: 2;
     max-width: 1350px;
     margin: 0 auto;
-    padding: 90px 20px;
+    padding: 80px 20px;
 }
 
 section {
-    margin-bottom: 140px;
+    margin-bottom: 120px;
 }
 
 h2 {
     font-family: 'Cinzel Decorative', serif;
     color: var(--gold-bright);
     text-align: center;
-    font-size: 3.2rem;
-    margin-bottom: 55px;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    margin-bottom: 50px;
     text-shadow: 0 0 20px var(--gold-glow);
 }
 
 /* ===================================================
-   SEÇÃO JORNAL "O PROFETA DIÁRIO"
+   JORNAL O PROFETA DIÁRIO
    =================================================== */
 .secao-jornal {
     background: linear-gradient(135deg, var(--jornal-bg) 0%, var(--jornal-bg-dark) 100%);
@@ -248,7 +280,6 @@ h2 {
     border-radius: 6px;
     padding: 45px 35px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), inset 0 0 30px rgba(0, 0, 0, 0.2);
-    position: relative;
 }
 
 .jornal-header {
@@ -267,7 +298,7 @@ h2 {
 
 .jornal-titulo {
     font-family: 'UnifrakturMaguntia', cursive;
-    font-size: 5.5rem;
+    font-size: clamp(3rem, 8vw, 5.5rem);
     color: var(--jornal-ink);
     margin: 10px 0;
     text-shadow: 2px 2px 0px rgba(0,0,0,0.15);
@@ -282,7 +313,7 @@ h2 {
 
 .jornal-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
 }
 
@@ -298,7 +329,7 @@ h2 {
 
 .noticia-conteudo h3 {
     font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 800;
     margin-top: 15px;
     margin-bottom: 10px;
@@ -319,7 +350,6 @@ h2 {
     color: #22180f;
 }
 
-/* Frames das Notícias com Efeito Mágico */
 .moldura-magica-video, .moldura-magica {
     position: relative;
     border: 3px solid var(--jornal-border);
@@ -336,7 +366,7 @@ h2 {
 
 .video-magico {
     width: 100%;
-    height: 280px;
+    height: 240px;
     object-fit: cover;
     filter: sepia(50%) contrast(120%) brightness(90%);
     transition: filter 0.5s ease;
@@ -371,12 +401,12 @@ h2 {
 }
 
 /* ===================================================
-   CARDS 3D DE CASAS E PERSONAGENS
+   GRID DE CARDS 3D
    =================================================== */
 .grid-3d {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    gap: 35px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
     perspective: 1000px;
 }
 
@@ -388,31 +418,24 @@ h2 {
     text-align: center;
     backdrop-filter: blur(12px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
-    transition: transform 0.1s linear, box-shadow 0.4s ease, border-color 0.4s ease;
+    transition: transform 0.2s ease-out, box-shadow 0.4s ease, border-color 0.4s ease;
     transform-style: preserve-3d;
 }
 
 .personagem-foto, .video-frame-p img {
     width: 100%;
-    height: 250px;
+    height: 240px;
     object-fit: cover;
     border-radius: 12px;
     border: 2px solid var(--gold-primary);
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9);
     cursor: pointer;
-    transition: transform 0.4s ease;
-}
-
-.video-frame-p {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
 }
 
 .casa-card h3 {
     font-family: 'Cinzel', serif;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     margin-bottom: 12px;
     color: var(--gold-bright);
 }
@@ -424,7 +447,6 @@ h2 {
     margin-bottom: 8px;
 }
 
-/* HOVER DAS CASAS */
 .grifinoria:hover {
     border-color: var(--gryff-gold);
     box-shadow: 0 15px 40px rgba(139, 0, 0, 0.85), 0 0 30px var(--gryff-gold);
@@ -450,13 +472,13 @@ h2 {
    =================================================== */
 .galeria-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
 }
 
 .galeria-item {
     position: relative;
-    height: 260px;
+    height: 250px;
     border-radius: 14px;
     overflow: hidden;
     border: 2px solid var(--gold-primary);
@@ -468,25 +490,25 @@ h2 {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
+    transition: transform 0.5s ease;
 }
 
 .galeria-hover {
     position: absolute;
     inset: 0;
-    background: rgba(5, 3, 10, 0.75);
+    background: rgba(5, 3, 10, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: 'Cinzel', serif;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: var(--gold-bright);
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.3s ease;
 }
 
 .galeria-item:hover video, .galeria-item:hover img {
-    transform: scale(1.12);
+    transform: scale(1.1);
 }
 
 .galeria-item:hover .galeria-hover {
@@ -500,7 +522,7 @@ h2 {
     background: linear-gradient(145deg, #160e24 0%, #06040c 100%);
     border: 2px solid var(--gold-primary);
     border-radius: 16px;
-    padding: 40px;
+    padding: 35px;
     box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.95), 0 0 30px rgba(212, 175, 55, 0.25);
 }
 
@@ -508,27 +530,30 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 22px 18px;
+    padding: 20px 15px;
     border-bottom: 1px dashed rgba(212, 175, 55, 0.35);
+    gap: 20px;
     transition: all 0.3s ease;
 }
 
 .feitico-item:hover {
-    background: rgba(212, 175, 55, 0.12);
-    padding-left: 32px;
+    background: rgba(212, 175, 55, 0.1);
+    padding-left: 25px;
 }
 
 .nome-feitico {
     font-family: 'Cinzel', serif;
     color: var(--gold-bright);
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .efeito-feitico {
     color: #cbbba1;
     font-style: italic;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    text-align: right;
 }
 
 /* ===================================================
@@ -550,12 +575,12 @@ h2 {
 
 .lightbox-close {
     position: absolute;
-    top: 30px;
-    right: 45px;
-    font-size: 3.5rem;
+    top: 25px;
+    right: 35px;
+    font-size: 3rem;
     color: var(--gold-bright);
     cursor: pointer;
-    transition: color 0.3s;
+    z-index: 10001;
 }
 
 .lightbox-close:hover {
@@ -563,16 +588,19 @@ h2 {
 }
 
 .lightbox-body {
-    max-width: 85%;
-    max-height: 85%;
+    max-width: 90%;
+    max-height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .lightbox-media {
     max-width: 100%;
     max-height: 80vh;
-    border: 3px solid var(--gold-primary);
-    border-radius: 12px;
-    box-shadow: 0 0 50px var(--gold-glow);
+    border: 2px solid var(--gold-primary);
+    border-radius: 10px;
+    box-shadow: 0 0 40px var(--gold-glow);
 }
 
 /* ===================================================
@@ -580,29 +608,74 @@ h2 {
    =================================================== */
 footer {
     text-align: center;
-    padding: 50px;
+    padding: 40px 20px;
     border-top: 2px solid rgba(212, 175, 55, 0.4);
     background: #020105;
     color: #a09280;
     font-family: 'MedievalSharp', cursive;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
+    position: relative;
+    z-index: 2;
 }
 
-@keyframes auraMagica {
-    0% { text-shadow: 0 0 12px var(--gold-primary), 0 0 25px rgba(139, 0, 0, 0.8); }
-    50% { text-shadow: 0 0 30px var(--gold-bright), 0 0 50px var(--gold-primary), 0 0 70px rgba(120, 50, 180, 0.9); }
-    100% { text-shadow: 0 0 18px var(--gold-primary), 0 0 35px rgba(13, 92, 45, 0.8); }
+@keyframes moverNeblina {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, -20px, 0); }
+}
+
+@keyframes zoomCinematico {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    100% { transform: translate(-50%, -50%) scale(1.12); }
+}
+
+@keyframes auraMagicaSuprema {
+    0% {
+        text-shadow: 0 0 10px var(--gold-bright), 0 0 20px var(--gold-primary), 0 0 40px rgba(139, 0, 0, 0.7);
+    }
+    50% {
+        text-shadow: 0 0 20px #ffffff, 0 0 35px var(--gold-bright), 0 0 60px rgba(120, 50, 180, 0.9);
+    }
+    100% {
+        text-shadow: 0 0 12px var(--gold-bright), 0 0 25px var(--gold-primary), 0 0 50px rgba(19, 56, 99, 0.9);
+    }
 }
 
 @keyframes flutuar {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-16px); }
+    50% { transform: translateY(-12px); }
 }
 
-/* RESPONSIVIDADE */
-@media (max-width: 992px) {
-    .jornal-grid { grid-template-columns: 1fr; }
-    .noticia-card { border-right: none; border-bottom: 1px solid rgba(59, 45, 29, 0.3); padding-bottom: 20px; padding-right: 0; }
-    header h1 { font-size: 3.5rem; }
-    .jornal-titulo { font-size: 3.8rem; }
+/* ===================================================
+   RESPONSIVIDADE (MOBILE & TABLET)
+   =================================================== */
+@media (max-width: 768px) {
+    .secao-jornal {
+        padding: 25px 15px;
+    }
+
+    .noticia-card {
+        border-right: none;
+        border-bottom: 1px solid rgba(59, 45, 29, 0.3);
+        padding-right: 0;
+        padding-bottom: 20px;
+    }
+
+    .feitico-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .efeito-feitico {
+        text-align: left;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav a {
+        width: 80%;
+        text-align: center;
+    }
 }
