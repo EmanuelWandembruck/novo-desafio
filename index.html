@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo Bruxo - Hogwarts</title>
+    <!-- Fonte temática estilo medieval/mágica -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;700&family=Fauna+One&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos Gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0d0a14;
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(59, 29, 92, 0.4), transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(184, 134, 11, 0.15), transparent 50%);
+            color: #e0d8c3;
+            font-family: 'Fauna One', serif;
+            min-height: 100vh;
+        }
+
+        /* Cabeçalho Imersivo com Imagem de Fundo */
+        header {
+            position: relative;
+            height: 70vh;
+            background: linear-gradient(to bottom, rgba(13, 10, 20, 0.3), #0d0a14),
+                        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-bottom: 2px solid #b8860b;
+            box-shadow: 0 0 25px rgba(184, 134, 11, 0.3);
+        }
+
+        header h1 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 3.5rem;
+            color: #f3e5ab;
+            text-shadow: 0 0 10px #b8860b, 0 0 20px #8b0000;
+            margin-bottom: 10px;
+            animation: brilhoMagico 4s infinite alternate;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            color: #d4af37;
+        }
+
+        /* Navegação */
+        nav {
+            margin-top: 30px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #f3e5ab;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 1px solid #b8860b;
+            border-radius: 4px;
+            background: rgba(13, 10, 20, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: #b8860b;
+            color: #0d0a14;
+            box-shadow: 0 0 15px #f3e5ab;
+            transform: translateY(-3px);
+        }
+
+        /* Conteúdo Principal */
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            color: #f3e5ab;
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+            border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+            padding-bottom: 10px;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        /* Cards das Casas */
+        .grid-casas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .casa-card {
+            background: rgba(25, 20, 35, 0.8);
+            border: 1px solid #4a3b5c;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .casa-card:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Cores Temáticas no Hover das Casas */
+        .grifinoria:hover { border-color: #740001; box-shadow: 0 0 20px #740001; }
+        .sonserina:hover { border-color: #1a472a; box-shadow: 0 0 20px #1a472a; }
+        .corvinal:hover { border-color: #0e1a40; box-shadow: 0 0 20px #222f5b; }
+        .lufa-lufa:hover { border-color: #ecb939; box-shadow: 0 0 20px #ecb939; }
+
+        .casa-card h3 {
+            font-family: 'Cinzel', serif;
+            margin-bottom: 10px;
+            color: #f3e5ab;
+        }
+
+        /* Tabela / Lista de Feitiços com Visual de Pergaminho */
+        .feiticos-container {
+            background: #191423;
+            border: 1px solid #b8860b;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .feitico-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(184, 134, 11, 0.3);
+        }
+
+        .feitico-item:last-child {
+            border-bottom: none;
+        }
+
+        .nome-feitico {
+            font-family: 'Cinzel', serif;
+            color: #d4af37;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .efeito-feitico {
+            color: #c0b7a2;
+            font-style: italic;
+        }
+
+        /* Animações */
+        @keyframes brilhoMagico {
+            0% {
+                text-shadow: 0 0 10px #b8860b, 0 0 20px #8b0000;
+            }
+            100% {
+                text-shadow: 0 0 20px #f3e5ab, 0 0 35px #d4af37, 0 0 10px #ffffff;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid rgba(184, 134, 11, 0.3);
+            color: #8c8275;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Mundo Bruxo</h1>
+        <p>Bem-vindo à Escola de Magia e Bruxaria de Hogwarts</p>
+        <nav>
+            <ul>
+                <li><a href="#casas">Casas</a></li>
+                <li><a href="#feiticos">Feitiços</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="casas">
+            <h2>As Quatro Casas</h2>
+            <div class="grid-casas">
+                <div class="casa-card grifinoria">
+                    <h3>Grifinória</h3>
+                    <p>Coragem, bravura e determinação.</p>
+                </div>
+                <div class="casa-card sonserina">
+                    <h3>Sonserina</h3>
+                    <p>Ambição, astúcia e liderança.</p>
+                </div>
+                <div class="casa-card corvinal">
+                    <h3>Corvinal</h3>
+                    <p>Sabedoria, inteligência e criatividade.</p>
+                </div>
+                <div class="casa-card lufa-lufa">
+                    <h3>Lufa-Lufa</h3>
+                    <p>Lealdade, dedicação e paciência.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="feiticos">
+            <h2>Livro de Feitiços</h2>
+            <div class="feiticos-container">
+                <div class="feitico-item">
+                    <span class="nome-feitico">Lumos</span>
+                    <span class="efeito-feitico">Cria uma luz na ponta da varinha</span>
+                </div>
+                <div class="feitico-item">
+                    <span class="nome-feitico">Expelliarmus</span>
+                    <span class="efeito-feitico">Desarma o oponente</span>
+                </div>
+                <div class="feitico-item">
+                    <span class="nome-feitico">Expecto Patronum</span>
+                    <span class="efeito-feitico">Conjura um Patrono para afastar Dementadores</span>
+                </div>
+                <div class="feitico-item">
+                    <span class="nome-feitico">Wingardium Leviosa</span>
+                    <span class="efeito-feitico">Faz objetos flutuarem</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Malfeito feito • Site temático de fã</p>
+    </footer>
+
+</body>
+</html>
