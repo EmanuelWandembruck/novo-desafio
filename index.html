@@ -11,10 +11,10 @@
     <!-- Partículas Mágicas (Interatividade com Cursor) -->
     <canvas id="magicCanvas"></canvas>
 
-    <!-- Áudio de Fundo Mágico -->
+    <!-- Áudio de Fundo Mágico (Com a música Hedwig's Theme) -->
     <audio id="bgAudio" loop preload="auto">
+        <source src="https://ia800508.us.archive.org/17/items/harry-potter-theme-song/Harry_Potter_Theme_Song.mp3" type="audio/mpeg">
         <source src="hedwigs-theme.mp3" type="audio/mpeg">
-        <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Modal Lightbox (Ampliação de Mídia) -->
@@ -220,13 +220,13 @@
         <p>"Malfeito feito" — O Profeta Diário &copy; Todos os direitos reservados à comunidade bruxa.</p>
     </footer>
 
-    <!-- SCRIPT DE INTERATIVIDADE CORRIGIDO -->
+    <!-- SCRIPT DE INTERATIVIDADE -->
     <script>
         const audio = document.getElementById('bgAudio');
         const audioBtn = document.getElementById('audioBtn');
         let isPlaying = false;
 
-        // Toca as notas principais do Hedwig's Theme via sintetizador caso nenhum arquivo MP3 funcione
+        // Melodia de sintetizador reserva caso o navegador não consiga carregar o áudio externo
         function playHedwigsThemeSynth() {
             const AudioCtx = window.AudioContext || window.webkitAudioContext;
             if (!AudioCtx) return;
