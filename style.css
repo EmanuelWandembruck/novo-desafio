@@ -1,0 +1,329 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;700&family=Fauna+One&family=MedievalSharp&display=swap');
+
+/* ===================================================
+   VARIÁVEIS E CONFIGURAÇÕES GERAIS
+   =================================================== */
+:root {
+    --bg-dark: #0a0812;
+    --bg-card: rgba(22, 16, 34, 0.85);
+    --gold-primary: #d4af37;
+    --gold-bright: #f3e5ab;
+    --gold-glow: rgba(212, 175, 55, 0.6);
+    
+    /* Cores das Casas de Hogwarts */
+    --griffin-red: #740001;
+    --griffin-gold: #eeba30;
+    --slyth-green: #1a472a;
+    --slyth-silver: #aaaaaa;
+    --raven-blue: #0e1a40;
+    --raven-bronze: #946b2d;
+    --huff-yellow: #ecb939;
+    --huff-black: #372e29;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Barra de Rolagem Temática */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: #2a183d;
+    border: 1px solid var(--gold-primary);
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-primary);
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(circle at 50% 15%, rgba(88, 41, 138, 0.35), transparent 70%),
+        radial-gradient(circle at 85% 85%, rgba(212, 175, 55, 0.08), transparent 50%),
+        radial-gradient(circle at 15% 65%, rgba(26, 71, 42, 0.12), transparent 50%);
+    color: #e0d8c3;
+    font-family: 'Fauna One', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ===================================================
+   CABEÇALHO E BANNER IMERSIVO
+   =================================================== */
+header {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(to bottom, rgba(10, 8, 18, 0.4), var(--bg-dark)),
+                url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    border-bottom: 2px solid var(--gold-primary);
+    box-shadow: 0 0 35px rgba(184, 134, 11, 0.4);
+}
+
+header h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 4rem;
+    color: var(--gold-bright);
+    letter-spacing: 3px;
+    animation: brilhoMagico 3.5s infinite alternate, levitar 4s ease-in-out infinite;
+}
+
+header p {
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1.4rem;
+    color: var(--gold-primary);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+    margin-top: 15px;
+}
+
+/* ===================================================
+   NAVEGAÇÃO COM EFEITO "LUMOS"
+   =================================================== */
+nav {
+    margin-top: 40px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    position: relative;
+    color: var(--gold-bright);
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    font-weight: bold;
+    padding: 12px 26px;
+    border: 1px solid var(--gold-primary);
+    border-radius: 4px;
+    background: rgba(10, 8, 18, 0.85);
+    transition: all 0.4s ease;
+    overflow: hidden;
+}
+
+nav a::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(212, 175, 55, 0) 70%);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+    border-radius: 50%;
+}
+
+nav a:hover::before {
+    width: 250px;
+    height: 250px;
+}
+
+nav a:hover {
+    color: #0a0812;
+    background: var(--gold-primary);
+    box-shadow: 0 0 20px var(--gold-bright), 0 0 40px var(--gold-primary);
+    transform: translateY(-4px);
+}
+
+/* ===================================================
+   CONTEÚDO PRINCIPAL E SEÇÕES
+   =================================================== */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+section {
+    margin-bottom: 80px;
+}
+
+h2 {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-bright);
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 40px;
+    text-shadow: 0 0 12px var(--gold-glow);
+    position: relative;
+}
+
+h2::after {
+    content: '⚡';
+    display: block;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: var(--gold-primary);
+    animation: brilhoMagico 2s infinite alternate;
+}
+
+/* ===================================================
+   CARDS INTERATIVOS DAS CASAS
+   =================================================== */
+.grid-casas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.casa-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    backdrop-filter: blur(6px);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease, border-color 0.5s ease;
+}
+
+.casa-card h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+}
+
+/* Efeito Glow específico por Casa */
+.grifinoria:hover {
+    transform: translateY(-10px) scale(1.03);
+    border-color: var(--griffin-gold);
+    box-shadow: 0 10px 30px rgba(116, 0, 1, 0.8), 0 0 20px var(--griffin-gold);
+}
+.grifinoria h3 { color: var(--griffin-gold); }
+
+.sonserina:hover {
+    transform: translateY(-10px) scale(1.03);
+    border-color: var(--slyth-silver);
+    box-shadow: 0 10px 30px rgba(26, 71, 42, 0.9), 0 0 20px var(--slyth-silver);
+}
+.sonserina h3 { color: #2ecc71; }
+
+.corvinal:hover {
+    transform: translateY(-10px) scale(1.03);
+    border-color: var(--raven-bronze);
+    box-shadow: 0 10px 30px rgba(14, 26, 64, 0.9), 0 0 20px var(--raven-bronze);
+}
+.corvinal h3 { color: #3498db; }
+
+.lufa-lufa:hover {
+    transform: translateY(-10px) scale(1.03);
+    border-color: var(--huff-yellow);
+    box-shadow: 0 10px 30px rgba(236, 185, 57, 0.7), 0 0 20px var(--huff-yellow);
+}
+.lufa-lufa h3 { color: var(--huff-yellow); }
+
+/* ===================================================
+   LIVRO DE FEITIÇOS (ESTILO PERGAMINHO ESCURO)
+   =================================================== */
+.feiticos-container {
+    background: linear-gradient(135deg, #1c162b 0%, #120e1d 100%);
+    border: 2px solid var(--gold-primary);
+    border-radius: 12px;
+    padding: 35px;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.feitico-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 15px;
+    border-bottom: 1px dashed rgba(212, 175, 55, 0.3);
+    transition: background 0.3s ease, padding-left 0.3s ease;
+}
+
+.feitico-item:hover {
+    background: rgba(212, 175, 55, 0.1);
+    padding-left: 25px;
+}
+
+.feitico-item:last-child {
+    border-bottom: none;
+}
+
+.nome-feitico {
+    font-family: 'Cinzel', serif;
+    color: var(--gold-bright);
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-shadow: 0 0 6px var(--gold-glow);
+}
+
+.efeito-feitico {
+    color: #bfae93;
+    font-style: italic;
+    font-size: 1rem;
+}
+
+/* ===================================================
+   RODAPÉ
+   =================================================== */
+footer {
+    text-align: center;
+    padding: 35px;
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    background: #050408;
+    color: #8c8275;
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1.1rem;
+}
+
+/* ===================================================
+   ANIMAÇÕES CSS
+   =================================================== */
+@keyframes brilhoMagico {
+    0% {
+        text-shadow: 0 0 10px var(--gold-primary), 0 0 20px rgba(139, 0, 0, 0.6);
+    }
+    100% {
+        text-shadow: 0 0 25px var(--gold-bright), 0 0 45px var(--gold-primary), 0 0 15px #ffffff;
+    }
+}
+
+@keyframes levitar {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+/* ===================================================
+   RESPONSIVIDADE
+   =================================================== */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .feitico-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
