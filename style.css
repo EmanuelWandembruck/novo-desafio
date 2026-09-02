@@ -10,32 +10,33 @@
     --gold-bright: #fff3c4;
     --gold-dark: #8a6d1c;
     --gold-glow: rgba(212, 175, 55, 0.7);
-    --purple-magic: rgba(147, 51, 234, 0.45);
-    --cyan-spell: rgba(56, 189, 248, 0.5);
-    
-    /* Jornal O Profeta Diário - Papel Envelhecido Premium */
+    --purple-magic: rgba(147, 51, 234, 0.55);
+    --cyan-spell: rgba(56, 189, 248, 0.6);
+    --red-spell: rgba(220, 38, 38, 0.6);
+
+    /* Jornal O Profeta Diário */
     --jornal-bg: #e6d5b8;
     --jornal-bg-dark: #bc9e73;
     --jornal-ink: #120d09;
     --jornal-border: #2a1c0e;
     --jornal-accent: #781c1c;
 
-    /* Casas de Hogwarts - Gradientes e Sombras Dinâmicas */
+    /* Casas de Hogwarts */
     --gryff-red: #8b0000;
     --gryff-gold: #ffc83b;
-    --gryff-glow: rgba(218, 165, 32, 0.8);
+    --gryff-glow: rgba(218, 165, 32, 0.9);
 
     --slyth-green: #0a4d25;
     --slyth-silver: #e2e8f0;
-    --slyth-glow: rgba(16, 185, 129, 0.8);
+    --slyth-glow: rgba(16, 185, 129, 0.9);
 
     --raven-blue: #0f2b48;
     --raven-bronze: #cd7f32;
-    --raven-glow: rgba(56, 189, 248, 0.8);
+    --raven-glow: rgba(56, 189, 248, 0.9);
 
     --huff-yellow: #eab308;
     --huff-dark: #1c1917;
-    --huff-glow: rgba(250, 204, 21, 0.8);
+    --huff-glow: rgba(250, 204, 21, 0.9);
 }
 
 *, *::before, *::after {
@@ -44,23 +45,24 @@
     box-sizing: border-box;
 }
 
-html {
+/* Cursor Customizado de Varinha Mágica */
+html, body, a, button, input {
+    cursor: url('https://cur.cursors-4u.net/user/use-1/use153.cur'), auto !important;
     scroll-behavior: smooth;
     color-scheme: dark;
 }
 
 /* ===================================================
-   PLANO DE FUNDO ATMOSFÉRICO E POEIRA MÁGICA
+   PLANO DE FUNDO ATMOSFÉRICO, CASTELO E POEIRA MÁGICA
    =================================================== */
 body {
     background-color: var(--bg-deep);
     background-image: 
-        radial-gradient(circle at 50% 0%, rgba(147, 51, 234, 0.4) 0%, transparent 60%),
-        radial-gradient(circle at 85% 25%, rgba(212, 175, 55, 0.2) 0%, transparent 50%),
-        radial-gradient(circle at 15% 75%, rgba(10, 77, 37, 0.25) 0%, transparent 55%),
-        radial-gradient(circle at 50% 100%, rgba(139, 0, 0, 0.3) 0%, transparent 70%),
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.01) 2px, rgba(255, 255, 255, 0.01) 4px);
+        linear-gradient(to bottom, rgba(2, 1, 5, 0.65), rgba(2, 1, 5, 0.95)),
+        url('https://images.unsplash.com/photo-1547756536-cde3673fa2e5?q=80&w=1920&auto=format&fit=crop'); /* Imagem do Castelo Estilo Hogwarts */
     background-attachment: fixed;
+    background-position: center top;
+    background-size: cover;
     color: #ebdcc4;
     font-family: 'Fauna One', serif;
     min-height: 100vh;
@@ -70,14 +72,13 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Seleção de Texto Estilizada */
 ::selection {
     background: var(--gold-primary);
     color: var(--bg-deep);
-    text-shadow: none;
+    text-shadow: 0 0 10px var(--gold-bright);
 }
 
-/* Camada Dupla de Neblina e Partículas Ambientais */
+/* Neblina Dupla e Partículas de Luz */
 body::before {
     content: '';
     position: fixed;
@@ -87,58 +88,87 @@ body::before {
     height: 100%;
     background: url('https://raw.githubusercontent.com/daniel-hug/fog-effect/master/fog-1.png') repeat-x;
     background-size: 50% 100%;
-    opacity: 0.18;
+    opacity: 0.25;
     z-index: 0;
     pointer-events: none;
     will-change: transform;
-    animation: moverNeblina 45s linear infinite;
+    animation: moverNeblina 40s linear infinite;
 }
 
 body::after {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: radial-gradient(rgba(255, 243, 196, 0.15) 1px, transparent 0);
-    background-size: 40px 40px;
+    background-image: 
+        radial-gradient(rgba(255, 243, 196, 0.3) 1px, transparent 1px),
+        radial-gradient(rgba(147, 51, 234, 0.3) 1.5px, transparent 1.5px);
+    background-size: 50px 50px, 90px 90px;
+    background-position: 0 0, 25px 25px;
     z-index: 0;
     pointer-events: none;
-    animation: poeiraEstelar 20s ease-in-out infinite alternate;
+    animation: poeiraEstelar 15s ease-in-out infinite alternate;
 }
 
-#magicCanvas {
+/* Orbes de Luz Mágica Flutuantes no Fundo */
+.orb-magica {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    border-radius: 50%;
+    filter: blur(80px);
     pointer-events: none;
-    z-index: 9999;
+    z-index: 1;
+    animation: orbitaFlutuante 12s ease-in-out infinite alternate;
 }
 
-/* Barra de Rolagem Encantada */
+.orb-1 {
+    top: 10%;
+    left: 15%;
+    width: 320px;
+    height: 320px;
+    background: var(--purple-magic);
+}
+
+.orb-2 {
+    top: 60%;
+    right: 10%;
+    width: 400px;
+    height: 400px;
+    background: var(--gold-glow);
+    animation-delay: -5s;
+}
+
+.orb-3 {
+    bottom: 5%;
+    left: 20%;
+    width: 350px;
+    height: 350px;
+    background: var(--cyan-spell);
+    animation-delay: -8s;
+}
+
+/* Barra de Rolagem */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 14px;
 }
 
 ::-webkit-scrollbar-track {
     background: var(--bg-deep);
-    border-left: 1px solid rgba(212, 175, 55, 0.2);
+    border-left: 1px solid var(--gold-dark);
 }
 
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, var(--gold-dark), var(--gold-bright), var(--gold-dark));
-    border-radius: 6px;
-    border: 2px solid var(--bg-deep);
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    border: 3px solid var(--bg-deep);
+    box-shadow: 0 0 15px var(--gold-glow);
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--gold-bright);
-    box-shadow: 0 0 12px var(--gold-glow);
+    box-shadow: 0 0 25px var(--gold-bright), 0 0 40px var(--gold-primary);
 }
 
 /* ===================================================
-   CABEÇALHO MONUMENTAL E INTERATIVO
+   CABEÇALHO MONUMENTAL COM EFEITO CASTELO & RAIO
    =================================================== */
 header {
     position: relative;
@@ -148,48 +178,45 @@ header {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    border-bottom: 3px solid var(--gold-primary);
-    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.95), 0 0 60px var(--gold-glow);
+    border-bottom: 4px solid var(--gold-primary);
+    box-shadow: 0 20px 100px rgba(0, 0, 0, 0.95), 0 0 80px var(--gold-glow);
     padding: 60px 20px;
 }
 
-.bg-video {
+.header-hero-bg {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    transform: translate(-50%, -50%) scale(1.05);
-    object-fit: cover;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(40%) contrast(140%) saturate(120%);
     z-index: 1;
-    filter: brightness(35%) contrast(135%) saturate(125%) hue-rotate(-10deg);
-    will-change: transform;
-    animation: zoomCinematico 20s ease-in-out infinite alternate;
+    transform: scale(1.05);
+    animation: zoomCinematico 25s ease-in-out infinite alternate;
 }
 
 .header-overlay {
     position: absolute;
     inset: 0;
     background: 
-        radial-gradient(ellipse at center, rgba(5, 3, 10, 0.1) 0%, rgba(2, 1, 5, 0.92) 85%),
-        linear-gradient(to bottom, rgba(5, 3, 10, 0.7) 0%, transparent 40%, rgba(2, 1, 5, 0.98) 100%);
+        radial-gradient(ellipse at center, rgba(5, 3, 10, 0.2) 0%, rgba(2, 1, 5, 0.95) 85%),
+        linear-gradient(to bottom, rgba(5, 3, 10, 0.6) 0%, transparent 40%, rgba(2, 1, 5, 0.98) 100%);
     z-index: 2;
     pointer-events: none;
 }
 
-/* Moldura Ornamental Dourada */
+/* Moldura Ornamental Dourada Dupla com Pulso de Energia */
 .header-overlay::after {
     content: '';
     position: absolute;
-    inset: 25px;
+    inset: 20px;
     border: 2px solid var(--gold-primary);
-    border-radius: 12px;
-    box-shadow: inset 0 0 35px var(--gold-glow), 0 0 25px rgba(212, 175, 55, 0.3);
+    border-radius: 16px;
+    box-shadow: inset 0 0 40px var(--gold-glow), 0 0 35px var(--gold-glow);
     pointer-events: none;
-    outline: 1px solid rgba(255, 255, 255, 0.1);
-    outline-offset: -8px;
+    outline: 2px dashed var(--gold-bright);
+    outline-offset: -12px;
+    animation: bordaPulsante 4s ease-in-out infinite alternate;
 }
 
 .header-content {
@@ -207,78 +234,79 @@ header {
 
 header h1 {
     font-family: 'Cinzel Decorative', serif;
-    font-size: clamp(3rem, 9vw, 6.5rem);
-    background: linear-gradient(135deg, #ffffff 0%, var(--gold-bright) 30%, var(--gold-primary) 70%, var(--gold-dark) 100%);
+    font-size: clamp(3.2rem, 9vw, 6.8rem);
+    background: linear-gradient(135deg, #ffffff 0%, var(--gold-bright) 25%, var(--gold-primary) 65%, var(--gold-dark) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-transform: uppercase;
-    letter-spacing: 8px;
+    letter-spacing: 10px;
     line-height: 1.05;
     position: relative;
-    filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.8));
+    filter: drop-shadow(0 0 35px rgba(212, 175, 55, 0.9));
     animation: auraMagicaSuprema 4s infinite alternate, flutuar 5s ease-in-out infinite;
 }
 
 header p {
     font-family: 'Pinyon Script', cursive;
-    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-size: clamp(2rem, 4.5vw, 3.4rem);
     color: var(--gold-bright);
-    text-shadow: 0 0 15px rgba(0, 0, 0, 0.9), 0 0 20px var(--gold-glow);
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.9), 0 0 30px var(--gold-glow);
     margin-top: -10px;
 }
 
-/* Botões Estilizados e Efeito de Varredura Dourada */
+/* Botões Mágicos Com Efeito de Varredura e Luz Intensa */
 .btn-magic {
     position: relative;
-    background: linear-gradient(135deg, rgba(20, 12, 35, 0.9) 0%, rgba(5, 3, 10, 0.95) 100%);
+    background: linear-gradient(135deg, rgba(25, 15, 45, 0.95) 0%, rgba(5, 3, 10, 0.98) 100%);
     color: var(--gold-bright);
     border: 2px solid var(--gold-primary);
-    padding: 14px 36px;
+    padding: 16px 42px;
     font-family: 'Cinzel', serif;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     font-weight: 800;
-    letter-spacing: 2px;
-    border-radius: 40px;
+    letter-spacing: 3px;
+    border-radius: 50px;
     cursor: pointer;
     backdrop-filter: blur(12px);
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset 0 0 15px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.25);
 }
 
 .btn-magic::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: -50%;
     left: -100%;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 243, 196, 0.6), transparent);
-    transition: left 0.6s ease;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255, 243, 196, 0.8), transparent);
+    transform: rotate(25deg);
+    transition: left 0.7s ease;
 }
 
 .btn-magic:hover::before {
-    left: 100%;
+    left: 120%;
 }
 
-.btn-magic:hover, .btn-magic.active {
+.btn-magic:hover {
     background: var(--gold-primary);
     color: #030206;
-    box-shadow: 0 0 35px var(--gold-bright), 0 0 60px var(--gold-primary);
-    transform: scale(1.08) translateY(-3px);
+    box-shadow: 0 0 45px var(--gold-bright), 0 0 80px var(--gold-primary);
+    transform: scale(1.1) translateY(-4px);
     border-color: #ffffff;
 }
 
 /* Navegação Encantada */
 nav {
-    margin-top: 25px;
+    margin-top: 30px;
     width: 100%;
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 22px;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -288,16 +316,17 @@ nav a {
     color: var(--gold-bright);
     text-decoration: none;
     font-family: 'Cinzel', serif;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    padding: 12px 24px;
-    border: 1px solid var(--gold-primary);
-    border-radius: 8px;
-    background: rgba(12, 8, 22, 0.85);
-    backdrop-filter: blur(10px);
+    padding: 14px 28px;
+    border: 1.5px solid var(--gold-primary);
+    border-radius: 12px;
+    background: rgba(12, 8, 22, 0.88);
+    backdrop-filter: blur(12px);
     transition: all 0.4s ease;
     overflow: hidden;
     display: inline-block;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
 nav a::after {
@@ -307,17 +336,17 @@ nav a::after {
     left: 50%;
     width: 0%;
     height: 3px;
-    background: var(--gold-bright);
-    transition: all 0.3s ease;
+    background: linear-gradient(90deg, var(--gold-primary), var(--gold-bright));
+    transition: all 0.4s ease;
     transform: translateX(-50%);
-    box-shadow: 0 0 10px var(--gold-bright);
+    box-shadow: 0 0 15px var(--gold-bright);
 }
 
 nav a:hover {
     color: #030206;
     background: var(--gold-primary);
-    box-shadow: 0 0 25px var(--gold-bright), 0 10px 20px rgba(0,0,0,0.5);
-    transform: translateY(-4px);
+    box-shadow: 0 0 35px var(--gold-bright), 0 12px 25px rgba(0,0,0,0.7);
+    transform: translateY(-5px);
 }
 
 nav a:hover::after {
@@ -332,11 +361,11 @@ main {
     z-index: 2;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 100px 24px;
+    padding: 120px 24px;
 }
 
 section {
-    margin-bottom: 140px;
+    margin-bottom: 160px;
     position: relative;
 }
 
@@ -344,93 +373,93 @@ h2 {
     font-family: 'Cinzel Decorative', serif;
     color: var(--gold-bright);
     text-align: center;
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
-    margin-bottom: 60px;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    margin-bottom: 70px;
     position: relative;
     display: table;
     margin-left: auto;
     margin-right: auto;
-    text-shadow: 0 0 25px var(--gold-glow);
+    text-shadow: 0 0 30px var(--gold-glow);
 }
 
 h2::before, h2::after {
-    content: '✦';
+    content: '⚡';
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     color: var(--gold-primary);
-    font-size: 1.8rem;
+    font-size: 2rem;
+    filter: drop-shadow(0 0 10px var(--gold-bright));
     animation: brilhoEstelar 2s infinite alternate;
 }
 
-h2::before { left: -45px; }
-h2::after { right: -45px; }
+h2::before { left: -55px; }
+h2::after { right: -55px; }
 
 /* ===================================================
    SEÇÃO O PROFETA DIÁRIO (AUTÊNTICO JORNAL BRUXO)
    =================================================== */
 .secao-jornal {
     background: 
-        radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.3) 100%),
+        radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%),
         linear-gradient(135deg, var(--jornal-bg) 0%, var(--jornal-bg-dark) 100%);
     color: var(--jornal-ink);
-    border: 10px double var(--jornal-border);
-    border-radius: 4px;
-    padding: 50px 40px;
-    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), inset 0 0 40px rgba(0, 0, 0, 0.3);
+    border: 12px double var(--jornal-border);
+    border-radius: 6px;
+    padding: 60px 45px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), inset 0 0 50px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
 }
 
-/* Marcas de Envelhecimento e Textura */
 .secao-jornal::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 2px, transparent 2px, transparent 4px);
+    background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 2px, transparent 2px, transparent 4px);
     pointer-events: none;
 }
 
 .jornal-header {
     text-align: center;
-    margin-bottom: 40px;
-    border-bottom: 3px double var(--jornal-border);
-    padding-bottom: 20px;
+    margin-bottom: 45px;
+    border-bottom: 4px double var(--jornal-border);
+    padding-bottom: 25px;
 }
 
 .jornal-edicao {
     font-family: 'Cinzel', serif;
     font-weight: 800;
-    font-size: 0.95rem;
+    font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     color: var(--jornal-accent);
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid var(--jornal-border);
-    padding-bottom: 5px;
-    margin-bottom: 15px;
+    padding-bottom: 6px;
+    margin-bottom: 18px;
 }
 
 .jornal-titulo {
     font-family: 'UnifrakturMaguntia', cursive;
-    font-size: clamp(3.5rem, 9vw, 6.5rem);
+    font-size: clamp(3.8rem, 10vw, 7rem);
     color: var(--jornal-ink);
     margin: 5px 0;
     line-height: 0.9;
-    text-shadow: 3px 3px 0px rgba(0,0,0,0.12);
+    text-shadow: 3px 3px 0px rgba(0,0,0,0.15);
     letter-spacing: -1px;
 }
 
 .jornal-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 40px;
+    gap: 45px;
 }
 
 .noticia-card {
-    border-right: 1px solid rgba(42, 28, 14, 0.3);
-    padding-right: 25px;
+    border-right: 1px solid rgba(42, 28, 14, 0.35);
+    padding-right: 30px;
 }
 
 .noticia-card:last-child {
@@ -440,19 +469,19 @@ h2::after { right: -45px; }
 
 .noticia-conteudo h3 {
     font-family: 'Cinzel', serif;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     font-weight: 900;
-    margin-top: 18px;
-    margin-bottom: 12px;
+    margin-top: 20px;
+    margin-bottom: 14px;
     color: var(--jornal-ink);
-    line-height: 1.2;
+    line-height: 1.25;
 }
 
 .noticia-conteudo h3::first-letter {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     float: left;
     line-height: 0.8;
-    margin-right: 6px;
+    margin-right: 8px;
     color: var(--jornal-accent);
     font-family: 'UnifrakturMaguntia', cursive;
 }
@@ -460,61 +489,61 @@ h2::after { right: -45px; }
 .noticia-conteudo .autor {
     font-style: italic;
     font-weight: 700;
-    font-size: 0.85rem;
-    margin-bottom: 12px;
+    font-size: 0.9rem;
+    margin-bottom: 14px;
     color: var(--jornal-accent);
     border-bottom: 1px dashed var(--jornal-border);
-    padding-bottom: 4px;
+    padding-bottom: 6px;
 }
 
 .noticia-conteudo p {
-    font-size: 1rem;
-    line-height: 1.65;
+    font-size: 1.05rem;
+    line-height: 1.7;
     color: #1a120b;
     text-align: justify;
 }
 
-/* Molduras Mágicas Douradas / Animação Fotográfica */
+/* Molduras Mágicas Douradas */
 .moldura-magica-video, .moldura-magica {
     position: relative;
     border: 4px solid var(--jornal-border);
     overflow: hidden;
     background: #000;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+    box-shadow: 6px 6px 20px rgba(0,0,0,0.6);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .moldura-magica-video:hover, .moldura-magica:hover {
-    transform: scale(1.03) rotate(-0.5deg);
-    box-shadow: 8px 12px 25px rgba(0,0,0,0.7);
+    transform: scale(1.04) rotate(-1deg);
+    box-shadow: 10px 15px 30px rgba(0,0,0,0.8);
 }
 
 .video-magico, .moldura-magica img {
     width: 100%;
-    height: 250px;
+    height: 260px;
     object-fit: cover;
-    filter: sepia(70%) contrast(130%) brightness(85%);
+    filter: sepia(75%) contrast(135%) brightness(85%);
     transition: filter 0.8s ease, transform 0.8s ease;
 }
 
 .moldura-magica-video:hover .video-magico, .moldura-magica:hover img {
-    filter: sepia(0%) contrast(105%) brightness(100%);
-    transform: scale(1.05);
+    filter: sepia(0%) contrast(110%) brightness(105%);
+    transform: scale(1.08);
 }
 
 .selo-magico {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    bottom: 12px;
+    right: 12px;
     background: var(--jornal-accent);
     color: var(--gold-bright);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: 800;
-    padding: 4px 12px;
-    border-radius: 3px;
+    padding: 5px 14px;
+    border-radius: 4px;
     font-family: 'Cinzel', serif;
-    letter-spacing: 1px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    letter-spacing: 1.5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.7);
 }
 
 /* ===================================================
@@ -523,98 +552,99 @@ h2::after { right: -45px; }
 .grid-3d {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 35px;
+    gap: 40px;
     perspective: 1200px;
 }
 
 .casa-card {
     position: relative;
     background: var(--bg-card);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 20px;
-    padding: 30px 24px;
+    border: 2px solid rgba(212, 175, 55, 0.35);
+    border-radius: 24px;
+    padding: 35px 26px;
     text-align: center;
-    backdrop-filter: blur(16px);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     transform-style: preserve-3d;
     overflow: hidden;
 }
 
-/* Efeito de Reflexo / Varredura de Luz nos Cards */
-.casa-card::before {
+/* Efeito Borda Brilhante Giratória */
+.casa-card::after {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-    opacity: 0;
+    inset: 0;
+    border-radius: 24px;
+    padding: 2px;
+    background: linear-gradient(135deg, transparent, var(--gold-bright), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.4;
     transition: opacity 0.5s ease;
-    pointer-events: none;
 }
 
-.casa-card:hover::before {
+.casa-card:hover::after {
     opacity: 1;
 }
 
 .personagem-foto, .video-frame-p img {
     width: 100%;
-    height: 260px;
+    height: 270px;
     object-fit: cover;
-    border-radius: 14px;
+    border-radius: 16px;
     border: 2px solid var(--gold-primary);
-    margin-bottom: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9);
+    margin-bottom: 22px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.95);
     transition: transform 0.5s ease, border-color 0.5s ease;
 }
 
 .casa-card:hover .personagem-foto {
-    transform: translateZ(20px) scale(1.02);
+    transform: translateZ(30px) scale(1.04);
 }
 
 .casa-card h3 {
-    font-family: 'Cinzel', serif;
-    font-size: 1.8rem;
-    margin-bottom: 12px;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.9rem;
+    margin-bottom: 14px;
     color: var(--gold-bright);
     transition: transform 0.3s ease;
 }
 
 .casa-card p {
-    font-size: 0.98rem;
-    line-height: 1.6;
-    color: #d8ccb8;
-    margin-bottom: 10px;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: #e0d4c0;
+    margin-bottom: 12px;
 }
 
-/* Estilização Individual das Casas de Hogwarts */
+/* Estilização Individual das Casas */
 .grifinoria:hover {
     border-color: var(--gryff-gold);
-    box-shadow: 0 20px 50px rgba(139, 0, 0, 0.8), 0 0 35px var(--gryff-glow);
-    transform: translateY(-12px) rotateX(4deg) rotateY(-2deg);
+    box-shadow: 0 25px 60px rgba(139, 0, 0, 0.95), 0 0 45px var(--gryff-glow);
+    transform: translateY(-15px) rotateX(6deg) rotateY(-3deg);
 }
 .grifinoria h3 { color: var(--gryff-gold); }
 
 .sonserina:hover {
     border-color: var(--slyth-silver);
-    box-shadow: 0 20px 50px rgba(10, 77, 37, 0.9), 0 0 35px var(--slyth-glow);
-    transform: translateY(-12px) rotateX(4deg) rotateY(2deg);
+    box-shadow: 0 25px 60px rgba(10, 77, 37, 0.95), 0 0 45px var(--slyth-glow);
+    transform: translateY(-15px) rotateX(6deg) rotateY(3deg);
 }
 .sonserina h3 { color: #82ecad; }
 
 .corvinal:hover {
     border-color: var(--raven-bronze);
-    box-shadow: 0 20px 50px rgba(15, 43, 72, 0.95), 0 0 35px var(--raven-glow);
-    transform: translateY(-12px) rotateX(-4deg) rotateY(-2deg);
+    box-shadow: 0 25px 60px rgba(15, 43, 72, 0.95), 0 0 45px var(--raven-glow);
+    transform: translateY(-15px) rotateX(-6deg) rotateY(-3deg);
 }
 .corvinal h3 { color: #80c2ff; }
 
 .lufa-lufa:hover {
     border-color: var(--huff-yellow);
-    box-shadow: 0 20px 50px rgba(234, 179, 8, 0.7), 0 0 35px var(--huff-glow);
-    transform: translateY(-12px) rotateX(-4deg) rotateY(2deg);
+    box-shadow: 0 25px 60px rgba(234, 179, 8, 0.85), 0 0 45px var(--huff-glow);
+    transform: translateY(-15px) rotateX(-6deg) rotateY(3deg);
 }
 .lufa-lufa h3 { color: var(--huff-yellow); }
 
@@ -623,18 +653,18 @@ h2::after { right: -45px; }
    =================================================== */
 .galeria-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
 }
 
 .galeria-item {
     position: relative;
-    height: 280px;
-    border-radius: 16px;
+    height: 300px;
+    border-radius: 20px;
     overflow: hidden;
     border: 2px solid var(--gold-primary);
     cursor: pointer;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.85);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
@@ -648,29 +678,29 @@ h2::after { right: -45px; }
 .galeria-hover {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle, rgba(147, 51, 234, 0.7) 0%, rgba(5, 3, 10, 0.9) 100%);
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.8) 0%, rgba(5, 3, 10, 0.95) 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: 'Cinzel', serif;
-    font-size: 1.4rem;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.5rem;
     font-weight: 700;
     color: var(--gold-bright);
     opacity: 0;
     transition: opacity 0.4s ease;
-    text-shadow: 0 0 15px var(--gold-bright);
+    text-shadow: 0 0 20px var(--gold-bright);
 }
 
 .galeria-item:hover {
-    transform: scale(1.04) translateY(-5px);
-    box-shadow: 0 20px 40px var(--purple-magic), 0 0 30px var(--gold-glow);
+    transform: scale(1.06) translateY(-8px);
+    box-shadow: 0 25px 50px var(--purple-magic), 0 0 40px var(--gold-glow);
     border-color: var(--gold-bright);
 }
 
 .galeria-item:hover video, .galeria-item:hover img {
-    transform: scale(1.15);
-    filter: brightness(110%);
+    transform: scale(1.18);
+    filter: brightness(115%);
 }
 
 .galeria-item:hover .galeria-hover {
@@ -681,11 +711,11 @@ h2::after { right: -45px; }
    GRIMÓRIO DE FEITIÇOS COM BRILHO DE VARINHA
    =================================================== */
 .feiticos-container {
-    background: linear-gradient(160deg, #180c2e 0%, #080412 100%);
+    background: linear-gradient(160deg, #1d0f38 0%, #090417 100%);
     border: 2px solid var(--gold-primary);
-    border-radius: 20px;
-    padding: 45px;
-    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.95), 0 0 40px var(--purple-magic);
+    border-radius: 24px;
+    padding: 55px;
+    box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.95), 0 0 50px var(--purple-magic);
     position: relative;
 }
 
@@ -693,21 +723,22 @@ h2::after { right: -45px; }
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 22px 20px;
-    border-bottom: 1px dashed rgba(212, 175, 55, 0.3);
+    padding: 24px 24px;
+    border-bottom: 1px dashed rgba(212, 175, 55, 0.35);
     gap: 20px;
     position: relative;
     transition: all 0.4s ease;
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
 .feitico-item::before {
     content: '🪄';
     position: absolute;
-    left: -10px;
+    left: -15px;
     opacity: 0;
     transition: all 0.3s ease;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    filter: drop-shadow(0 0 10px var(--gold-bright));
 }
 
 .feitico-item:last-child {
@@ -715,139 +746,81 @@ h2::after { right: -45px; }
 }
 
 .feitico-item:hover {
-    background: rgba(212, 175, 55, 0.12);
-    padding-left: 35px;
-    box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.15);
+    background: rgba(212, 175, 55, 0.16);
+    padding-left: 45px;
+    box-shadow: inset 0 0 25px rgba(212, 175, 55, 0.2);
 }
 
 .feitico-item:hover::before {
     opacity: 1;
-    left: 10px;
+    left: 15px;
 }
 
 .nome-feitico {
     font-family: 'Cinzel', serif;
     color: var(--gold-bright);
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 800;
-    letter-spacing: 1px;
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
 }
 
 .efeito-feitico {
-    color: #d1c2a5;
+    color: #ded0b8;
     font-style: italic;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     text-align: right;
 }
 
 /* ===================================================
-   MODAL LIGHTBOX CINEMATOGRÁFICO
+   KEYFRAMES E ANIMAÇÕES MÁGICAS
    =================================================== */
-.lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(2, 1, 5, 0.95);
-    backdrop-filter: blur(20px);
-    z-index: 10000;
-    justify-content: center;
-    align-items: center;
-    animation: fadeInModal 0.4s ease forwards;
-}
-
-.lightbox-close {
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    font-size: 3.5rem;
-    color: var(--gold-bright);
-    cursor: pointer;
-    z-index: 10001;
-    line-height: 1;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.lightbox-close:hover {
-    color: #ff4d4d;
-    transform: rotate(90deg) scale(1.2);
-}
-
-.lightbox-body {
-    max-width: 90%;
-    max-height: 85vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.lightbox-media {
-    max-width: 100%;
-    max-height: 80vh;
-    border: 3px solid var(--gold-primary);
-    border-radius: 12px;
-    box-shadow: 0 0 60px var(--gold-glow), 0 0 100px var(--purple-magic);
-}
-
-/* ===================================================
-   RODAPÉ E KEYFRAMES MÁGICOS
-   =================================================== */
-footer {
-    text-align: center;
-    padding: 50px 20px;
-    border-top: 2px solid var(--gold-primary);
-    background: #020105;
-    color: #b0a08b;
-    font-family: 'MedievalSharp', cursive;
-    font-size: 1.3rem;
-    position: relative;
-    z-index: 2;
-    box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.9);
-}
-
 @keyframes moverNeblina {
     0% { transform: translate3d(0, 0, 0); }
     100% { transform: translate3d(-50%, 0, 0); }
 }
 
 @keyframes poeiraEstelar {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-30px); }
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-40px) scale(1.05); }
+}
+
+@keyframes orbitaFlutuante {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(60px, -40px) scale(1.15); }
+    100% { transform: translate(-40px, 50px) scale(0.9); }
 }
 
 @keyframes zoomCinematico {
-    0% { transform: translate(-50%, -50%) scale(1); }
-    100% { transform: translate(-50%, -50%) scale(1.15); }
+    0% { transform: scale(1); }
+    100% { transform: scale(1.18); }
 }
 
 @keyframes auraMagicaSuprema {
     0% {
-        filter: drop-shadow(0 0 15px var(--gold-primary)) drop-shadow(0 0 30px rgba(139, 0, 0, 0.8));
+        filter: drop-shadow(0 0 20px var(--gold-primary)) drop-shadow(0 0 40px rgba(139, 0, 0, 0.8));
     }
     50% {
-        filter: drop-shadow(0 0 25px var(--gold-bright)) drop-shadow(0 0 50px rgba(147, 51, 234, 0.9));
+        filter: drop-shadow(0 0 35px var(--gold-bright)) drop-shadow(0 0 65px rgba(147, 51, 234, 0.95));
     }
     100% {
-        filter: drop-shadow(0 0 20px var(--gold-primary)) drop-shadow(0 0 40px rgba(15, 43, 72, 0.9));
+        filter: drop-shadow(0 0 25px var(--gold-primary)) drop-shadow(0 0 50px rgba(56, 189, 248, 0.9));
     }
+}
+
+@keyframes bordaPulsante {
+    0% { box-shadow: inset 0 0 25px var(--gold-glow), 0 0 20px var(--gold-glow); }
+    100% { box-shadow: inset 0 0 50px var(--gold-bright), 0 0 45px var(--gold-bright); }
 }
 
 @keyframes flutuar {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+    50% { transform: translateY(-18px); }
 }
 
 @keyframes brilhoEstelar {
-    0% { opacity: 0.3; transform: translateY(-50%) scale(0.8); }
-    100% { opacity: 1; transform: translateY(-50%) scale(1.3); }
-}
-
-@keyframes fadeInModal {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    0% { opacity: 0.3; transform: translateY(-50%) scale(0.8) rotate(0deg); }
+    100% { opacity: 1; transform: translateY(-50%) scale(1.4) rotate(180deg); }
 }
 
 /* ===================================================
@@ -855,11 +828,11 @@ footer {
    =================================================== */
 @media (max-width: 768px) {
     main {
-        padding: 50px 16px;
+        padding: 60px 16px;
     }
 
     section {
-        margin-bottom: 90px;
+        margin-bottom: 100px;
     }
 
     h2::before, h2::after {
@@ -867,12 +840,12 @@ footer {
     }
 
     .secao-jornal {
-        padding: 30px 18px;
+        padding: 35px 20px;
     }
 
     .jornal-edicao {
         flex-direction: column;
-        gap: 5px;
+        gap: 6px;
         align-items: center;
     }
 
@@ -880,7 +853,7 @@ footer {
         border-right: none;
         border-bottom: 1px dashed var(--jornal-border);
         padding-right: 0;
-        padding-bottom: 25px;
+        padding-bottom: 30px;
     }
 
     .feitico-item {
