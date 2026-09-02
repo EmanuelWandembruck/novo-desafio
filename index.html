@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mundo Mágico - Harry Potter</title>
-    <!-- CSS do Projeto -->
+    <title>Hogwarts & O Mundo Mágico | Portal Arcano</title>
+    <!-- Fontes e Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Canvas para efeito de partículas/mágica no fundo -->
+    <!-- Canvas para Partículas Encantadas e Rastro de Varinha -->
     <canvas id="magicCanvas"></canvas>
 
-    <!-- CABEÇALHO CINEMATOGRÁFICO -->
-    <header>
-        <!-- Vídeo ou imagem de fundo do cabeçalho -->
+    <!-- CABEÇALHO MONUMENTAL -->
+    <header id="inicio">
         <video class="bg-video" autoplay loop muted playsinline>
             <source src="https://assets.mixkit.co/videos/preview/mixkit-starry-night-sky-with-clouds-26330-large.mp4" type="video/mp4">
         </video>
@@ -22,25 +22,31 @@
         <div class="header-overlay"></div>
 
         <div class="header-content">
+            <div class="brasao-hogwarts">
+                <i class="fa-solid fa-hat-wizard halo-icon"></i>
+            </div>
             <h1>Hogwarts</h1>
-            <p>Escola de Magia e Bruxaria</p>
+            <p>Draco Dormiens Nunquam Titillandus</p>
 
-            <!-- CONTROLE DE ÁUDIO (BOTÃO + ÁUDIO) -->
+            <!-- PAINEL DE ÁUDIO AMBIENTE & VARINHA -->
             <div class="audio-control">
-                <audio id="audioAmbiente" loop>
-                    <!-- Trilha sonora de fundo temática -->
+                <audio id="audioAmbiente" looppreload="auto">
                     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
                 </audio>
-                <button id="btnAudio" class="btn-magic">Som Ambiente: OFF</button>
+                <button id="btnAudio" class="btn-magic">
+                    <i class="fa-solid fa-music"></i> <span id="txtAudio">Atmosphere: OFF</span>
+                </button>
             </div>
 
-            <!-- NAVEGAÇÃO -->
+            <!-- MENU DE NAVEGAÇÃO COMPLETO -->
             <nav>
                 <ul>
-                    <li><a href="#jornal">O Profeta Diário</a></li>
-                    <li><a href="#casas">Casas de Hogwarts</a></li>
-                    <li><a href="#galeria">Galeria</a></li>
-                    <li><a href="#feiticos">Grimório</a></li>
+                    <li><a href="#jornal"><i class="fa-solid fa-newspaper"></i> O Profeta Diário</a></li>
+                    <li><a href="#casas"><i class="fa-solid fa-shield-halved"></i> As Casas</a></li>
+                    <li><a href="#personagens"><i class="fa-solid fa-user-ninja"></i> Bruxo Notáveis</a></li>
+                    <li><a href="#feiticos"><i class="fa-solid fa-wand-magic-sparkles"></i> Grimório</a></li>
+                    <li><a href="#pocoes"><i class="fa-solid fa-flask-vial"></i> Poções</a></li>
+                    <li><a href="#galeria"><i class="fa-solid fa-images"></i> Relíquias</a></li>
                 </ul>
             </nav>
         </div>
@@ -49,134 +55,286 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main>
 
-        <!-- SEÇÃO: JORNAL O PROFETA DIÁRIO -->
+        <!-- SEÇÃO 1: JORNAL O PROFETA DIÁRIO (MOLDURAS VIVAS) -->
         <section id="jornal" class="secao-jornal">
             <div class="jornal-header">
-                <span class="jornal-edicao">Edição Extraordinária — Nº 3.942</span>
+                <div class="jornal-edicao">
+                    <span>Edição Limitada — Nº 4.812</span>
+                    <span>Preço: 5 Nuques</span>
+                    <span>Londres, Reino Unido</span>
+                </div>
                 <h2 class="jornal-titulo">O Profeta Diário</h2>
                 <div class="jornal-linha-dupla"></div>
             </div>
 
             <div class="jornal-grid">
-                <article class="noticia-card">
-                    <div class="moldura-magica">
-                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Hogwarts Express">
-                        <span class="selo-magico">Exclusivo</span>
+                <!-- Notícia Principal -->
+                <article class="noticia-card principal">
+                    <div class="moldura-magica-video">
+                        <video class="video-magico" autoplay loop muted playsinline>
+                            <source src="https://assets.mixkit.co/videos/preview/mixkit-fireworks-in-the-sky-at-night-41525-large.mp4" type="video/mp4">
+                        </video>
+                        <span class="selo-magico">Bomba Editorial</span>
                     </div>
                     <div class="noticia-conteudo">
-                        <h3>O Expresso de Hogwarts Parte Novamente</h3>
-                        <p class="autor">Por Rita Skeeter</p>
-                        <p>Plataforma 9 ¾ recebe nova leva de estudantes para o ano letivo. O Ministério reforça a segurança contra artefatos das artes das trevas.</p>
+                        <h3>Atividades Suspeitas Aumentam nos Arredores do Beco Diagonal</h3>
+                        <p class="autor">Por Rita Skeeter | Pena de Repetição Rápida</p>
+                        <p>Fontes anônimas confirmam a presença de bruxos encapuzados perto do Travesso do Tranco. O Ministério declara nível amarelo de vigilância enquanto Aurores patrulham as ruas de paralelepípedos sob neve mágica.</p>
                     </div>
                 </article>
 
+                <!-- Notícia Secundária 1 -->
                 <article class="noticia-card">
                     <div class="moldura-magica">
-                        <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=600&q=80" alt="Castelo de Hogwarts">
-                        <span class="selo-magico">Notícia</span>
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Expresso de Hogwarts">
+                        <span class="selo-magico">Plataforma 9 ¾</span>
                     </div>
                     <div class="noticia-conteudo">
-                        <h3>Defesa Contra as Artes das Trevas</h3>
-                        <p class="autor">Por Rita Skeeter</p>
-                        <p>Novos encantamentos de proteção foram aplicados aos arredores da Floresta Proibida após relatos de criaturas misteriosas.</p>
+                        <h3>Expresso de Hogwarts Implanta Novos Encantos de Ocultação</h3>
+                        <p class="autor">Por Bernardo Cuffe</p>
+                        <p>A locomotiva a vapor foi dotada de feitiços repelentes de trouxas reforçados para a próxima viagem do semestre letivo.</p>
+                    </div>
+                </article>
+
+                <!-- Notícia Secundária 2 -->
+                <article class="noticia-card">
+                    <div class="moldura-magica">
+                        <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=600&q=80" alt="Torre de Astronomia">
+                        <span class="selo-magico">Mistério</span>
+                    </div>
+                    <div class="noticia-conteudo">
+                        <h3>Alinhamento Planetário Raro Promete Intensificar Feitiços</h3>
+                        <p class="autor">Por Centauro Magorian</p>
+                        <p>A observação na Torre de Astronomia revelou a convergência de Marte com a Constelação de Órion neste equinócio.</p>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- SEÇÃO: CASAS DE HOGWARTS -->
+        <!-- SEÇÃO 2: CASAS DE HOGWARTS (IMERSIVAS & DETALHADAS) -->
         <section id="casas">
             <h2>Casas de Hogwarts</h2>
             <div class="grid-3d">
+                
                 <div class="casa-card grifinoria">
+                    <div class="casa-header">
+                        <i class="fa-solid fa-shield-cat casa-icon"></i>
+                    </div>
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=500&q=80" alt="Grifinória">
                     <h3>Grifinória</h3>
-                    <p>Coragem, bravura e determinação.</p>
+                    <p class="lema">"Onde habitam os corajosos de coração."</p>
+                    <ul class="casa-atributos">
+                        <li><strong>Fundador:</strong> Godric Gryffindor</li>
+                        <li><strong>Elemento:</strong> Fogo</li>
+                        <li><strong>Fantasma:</strong> Nick Quase-Sem-Cabeça</li>
+                    </ul>
                 </div>
 
                 <div class="casa-card sonserina">
+                    <div class="casa-header">
+                        <i class="fa-solid fa-staff-snake casa-icon"></i>
+                    </div>
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=500&q=80" alt="Sonserina">
                     <h3>Sonserina</h3>
-                    <p>Ambição, astúcia e liderança.</p>
+                    <p class="lema">"Usarão quaisquer meios para atingir seus fins."</p>
+                    <ul class="casa-atributos">
+                        <li><strong>Fundador:</strong> Salazar Slytherin</li>
+                        <li><strong>Elemento:</strong> Água</li>
+                        <li><strong>Fantasma:</strong> Barão Sangrento</li>
+                    </ul>
                 </div>
 
                 <div class="casa-card corvinal">
+                    <div class="casa-header">
+                        <i class="fa-solid fa-crow casa-icon"></i>
+                    </div>
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=500&q=80" alt="Corvinal">
                     <h3>Corvinal</h3>
-                    <p>Sabedoria, inteligência e criatividade.</p>
+                    <p class="lema">"A mente sem limites é o maior tesouro do homem."</p>
+                    <ul class="casa-atributos">
+                        <li><strong>Fundadora:</strong> Rowena Ravenclaw</li>
+                        <li><strong>Elemento:</strong> Ar</li>
+                        <li><strong>Fantasma:</strong> Dama Cinzenta</li>
+                    </ul>
                 </div>
 
                 <div class="casa-card lufa-lufa">
+                    <div class="casa-header">
+                        <i class="fa-solid fa-paw casa-icon"></i>
+                    </div>
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=500&q=80" alt="Lufa-Lufa">
                     <h3>Lufa-Lufa</h3>
-                    <p>Lealdade, paciência e dedicação.</p>
+                    <p class="lema">"Onde seus membros são justos e leais."</p>
+                    <ul class="casa-atributos">
+                        <li><strong>Fundadora:</strong> Helga Hufflepuff</li>
+                        <li><strong>Elemento:</strong> Terra</li>
+                        <li><strong>Fantasma:</strong> Frei Gorducho</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: BRUXOS NOTÁVEIS -->
+        <section id="personagens">
+            <h2>Bruxos Notáveis</h2>
+            <div class="grid-3d">
+                <div class="casa-card">
+                    <img class="personagem-foto" src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=500&q=80" alt="Alvo Dumbledore">
+                    <h3>Alvo Dumbledore</h3>
+                    <p>Diretor de Hogwarts, detentor da Varinha das Varinhas e fundador da Ordem da Fênix.</p>
+                </div>
+                <div class="casa-card">
+                    <img class="personagem-foto" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Hermione Granger">
+                    <h3>Hermione Granger</h3>
+                    <p>A bruxa mais brilhante de sua era, mestra em feitiçaria avançada e lógica arcanista.</p>
+                </div>
+                <div class="casa-card">
+                    <img class="personagem-foto" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" alt="Severo Snape">
+                    <h3>Severo Snape</h3>
+                    <p>Mestre das Poções, criador de feitiços autorais e mestre em Oclumência.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO: GALERIA MÁGICA -->
-        <section id="galeria">
-            <h2>Galeria Mágica</h2>
-            <div class="galeria-grid">
-                <div class="galeria-item">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Expresso de Hogwarts">
-                    <div class="galeria-hover">Plataforma 9 ¾</div>
-                </div>
-                <div class="galeria-item">
-                    <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=600&q=80" alt="Castelo de Hogwarts">
-                    <div class="galeria-hover">Castelo ao Luar</div>
-                </div>
-                <div class="galeria-item">
-                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80" alt="Livro Antigo">
-                    <div class="galeria-hover">Biblioteca Restrita</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SEÇÃO: GRIMÓRIO DE FEITIÇOS -->
+        <!-- SEÇÃO 4: GRIMÓRIO MÁGICO CLASSIFICADO -->
         <section id="feiticos">
             <h2>Grimório de Feitiços</h2>
             <div class="feiticos-container">
                 <div class="feitico-item">
-                    <span class="nome-feitico">Lumos</span>
-                    <span class="efeito-feitico">Cria uma luz na ponta da varinha.</span>
+                    <div>
+                        <span class="nome-feitico">Expecto Patronum</span>
+                        <span class="categoria-tag elemental">Defensivo Avançado</span>
+                    </div>
+                    <span class="efeito-feitico">Materializa um guardião de luz pura movido por memórias felizes.</span>
                 </div>
                 <div class="feitico-item">
-                    <span class="nome-feitico">Expecto Patronum</span>
-                    <span class="efeito-feitico">Conjura um guardião mágico de luz.</span>
+                    <div>
+                        <span class="nome-feitico">Sectumsempra</span>
+                        <span class="categoria-tag trevas">Artes das Trevas</span>
+                    </div>
+                    <span class="efeito-feitico">Causa lacerações severas no alvo como se infligidas por uma espada invisível.</span>
                 </div>
                 <div class="feitico-item">
-                    <span class="nome-feitico">Wingardium Leviosa</span>
-                    <span class="efeito-feitico">Faz objetos levitarem no ar.</span>
+                    <div>
+                        <span class="nome-feitico">Avada Kedavra</span>
+                        <span class="categoria-tag proibido">Imperdoável</span>
+                    </div>
+                    <span class="efeito-feitico">Provoca morte instantânea e indolor sem deixar traços físicos de dano.</span>
                 </div>
                 <div class="feitico-item">
-                    <span class="nome-feitico">Alohomora</span>
-                    <span class="efeito-feitico">Destranca portas e trincos selados.</span>
+                    <div>
+                        <span class="nome-feitico">Protego Maxima</span>
+                        <span class="categoria-tag protecao">Barreira Arcana</span>
+                    </div>
+                    <span class="efeito-feitico">Conjura um escudo massivo capaz de desintegrar invasores em contato.</span>
                 </div>
             </div>
         </section>
 
+        <!-- SEÇÃO 5: LABORATÓRIO DE POÇÕES -->
+        <section id="pocoes">
+            <h2>Laboratório de Poções</h2>
+            <div class="grid-3d">
+                <div class="casa-card">
+                    <i class="fa-solid fa-flask-vial pocao-icon"></i>
+                    <h3>Felix Felicis</h3>
+                    <p>Conhecida como "Sorte Líquida". Garante ao consumidor sucesso extraordinário em todas as suas investidas.</p>
+                </div>
+                <div class="casa-card">
+                    <i class="fa-solid fa-vial pocao-icon"></i>
+                    <h3>Polissuco</h3>
+                    <p>Permite que o bruxo assuma a forma física exata de outra pessoa por um período determinado de tempo.</p>
+                </div>
+                <div class="casa-card">
+                    <i class="fa-solid fa-skull-crossbones pocao-icon"></i>
+                    <h3>Amortentia</h3>
+                    <p>O filtro de amor mais poderoso do mundo, exalando o aroma do que mais atrai o indivíduo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 6: GALERIA DE RELÍQUIAS E MOLDURAS VIVAS -->
+        <section id="galeria">
+            <h2>Galeria Mágica de Relíquias</h2>
+            <div class="galeria-grid">
+                <div class="galeria-item" onclick="abrirLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Expresso de Hogwarts">
+                    <div class="galeria-hover">Plataforma 9 ¾ — Expresso</div>
+                </div>
+                <div class="galeria-item" onclick="abrirLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=600&q=80" alt="Castelo ao Luar">
+                    <div class="galeria-hover">Castelo ao Luar</div>
+                </div>
+                <div class="galeria-item" onclick="abrirLightbox(this)">
+                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80" alt="Biblioteca Restrita">
+                    <div class="galeria-hover">Seção Restrita</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODAL LIGHTBOX INTERATIVO -->
+        <div id="lightboxModal" class="lightbox">
+            <span class="lightbox-close" onclick="fecharLightbox()">&times;</span>
+            <div class="lightbox-body">
+                <img id="lightboxImg" class="lightbox-media" src="" alt="Ampliação Mágica">
+            </div>
+        </div>
+
     </main>
 
-    <!-- RODAPÉ -->
+    <!-- RODAPÉ DO MAPA DO MAROTO -->
     <footer>
-        <p>"Malfeito Feito" — Propriedade do Mapa do Maroto</p>
+        <div class="maroto-footer">
+            <p id="fraseMaroto">"Juro solenemente não fazer nada de bom."</p>
+            <button id="btnRevelarMapa" class="btn-magic">Revelar Segredos do Mapa</button>
+            <p class="copyright">Propriedade do Ministério da Magia — Direitos Autorais Reservados aos Bruxos.</p>
+        </div>
     </footer>
 
-    <!-- SCRIPT DO BOTÃO DE ÁUDIO -->
+    <!-- INTERATIVIDADE JS MÁGICA -->
     <script>
+        // Lógica de Áudio Ambiente
         const btnAudio = document.getElementById('btnAudio');
         const audioAmbiente = document.getElementById('audioAmbiente');
+        const txtAudio = document.getElementById('txtAudio');
 
         btnAudio.addEventListener('click', function() {
             if (audioAmbiente.paused) {
                 audioAmbiente.play();
                 btnAudio.classList.add('active');
-                btnAudio.textContent = 'Som Ambiente: ON';
+                txtAudio.textContent = 'Atmosphere: ON';
             } else {
                 audioAmbiente.pause();
                 btnAudio.classList.remove('active');
-                btnAudio.textContent = 'Som Ambiente: OFF';
+                txtAudio.textContent = 'Atmosphere: OFF';
+            }
+        });
+
+        // Lightbox Galeria
+        function abrirLightbox(element) {
+            const modal = document.getElementById('lightboxModal');
+            const imgTarget = document.getElementById('lightboxImg');
+            const imgSrc = element.querySelector('img').src;
+            imgTarget.src = imgSrc;
+            modal.style.display = 'flex';
+        }
+
+        function fecharLightbox() {
+            document.getElementById('lightboxModal').style.display = 'none';
+        }
+
+        // Mapa do Maroto Interaction
+        const btnRevelar = document.getElementById('btnRevelarMapa');
+        const fraseMaroto = document.getElementById('fraseMaroto');
+
+        btnRevelar.addEventListener('click', () => {
+            if (fraseMaroto.textContent.includes('solenemente')) {
+                fraseMaroto.textContent = '"Malfeito Feito!" — O Mapa foi ocultado aos Trouxas.';
+                btnRevelar.textContent = 'Restaurar Mapa';
+            } else {
+                fraseMaroto.textContent = '"Juro solenemente não fazer nada de bom."';
+                btnRevelar.textContent = 'Revelar Segredos do Mapa';
             }
         });
     </script>
