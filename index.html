@@ -3,10 +3,680 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hogwarts & O Mundo Mágico | Portal Arcano</title>
-    <!-- Fontes e Ícones -->
+    <title>Hogwarts & O Mundo Mágico | Portal Arcano Ultra Imersivo</title>
+    
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700;800&family=Fauna+One&family=MedievalSharp&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ==========================================================================
+           1. VARIÁVEIS GLOBAIS E REFINAMENTO VISUAL
+           ========================================================================== */
+        :root {
+            --cor-fundo-base: #06050a;
+            --cor-card-bg: rgba(18, 14, 28, 0.75);
+            --ouro-arcano: #dfb15b;
+            --ouro-brilhante: #fef1ac;
+            --ouro-sombra: rgba(223, 177, 91, 0.3);
+            --texto-principal: #e3ded6;
+            --texto-suave: #a9a297;
+            
+            /* Cores das Casas de Hogwarts */
+            --grifinoria-red: #740001;
+            --grifinoria-gold: #eeba30;
+            --sonserina-green: #1a472a;
+            --sonserina-silver: #aaaaaa;
+            --corvinal-blue: #0e1a40;
+            --corvinal-bronze: #946b2d;
+            --lufalufa-yellow: #ecb939;
+            --lufalufa-dark: #372e29;
+            
+            --borda-pergaminho: 1px solid rgba(223, 177, 91, 0.25);
+            --transicao-suave: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--cor-fundo-base);
+            color: var(--texto-principal);
+            font-family: 'Fauna One', serif;
+            overflow-x: hidden;
+            line-height: 1.7;
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(30, 20, 50, 0.6), transparent 70%),
+                radial-gradient(circle at 80% 80%, rgba(15, 30, 45, 0.5), transparent 70%);
+        }
+
+        /* Canvas de Partículas e Rastro de Varinha */
+        #magicCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Scrollbar Personalizada */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030206;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--ouro-arcano), #4a3818);
+            border-radius: 5px;
+            border: 1px solid #000;
+        }
+
+        /* ==========================================================================
+           2. CABEÇALHO MONUMENTAL E HERO SECTION
+           ========================================================================== */
+        header {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            opacity: 0.35;
+            filter: contrast(120%) brightness(70%);
+            z-index: -2;
+        }
+
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(6,5,10,0.3) 0%, rgba(6,5,10,0.95) 90%);
+            z-index: -1;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            z-index: 2;
+            animation: fadeInHeader 2s ease-out;
+        }
+
+        @keyframes fadeInHeader {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .brasao-hogwarts {
+            font-size: 4.5rem;
+            color: var(--ouro-arcano);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 25px var(--ouro-sombra), 0 0 50px rgba(255,215,0,0.2);
+            animation: haloPulse 3s infinite alternate;
+        }
+
+        @keyframes haloPulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 10px var(--ouro-arcano)); }
+            100% { transform: scale(1.08); filter: drop-shadow(0 0 25px var(--ouro-brilhante)); }
+        }
+
+        h1 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            color: var(--ouro-brilhante);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(223, 177, 91, 0.5), 2px 2px 4px #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitulo-lema {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            color: var(--texto-suave);
+            margin-bottom: 2.5rem;
+            font-style: italic;
+        }
+
+        /* Botões Arcanos */
+        .btn-magic {
+            background: linear-gradient(135deg, rgba(223, 177, 91, 0.2), rgba(20, 15, 30, 0.8));
+            border: 1px solid var(--ouro-arcano);
+            color: var(--ouro-brilhante);
+            padding: 0.8rem 2rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transicao-suave);
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-magic:hover {
+            background: var(--ouro-arcano);
+            color: #000;
+            box-shadow: 0 0 25px var(--ouro-arcano);
+            transform: translateY(-3px);
+        }
+
+        /* Navegação */
+        nav {
+            margin-top: 3rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--texto-principal);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 3px;
+            border: 1px solid transparent;
+            transition: var(--transicao-suave);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(10, 8, 18, 0.5);
+        }
+
+        nav a:hover {
+            border-color: var(--ouro-arcano);
+            color: var(--ouro-brilhante);
+            background: rgba(223, 177, 91, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+           3. SEÇÕES GERAIS E ESTRUTURA
+           ========================================================================== */
+        main {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        section {
+            margin-bottom: 8rem;
+        }
+
+        h2 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--ouro-arcano);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '✦ ✧ ✦';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            color: var(--ouro-arcano);
+            letter-spacing: 5px;
+            opacity: 0.7;
+        }
+
+        /* Card Padronizado (Efeito Glassmorphism Arcano) */
+        .card-arcano {
+            background: var(--cor-card-bg);
+            backdrop-filter: blur(10px);
+            border: var(--borda-pergaminho);
+            border-radius: 8px;
+            padding: 1.8rem;
+            transition: var(--transicao-suave);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-arcano::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(223, 177, 91, 0.1), transparent);
+            transition: 0.6s;
+        }
+
+        .card-arcano:hover::before {
+            left: 100%;
+        }
+
+        .card-arcano:hover {
+            border-color: var(--ouro-arcano);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px var(--ouro-sombra);
+            transform: translateY(-5px);
+        }
+
+        /* Grids Dinâmicos */
+        .grid-3d {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        /* ==========================================================================
+           4. SEÇÃO 1: JORNAL O PROFETA DIÁRIO
+           ========================================================================== */
+        .secao-jornal {
+            background: rgba(240, 230, 210, 0.03);
+            border: 1px solid rgba(223, 177, 91, 0.3);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.9);
+        }
+
+        .jornal-header {
+            text-align: center;
+            border-bottom: 2px solid var(--ouro-arcano);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .jornal-edicao {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: var(--texto-suave);
+            border-bottom: 1px solid rgba(223, 177, 91, 0.2);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .jornal-titulo {
+            font-family: 'MedievalSharp', cursive;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--ouro-brilhante);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .jornal-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .jornal-grid { grid-template-columns: 1fr; }
+        }
+
+        .noticia-card.principal {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .moldura-magica-video {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 2px solid var(--ouro-arcano);
+        }
+
+        .video-magico {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%) sepia(20%) contrast(110%);
+        }
+
+        .selo-magico {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--grifinoria-red);
+            color: #fff;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.3rem 0.8rem;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            border: 1px solid var(--ouro-arcano);
+        }
+
+        .noticia-conteudo h3 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.5rem;
+            color: var(--ouro-brilhante);
+            margin-bottom: 0.5rem;
+        }
+
+        .noticia-conteudo .autor {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: var(--ouro-arcano);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        /* Notícias Secundárias */
+        .noticias-secundarias {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .moldura-magica {
+            width: 100%;
+            height: 140px;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(223, 177, 91, 0.4);
+            margin-bottom: 0.8rem;
+        }
+
+        .moldura-magica img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(40%) sepia(20%);
+            transition: var(--transicao-suave);
+        }
+
+        .card-arcano:hover .moldura-magica img {
+            filter: grayscale(0%) sepia(0%);
+            transform: scale(1.05);
+        }
+
+        /* ==========================================================================
+           5. SEÇÃO 2: AS CASAS DE HOGWARTS
+           ========================================================================== */
+        .casa-card {
+            text-align: center;
+            position: relative;
+        }
+
+        .casa-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 4px;
+        }
+
+        .casa-card.grifinoria::after { background: linear-gradient(90deg, var(--grifinoria-red), var(--grifinoria-gold)); }
+        .casa-card.sonserina::after { background: linear-gradient(90deg, var(--sonserina-green), var(--sonserina-silver)); }
+        .casa-card.corvinal::after { background: linear-gradient(90deg, var(--corvinal-blue), var(--corvinal-bronze)); }
+        .casa-card.lufa-lufa::after { background: linear-gradient(90deg, var(--lufalufa-yellow), var(--lufalufa-dark)); }
+
+        .casa-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .grifinoria .casa-icon { color: var(--grifinoria-gold); }
+        .sonserina .casa-icon { color: #2ecc71; }
+        .corvinal .casa-icon { color: #3498db; }
+        .lufa-lufa .casa-icon { color: var(--lufalufa-yellow); }
+
+        .personagem-foto {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border: 1px solid rgba(223, 177, 91, 0.3);
+        }
+
+        .lema {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--texto-suave);
+            margin-bottom: 1.2rem;
+        }
+
+        .casa-atributos {
+            list-style: none;
+            text-align: left;
+            font-size: 0.85rem;
+            border-top: 1px dashed rgba(223, 177, 91, 0.2);
+            padding-top: 1rem;
+        }
+
+        .casa-atributos li {
+            margin-bottom: 0.4rem;
+        }
+
+        .casa-atributos strong {
+            color: var(--ouro-arcano);
+        }
+
+        /* ==========================================================================
+           6. SEÇÃO 4: GRIMÓRIO DE FEITIÇOS
+           ========================================================================== */
+        .feiticos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feitico-item {
+            background: rgba(15, 12, 25, 0.8);
+            border-left: 4px solid var(--ouro-arcano);
+            padding: 1.2rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            transition: var(--transicao-suave);
+        }
+
+        .feitico-item:hover {
+            background: rgba(25, 20, 40, 0.9);
+            transform: translateX(8px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .feitico-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .nome-feitico {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--ouro-brilhante);
+        }
+
+        .categoria-tag {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .categoria-tag.elemental { background: rgba(52, 152, 219, 0.2); color: #3498db; border: 1px solid #3498db; }
+        .categoria-tag.trevas { background: rgba(192, 57, 43, 0.2); color: #e74c3c; border: 1px solid #e74c3c; }
+        .categoria-tag.proibido { background: rgba(142, 68, 173, 0.2); color: #9b59b6; border: 1px solid #9b59b6; }
+        .categoria-tag.protecao { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
+
+        .efeito-feitico {
+            font-size: 0.9rem;
+            color: var(--texto-suave);
+        }
+
+        /* ==========================================================================
+           7. SEÇÃO 5: LABORATÓRIO DE POÇÕES
+           ========================================================================== */
+        .pocao-icon {
+            font-size: 2.5rem;
+            color: var(--ouro-arcano);
+            margin-bottom: 1rem;
+        }
+
+        /* ==========================================================================
+           8. SEÇÃO 6: GALERIA MÁGICA DE RELÍQUIAS
+           ========================================================================== */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .galeria-item {
+            position: relative;
+            height: 220px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(223, 177, 91, 0.3);
+        }
+
+        .galeria-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transicao-suave);
+        }
+
+        .galeria-hover {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(6, 5, 10, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.1rem;
+            color: var(--ouro-brilhante);
+            opacity: 0;
+            transition: var(--transicao-suave);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .galeria-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .galeria-item:hover .galeria-hover {
+            opacity: 1;
+        }
+
+        /* Lightbox Modal */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .lightbox-body {
+            max-width: 85%;
+            max-height: 85%;
+            border: 2px solid var(--ouro-arcano);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 50px var(--ouro-sombra);
+        }
+
+        .lightbox-media {
+            width: 100%;
+            height: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            color: var(--ouro-brilhante);
+            cursor: pointer;
+            transition: var(--transicao-suave);
+        }
+
+        .lightbox-close:hover {
+            color: #e74c3c;
+            transform: scale(1.2);
+        }
+
+        /* ==========================================================================
+           9. RODAPÉ DO MAPA DO MAROTO
+           ========================================================================== */
+        footer {
+            background: linear-gradient(180deg, transparent, #030205);
+            border-top: 1px solid rgba(223, 177, 91, 0.2);
+            padding: 4rem 2rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .maroto-footer {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        #fraseMaroto {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.4rem;
+            color: var(--ouro-arcano);
+            letter-spacing: 1px;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            color: var(--texto-suave);
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
 
@@ -26,15 +696,15 @@
                 <i class="fa-solid fa-hat-wizard halo-icon"></i>
             </div>
             <h1>Hogwarts</h1>
-            <p>Draco Dormiens Nunquam Titillandus</p>
+            <p class="subtitulo-lema">Draco Dormiens Nunquam Titillandus</p>
 
             <!-- PAINEL DE ÁUDIO AMBIENTE & VARINHA -->
             <div class="audio-control">
-                <audio id="audioAmbiente" looppreload="auto">
+                <audio id="audioAmbiente" loop preload="auto">
                     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
                 </audio>
                 <button id="btnAudio" class="btn-magic">
-                    <i class="fa-solid fa-music"></i> <span id="txtAudio">Atmosphere: OFF</span>
+                    <i class="fa-solid fa-music"></i> <span id="txtAudio">Atmosfera Arcana: OFF</span>
                 </button>
             </div>
 
@@ -43,7 +713,7 @@
                 <ul>
                     <li><a href="#jornal"><i class="fa-solid fa-newspaper"></i> O Profeta Diário</a></li>
                     <li><a href="#casas"><i class="fa-solid fa-shield-halved"></i> As Casas</a></li>
-                    <li><a href="#personagens"><i class="fa-solid fa-user-ninja"></i> Bruxo Notáveis</a></li>
+                    <li><a href="#personagens"><i class="fa-solid fa-user-ninja"></i> Bruxos Notáveis</a></li>
                     <li><a href="#feiticos"><i class="fa-solid fa-wand-magic-sparkles"></i> Grimório</a></li>
                     <li><a href="#pocoes"><i class="fa-solid fa-flask-vial"></i> Poções</a></li>
                     <li><a href="#galeria"><i class="fa-solid fa-images"></i> Relíquias</a></li>
@@ -64,12 +734,11 @@
                     <span>Londres, Reino Unido</span>
                 </div>
                 <h2 class="jornal-titulo">O Profeta Diário</h2>
-                <div class="jornal-linha-dupla"></div>
             </div>
 
             <div class="jornal-grid">
                 <!-- Notícia Principal -->
-                <article class="noticia-card principal">
+                <article class="card-arcano noticia-card principal">
                     <div class="moldura-magica-video">
                         <video class="video-magico" autoplay loop muted playsinline>
                             <source src="https://assets.mixkit.co/videos/preview/mixkit-fireworks-in-the-sky-at-night-41525-large.mp4" type="video/mp4">
@@ -79,47 +748,44 @@
                     <div class="noticia-conteudo">
                         <h3>Atividades Suspeitas Aumentam nos Arredores do Beco Diagonal</h3>
                         <p class="autor">Por Rita Skeeter | Pena de Repetição Rápida</p>
-                        <p>Fontes anônimas confirmam a presença de bruxos encapuzados perto do Travesso do Tranco. O Ministério declara nível amarelo de vigilância enquanto Aurores patrulham as ruas de paralelepípedos sob neve mágica.</p>
+                        <p>Fontes anônimas confirmam a presença de bruxos encapuzados perto do Travesso do Tranco. O Ministério declara nível amarelo de vigilância enquanto Aurores patrulham as ruas de paralelepípedos sob neve mágica constante.</p>
                     </div>
                 </article>
 
-                <!-- Notícia Secundária 1 -->
-                <article class="noticia-card">
-                    <div class="moldura-magica">
-                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Expresso de Hogwarts">
-                        <span class="selo-magico">Plataforma 9 ¾</span>
-                    </div>
-                    <div class="noticia-conteudo">
-                        <h3>Expresso de Hogwarts Implanta Novos Encantos de Ocultação</h3>
-                        <p class="autor">Por Bernardo Cuffe</p>
-                        <p>A locomotiva a vapor foi dotada de feitiços repelentes de trouxas reforçados para a próxima viagem do semestre letivo.</p>
-                    </div>
-                </article>
+                <!-- Notícias Secundárias -->
+                <div class="noticias-secundarias">
+                    <article class="card-arcano noticia-card">
+                        <div class="moldura-magica">
+                            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Expresso de Hogwarts">
+                        </div>
+                        <div class="noticia-conteudo">
+                            <h3>Expresso de Hogwarts Implanta Encantos de Ocultação</h3>
+                            <p class="autor">Por Bernardo Cuffe</p>
+                            <p>A locomotiva a vapor foi dotada de feitiços repelentes de trouxas reforçados para o novo semestre.</p>
+                        </div>
+                    </article>
 
-                <!-- Notícia Secundária 2 -->
-                <article class="noticia-card">
-                    <div class="moldura-magica">
-                        <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=600&q=80" alt="Torre de Astronomia">
-                        <span class="selo-magico">Mistério</span>
-                    </div>
-                    <div class="noticia-conteudo">
-                        <h3>Alinhamento Planetário Raro Promete Intensificar Feitiços</h3>
-                        <p class="autor">Por Centauro Magorian</p>
-                        <p>A observação na Torre de Astronomia revelou a convergência de Marte com a Constelação de Órion neste equinócio.</p>
-                    </div>
-                </article>
+                    <article class="card-arcano noticia-card">
+                        <div class="moldura-magica">
+                            <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=600&q=80" alt="Torre de Astronomia">
+                        </div>
+                        <div class="noticia-conteudo">
+                            <h3>Alinhamento Planetário Raro Intensifica Feitiços</h3>
+                            <p class="autor">Por Centauro Magorian</p>
+                            <p>A observação na Torre de Astronomia revelou a convergência de Marte com Órion neste equinócio.</p>
+                        </div>
+                    </article>
+                </div>
             </div>
         </section>
 
-        <!-- SEÇÃO 2: CASAS DE HOGWARTS (IMERSIVAS & DETALHADAS) -->
+        <!-- SEÇÃO 2: CASAS DE HOGWARTS -->
         <section id="casas">
             <h2>Casas de Hogwarts</h2>
             <div class="grid-3d">
                 
-                <div class="casa-card grifinoria">
-                    <div class="casa-header">
-                        <i class="fa-solid fa-shield-cat casa-icon"></i>
-                    </div>
+                <div class="card-arcano casa-card grifinoria">
+                    <i class="fa-solid fa-shield-cat casa-icon"></i>
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=500&q=80" alt="Grifinória">
                     <h3>Grifinória</h3>
                     <p class="lema">"Onde habitam os corajosos de coração."</p>
@@ -130,10 +796,8 @@
                     </ul>
                 </div>
 
-                <div class="casa-card sonserina">
-                    <div class="casa-header">
-                        <i class="fa-solid fa-staff-snake casa-icon"></i>
-                    </div>
+                <div class="card-arcano casa-card sonserina">
+                    <i class="fa-solid fa-staff-snake casa-icon"></i>
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=500&q=80" alt="Sonserina">
                     <h3>Sonserina</h3>
                     <p class="lema">"Usarão quaisquer meios para atingir seus fins."</p>
@@ -144,13 +808,11 @@
                     </ul>
                 </div>
 
-                <div class="casa-card corvinal">
-                    <div class="casa-header">
-                        <i class="fa-solid fa-crow casa-icon"></i>
-                    </div>
+                <div class="card-arcano casa-card corvinal">
+                    <i class="fa-solid fa-crow casa-icon"></i>
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=500&q=80" alt="Corvinal">
                     <h3>Corvinal</h3>
-                    <p class="lema">"A mente sem limites é o maior tesouro do homem."</p>
+                    <p class="lema">"A mente sem limites é o maior tesouro."</p>
                     <ul class="casa-atributos">
                         <li><strong>Fundadora:</strong> Rowena Ravenclaw</li>
                         <li><strong>Elemento:</strong> Ar</li>
@@ -158,10 +820,8 @@
                     </ul>
                 </div>
 
-                <div class="casa-card lufa-lufa">
-                    <div class="casa-header">
-                        <i class="fa-solid fa-paw casa-icon"></i>
-                    </div>
+                <div class="card-arcano casa-card lufa-lufa">
+                    <i class="fa-solid fa-paw casa-icon"></i>
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=500&q=80" alt="Lufa-Lufa">
                     <h3>Lufa-Lufa</h3>
                     <p class="lema">"Onde seus membros são justos e leais."</p>
@@ -179,55 +839,55 @@
         <section id="personagens">
             <h2>Bruxos Notáveis</h2>
             <div class="grid-3d">
-                <div class="casa-card">
+                <div class="card-arcano">
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=500&q=80" alt="Alvo Dumbledore">
                     <h3>Alvo Dumbledore</h3>
                     <p>Diretor de Hogwarts, detentor da Varinha das Varinhas e fundador da Ordem da Fênix.</p>
                 </div>
-                <div class="casa-card">
+                <div class="card-arcano">
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Hermione Granger">
                     <h3>Hermione Granger</h3>
                     <p>A bruxa mais brilhante de sua era, mestra em feitiçaria avançada e lógica arcanista.</p>
                 </div>
-                <div class="casa-card">
+                <div class="card-arcano">
                     <img class="personagem-foto" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" alt="Severo Snape">
                     <h3>Severo Snape</h3>
-                    <p>Mestre das Poções, criador de feitiços autorais e mestre em Oclumência.</p>
+                    <p>Mestre das Poções, criador de feitiços autorais e mestre supremo em Oclumência.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO 4: GRIMÓRIO MÁGICO CLASSIFICADO -->
+        <!-- SEÇÃO 4: GRIMÓRIO DE FEITIÇOS -->
         <section id="feiticos">
             <h2>Grimório de Feitiços</h2>
             <div class="feiticos-container">
                 <div class="feitico-item">
-                    <div>
+                    <div class="feitico-header">
                         <span class="nome-feitico">Expecto Patronum</span>
-                        <span class="categoria-tag elemental">Defensivo Avançado</span>
+                        <span class="categoria-tag elemental">Defensivo</span>
                     </div>
-                    <span class="efeito-feitico">Materializa um guardião de luz pura movido por memórias felizes.</span>
+                    <p class="efeito-feitico">Materializa um guardião de luz pura movido por memórias felizes.</p>
                 </div>
                 <div class="feitico-item">
-                    <div>
+                    <div class="feitico-header">
                         <span class="nome-feitico">Sectumsempra</span>
                         <span class="categoria-tag trevas">Artes das Trevas</span>
                     </div>
-                    <span class="efeito-feitico">Causa lacerações severas no alvo como se infligidas por uma espada invisível.</span>
+                    <p class="efeito-feitico">Causa lacerações severas no alvo como se infligidas por uma lâmina invisível.</p>
                 </div>
                 <div class="feitico-item">
-                    <div>
+                    <div class="feitico-header">
                         <span class="nome-feitico">Avada Kedavra</span>
                         <span class="categoria-tag proibido">Imperdoável</span>
                     </div>
-                    <span class="efeito-feitico">Provoca morte instantânea e indolor sem deixar traços físicos de dano.</span>
+                    <p class="efeito-feitico">Provoca morte instantânea sem deixar traços físicos de dano no alvo.</p>
                 </div>
                 <div class="feitico-item">
-                    <div>
+                    <div class="feitico-header">
                         <span class="nome-feitico">Protego Maxima</span>
-                        <span class="categoria-tag protecao">Barreira Arcana</span>
+                        <span class="categoria-tag protecao">Barreira</span>
                     </div>
-                    <span class="efeito-feitico">Conjura um escudo massivo capaz de desintegrar invasores em contato.</span>
+                    <p class="efeito-feitico">Conjura um escudo massivo capaz de desintegrar invasores em contato.</p>
                 </div>
             </div>
         </section>
@@ -236,25 +896,25 @@
         <section id="pocoes">
             <h2>Laboratório de Poções</h2>
             <div class="grid-3d">
-                <div class="casa-card">
+                <div class="card-arcano" style="text-align: center;">
                     <i class="fa-solid fa-flask-vial pocao-icon"></i>
                     <h3>Felix Felicis</h3>
                     <p>Conhecida como "Sorte Líquida". Garante ao consumidor sucesso extraordinário em todas as suas investidas.</p>
                 </div>
-                <div class="casa-card">
+                <div class="card-arcano" style="text-align: center;">
                     <i class="fa-solid fa-vial pocao-icon"></i>
                     <h3>Polissuco</h3>
                     <p>Permite que o bruxo assuma a forma física exata de outra pessoa por um período determinado de tempo.</p>
                 </div>
-                <div class="casa-card">
+                <div class="card-arcano" style="text-align: center;">
                     <i class="fa-solid fa-skull-crossbones pocao-icon"></i>
                     <h3>Amortentia</h3>
-                    <p>O filtro de amor mais poderoso do mundo, exalando o aroma do que mais atrai o indivíduo.</p>
+                    <p>O filtro de amor mais poderoso do mundo, exalando o aroma exclusivo do que mais atrai o indivíduo.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO 6: GALERIA DE RELÍQUIAS E MOLDURAS VIVAS -->
+        <!-- SEÇÃO 6: GALERIA DE RELÍQUIAS -->
         <section id="galeria">
             <h2>Galeria Mágica de Relíquias</h2>
             <div class="galeria-grid">
@@ -292,9 +952,58 @@
         </div>
     </footer>
 
-    <!-- INTERATIVIDADE JS MÁGICA -->
+    <!-- INTERATIVIDADE JS & EFEITO DE PARTICULAS (VARINHA MÁGICA) -->
     <script>
-        // Lógica de Áudio Ambiente
+        // --- 1. Canvas com Rastro de Varinha Mágica ---
+        const canvas = document.getElementById('magicCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        window.addEventListener('mousemove', (e) => {
+            for (let i = 0; i < 3; i++) {
+                particles.push({
+                    x: e.clientX,
+                    y: e.clientY,
+                    size: Math.random() * 4 + 1,
+                    color: `hsl(${Math.random() * 40 + 40}, 100%, 75%)`,
+                    vx: (Math.random() - 0.5) * 2,
+                    vy: (Math.random() - 0.5) * 2 - 1,
+                    alpha: 1
+                });
+            }
+        });
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, index) => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= 0.02;
+
+                ctx.save();
+                ctx.globalAlpha = p.alpha;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = p.color;
+                ctx.fill();
+                ctx.restore();
+
+                if (p.alpha <= 0) particles.splice(index, 1);
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // --- 2. Lógica de Áudio Ambiente ---
         const btnAudio = document.getElementById('btnAudio');
         const audioAmbiente = document.getElementById('audioAmbiente');
         const txtAudio = document.getElementById('txtAudio');
@@ -302,16 +1011,16 @@
         btnAudio.addEventListener('click', function() {
             if (audioAmbiente.paused) {
                 audioAmbiente.play();
-                btnAudio.classList.add('active');
-                txtAudio.textContent = 'Atmosphere: ON';
+                txtAudio.textContent = 'Atmosfera Arcana: ON';
+                btnAudio.style.borderColor = '#2ecc71';
             } else {
                 audioAmbiente.pause();
-                btnAudio.classList.remove('active');
-                txtAudio.textContent = 'Atmosphere: OFF';
+                txtAudio.textContent = 'Atmosfera Arcana: OFF';
+                btnAudio.style.borderColor = 'var(--ouro-arcano)';
             }
         });
 
-        // Lightbox Galeria
+        // --- 3. Lightbox Galeria ---
         function abrirLightbox(element) {
             const modal = document.getElementById('lightboxModal');
             const imgTarget = document.getElementById('lightboxImg');
@@ -324,7 +1033,7 @@
             document.getElementById('lightboxModal').style.display = 'none';
         }
 
-        // Mapa do Maroto Interaction
+        // --- 4. Interação com o Mapa do Maroto ---
         const btnRevelar = document.getElementById('btnRevelarMapa');
         const fraseMaroto = document.getElementById('fraseMaroto');
 
