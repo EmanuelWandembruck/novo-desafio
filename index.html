@@ -521,7 +521,7 @@
         <h1 class="hero-title">STRANGER<br>THINGS</h1>
         <p class="hero-desc">Explore arquivos confidenciais, transmissões dimensionais e eventos não explicados da cidade de Hawkins.</p>
         
-        <!-- WIDGET DE ÁUDIO COM INDICADOR E EQUALIZADOR -->
+        <!-- WIDGET DE ÁUDIO NEXT-GEN -->
         <div class="audio-widget" id="audioWidget">
             <button class="btn-audio-toggle" id="btnAudio" aria-label="Alternar áudio">
                 <div class="audio-status-dot" id="statusDot"></div>
@@ -535,7 +535,7 @@
                 </div>
             </button>
             <audio id="audioTrack" loop preload="auto">
-                <source src="running-up-that-hill.mp3" type="audio/mpeg">
+                <source src="Running Up That Hill (A Deal With God)_2.mp3" type="audio/mpeg">
             </audio>
         </div>
     </header>
@@ -647,26 +647,54 @@
     </footer>
 
     <script>
-        // Audio Player Controls with ON/OFF State
+        // Audio Player Controls
         const audio = document.getElementById('audioTrack');
         const btnAudio = document.getElementById('btnAudio');
         const txtStatus = document.getElementById('txtAudioStatus');
 
-        btnAudio.addEventListener('click', async () => {
-            if (audio.paused) {
-                try {
-                    audio.volume = 0.5;
-                    await audio.play();
-                    txtStatus.innerText = 'ON';
-                    btnAudio.classList.add('active');
-                } catch (e) {
-                    console.log("Erro ao reproduzir áudio:", e);
-                }
+        function updateUI(isPlaying) {
+            if (isPlaying) {
+                txtStatus.innerText = 'ON';
+                btnAudio.classList.add('active');
             } else {
-                audio.pause();
                 txtStatus.innerText = 'OFF';
                 btnAudio.classList.remove('active');
             }
+        }
+
+        async function playAudio() {
+            try {
+                audio.volume = 0.5;
+                await audio.play();
+                updateUI(true);
+            } catch (err) {
+                updateUI(false);
+            }
+        }
+
+        btnAudio.addEventListener('click', () => {
+            if (audio.paused) {
+                playAudio();
+            } else {
+                audio.pause();
+                updateUI(false);
+            }
+        });
+
+        // Tenta iniciar no carregamento ou na primeira interação do usuário
+        window.addEventListener('DOMContentLoaded', () => {
+            playAudio().catch(() => {
+                const handleFirstInteraction = () => {
+                    playAudio();
+                    document.removeEventListener('click', handleFirstInteraction);
+                    document.removeEventListener('keydown', handleFirstInteraction);
+                    document.removeEventListener('touchstart', handleFirstInteraction);
+                };
+
+                document.addEventListener('click', handleFirstInteraction);
+                document.addEventListener('keydown', handleFirstInteraction);
+                document.addEventListener('touchstart', handleFirstInteraction);
+            });
         });
 
         // Theme Toggle (Cyber / Dark)
