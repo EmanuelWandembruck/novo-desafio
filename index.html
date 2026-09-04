@@ -521,7 +521,7 @@
         <h1 class="hero-title">STRANGER<br>THINGS</h1>
         <p class="hero-desc">Explore arquivos confidenciais, transmissões dimensionais e eventos não explicados da cidade de Hawkins.</p>
         
-        <!-- WIDGET DE ÁUDIO COM LINK ONLINE REPRODUZÍVEL -->
+        <!-- WIDGET DE ÁUDIO -->
         <div class="audio-widget" id="audioWidget">
             <button class="btn-audio-toggle" id="btnAudio" aria-label="Alternar áudio">
                 <div class="audio-status-dot" id="statusDot"></div>
@@ -647,13 +647,13 @@
     </footer>
 
     <script>
-        // Audio Player Controls
         const audio = document.getElementById('audioTrack');
         const btnAudio = document.getElementById('btnAudio');
         const txtStatus = document.getElementById('txtAudioStatus');
 
-        function updateUI(isPlaying) {
-            if (isPlaying) {
+        // Sincroniza a interface diretamente com os eventos reais do áudio
+        function updateUI() {
+            if (!audio.paused && !audio.ended) {
                 txtStatus.innerText = 'ON';
                 btnAudio.classList.add('active');
             } else {
@@ -662,39 +662,45 @@
             }
         }
 
-        async function playAudio() {
-            try {
-                audio.volume = 0.5;
-                await audio.play();
-                updateUI(true);
-            } catch (err) {
-                updateUI(false);
-            }
-        }
+        // Eventos nativos garantem alteração imediata ao tocar ou pausar
+        audio.addEventListener('play', updateUI);
+        audio.addEventListener('pause', updateUI);
+        audio.addEventListener('ended', updateUI);
 
-        btnAudio.addEventListener('click', () => {
+        // Clique direto no botão de áudio
+        btnAudio.addEventListener('click', (e) => {
+            e.stopPropagation(); // Impede interferência dos cliques na página
             if (audio.paused) {
-                playAudio();
+                audio.play().catch(err => console.log('Bloqueado pelo navegador:', err));
             } else {
                 audio.pause();
-                updateUI(false);
             }
         });
 
-        // Tenta iniciar no carregamento ou na primeira interação do usuário
-        window.addEventListener('DOMContentLoaded', () => {
-            playAudio().catch(() => {
-                const handleFirstInteraction = () => {
-                    playAudio();
-                    document.removeEventListener('click', handleFirstInteraction);
-                    document.removeEventListener('keydown', handleFirstInteraction);
-                    document.removeEventListener('touchstart', handleFirstInteraction);
-                };
+        // Libera a reprodução ao clicar em qualquer ponto da tela caso o navegador exija
+        function handleUserInteraction(e) {
+            if (e.target.closest('#btnAudio')) return;
+            
+            audio.play().then(() => {
+                removeInteractionListeners();
+            }).catch(() => {});
+        }
 
-                document.addEventListener('click', handleFirstInteraction);
-                document.addEventListener('keydown', handleFirstInteraction);
-                document.addEventListener('touchstart', handleFirstInteraction);
-            });
+        function removeInteractionListeners() {
+            document.removeEventListener('click', handleUserInteraction);
+            document.removeEventListener('keydown', handleUserInteraction);
+            document.removeEventListener('touchstart', handleUserInteraction);
+        }
+
+        document.addEventListener('click', handleUserInteraction);
+        document.addEventListener('keydown', handleUserInteraction);
+        document.addEventListener('touchstart', handleUserInteraction);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            audio.volume = 0.5;
+            audio.play().then(() => {
+                removeInteractionListeners();
+            }).catch(() => {});
         });
 
         // Theme Toggle (Cyber / Dark)
