@@ -3,535 +3,721 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stranger Things | Portal Hawkins & O Mundo Invertido</title>
+    <title>Stranger Things | Portal Oficial de Hawkins & O Mundo Invertido</title>
     
     <!-- Google Fonts & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,700;0,800;1,700&family=Oswald:wght@500;700&family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,700;0,800;1,700&family=Oswald:wght@500;700&family=Press+Start+2P&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ==========================================================================
-           1. VARIÁVEIS DE TEMA DINÂMICAS (STRANGER THINGS)
-           ========================================================================== */
-        
-        /* Tema 1: O Mundo Invertido (Padrão) */
-        [data-theme="mundo-invertido"] {
-            --cor-fundo-base: #05070a;
-            --cor-card-bg: rgba(12, 16, 24, 0.88);
-            --cor-neon: #ff0033;
-            --cor-neon-brilho: #ff4d6d;
-            --cor-sombra: rgba(255, 0, 51, 0.4);
-            --texto-principal: #e1e6ed;
-            --texto-suave: #8a96a3;
-            --borda-card: 1px solid rgba(255, 0, 51, 0.3);
-            --fundo-gradiente: radial-gradient(circle at 50% 20%, rgba(40, 5, 15, 0.7), transparent 70%), radial-gradient(circle at 80% 80%, rgba(10, 20, 35, 0.8), transparent 70%);
-            --fonte-titulo: 'EB Garamond', serif;
+        /* ===================================================
+           SISTEMA DE VARIÁVEIS - MUNDO INVERTIDO & HAWKINS 1983
+           =================================================== */
+        :root {
+            --bg-deep: #030508;
+            --bg-card: rgba(8, 12, 20, 0.92);
+            --red-neon: #ff0033;
+            --red-glow: rgba(255, 0, 51, 0.75);
+            --red-dark: #7a0018;
+            --blue-upside: #00f0ff;
+            --blue-glow: rgba(0, 240, 255, 0.6);
+            --yellow-retro: #ffd700;
+            --yellow-glow: rgba(255, 215, 0, 0.7);
+            --purple-mind: #9d00ff;
+
+            /* Pasta de Arquivos do Laboratório */
+            --lab-paper: #1c1f26;
+            --lab-border: #ff3333;
+            --lab-stamp: #d92626;
+            --lab-text: #e1e7ed;
+
+            /* Fontes */
+            --font-title: 'EB Garamond', serif;
+            --font-sub: 'Oswald', sans-serif;
+            --font-mono: 'Share Tech Mono', monospace;
+            --font-retro: 'VT323', monospace;
+            --font-pixel: 'Press Start 2P', cursive;
         }
 
-        /* Tema 2: Hawkins 1983 (Retro Neon 80s) */
+        /* Temas Alternativos Dinâmicos */
         [data-theme="hawkins-83"] {
-            --cor-fundo-base: #0b0714;
-            --cor-card-bg: rgba(22, 12, 38, 0.9);
-            --cor-neon: #00f0ff;
-            --cor-neon-brilho: #ff00aa;
-            --cor-sombra: rgba(0, 240, 255, 0.4);
-            --texto-principal: #f0f4f8;
-            --texto-suave: #b388ff;
-            --borda-card: 1px solid rgba(0, 240, 255, 0.4);
-            --fundo-gradiente: radial-gradient(circle at 50% 30%, rgba(120, 0, 180, 0.35), transparent 70%), linear-gradient(180deg, #0b0714 0%, #15002a 100%);
-            --fonte-titulo: 'Oswald', sans-serif;
+            --bg-deep: #090414;
+            --bg-card: rgba(20, 10, 38, 0.92);
+            --red-neon: #00f0ff;
+            --red-glow: rgba(0, 240, 255, 0.8);
+            --red-dark: #005b66;
+            --blue-upside: #ff00aa;
+            --blue-glow: rgba(255, 0, 170, 0.7);
         }
 
-        /* Tema 3: Palace Arcade (80s Pixel Art) */
         [data-theme="arcade"] {
-            --cor-fundo-base: #0a1108;
-            --cor-card-bg: rgba(15, 28, 18, 0.92);
-            --cor-neon: #39ff14;
-            --cor-neon-brilho: #ccff00;
-            --cor-sombra: rgba(57, 255, 20, 0.3);
-            --texto-principal: #e0ffe0;
-            --texto-suave: #73b373;
-            --borda-card: 2px solid #39ff14;
-            --fundo-gradiente: radial-gradient(circle at 50% 50%, rgba(20, 50, 20, 0.5), transparent 80%);
-            --fonte-titulo: 'Press Start 2P', cursive;
+            --bg-deep: #051207;
+            --bg-card: rgba(10, 28, 14, 0.94);
+            --red-neon: #39ff14;
+            --red-glow: rgba(57, 255, 20, 0.8);
+            --red-dark: #125705;
+            --blue-upside: #ccff00;
+            --blue-glow: rgba(204, 255, 0, 0.7);
         }
 
-        /* Tema 4: Laboratório de Hawkins (Alerta Vermelho) */
-        [data-theme="laboratorio"] {
-            --cor-fundo-base: #121212;
-            --cor-card-bg: rgba(28, 28, 28, 0.95);
-            --cor-neon: #ffaa00;
-            --cor-neon-brilho: #ff3300;
-            --cor-sombra: rgba(255, 170, 0, 0.4);
-            --texto-principal: #f5f5f5;
-            --texto-suave: #a0a0a0;
-            --borda-card: 1px solid #ffaa00;
-            --fundo-gradiente: linear-gradient(135deg, #1f0000 0%, #0a0a0a 100%);
-            --fonte-titulo: 'Share Tech Mono', monospace;
-        }
-
-        * {
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* Cursor Customizado Retro */
+        html, body, a, button, input {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23ff0033"><path d="M12 2L2 22l10-4 10 4z"/></svg>'), auto !important;
             scroll-behavior: smooth;
-            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+            color-scheme: dark;
         }
 
+        /* ===================================================
+           PLANO DE FUNDO ATMOSFÉRICO & EFEITO CRT SCANLINE
+           =================================================== */
         body {
-            background-color: var(--cor-fundo-base);
-            color: var(--texto-principal);
-            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(120, 0, 25, 0.4), transparent 75%),
+                radial-gradient(circle at 80% 80%, rgba(10, 30, 60, 0.5), transparent 70%),
+                linear-gradient(to bottom, rgba(3, 5, 8, 0.7), rgba(3, 5, 8, 0.98)),
+                url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=1920&auto=format&fit=crop');
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            color: var(--lab-text);
+            font-family: var(--font-mono);
+            min-height: 100vh;
             overflow-x: hidden;
-            line-height: 1.7;
-            background-image: var(--fundo-gradiente);
+            position: relative;
+            line-height: 1.6;
+            transition: background 0.8s ease, transform 0.8s ease;
         }
 
+        /* Overlay de Linhas de Monitor Tubo (CRT Scanlines) */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            z-index: 999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+            opacity: 0.75;
+        }
+
+        /* Canvas de Esporos do Mundo Invertido */
         #sporesCanvas {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
             pointer-events: none;
-            z-index: 9999;
+            z-index: 1;
         }
 
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: var(--cor-fundo-base); }
+        /* Barra de Rolagem */
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
         ::-webkit-scrollbar-thumb {
-            background: var(--cor-neon);
-            border-radius: 5px;
+            background: linear-gradient(180deg, var(--red-dark), var(--red-neon), var(--red-dark));
+            border-radius: 6px;
+            border: 2px solid var(--bg-deep);
+            box-shadow: 0 0 15px var(--red-glow);
         }
 
-        /* ==========================================================================
-           2. PAINEL DE SELEÇÃO DE TEMA
-           ========================================================================== */
+        /* ===================================================
+           PAINEL DE CONTROLADORES & TROCA DE SINAL (TEMA)
+           =================================================== */
         .painel-temas {
             position: fixed;
-            top: 15px;
-            right: 15px;
+            top: 20px; right: 20px;
             z-index: 1000;
-            background: var(--cor-card-bg);
-            border: var(--borda-card);
+            background: var(--bg-card);
+            border: 2px solid var(--red-neon);
             border-radius: 30px;
-            padding: 0.4rem 0.8rem;
+            padding: 8px 18px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 0 15px var(--cor-sombra);
-            backdrop-filter: blur(8px);
+            gap: 12px;
+            box-shadow: 0 0 25px var(--red-glow);
+            backdrop-filter: blur(10px);
         }
 
         .painel-temas span {
-            font-family: 'Oswald', sans-serif;
+            font-family: var(--font-sub);
             font-size: 0.85rem;
             font-weight: 700;
-            color: var(--cor-neon-brilho);
+            color: var(--red-neon);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-right: 4px;
+            letter-spacing: 2px;
         }
 
         .btn-tema {
-            width: 24px;
-            height: 24px;
+            width: 22px; height: 22px;
             border-radius: 50%;
             border: 2px solid #fff;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .btn-tema:hover { transform: scale(1.25); }
-        .btn-tema[data-set="mundo-invertido"] { background: #ff0033; border-color: #05070a; }
-        .btn-tema[data-set="hawkins-83"] { background: #00f0ff; border-color: #ff00aa; }
-        .btn-tema[data-set="arcade"] { background: #39ff14; border-color: #0a1108; }
-        .btn-tema[data-set="laboratorio"] { background: #ffaa00; border-color: #121212; }
+        .btn-tema:hover { transform: scale(1.3); }
+        .btn-tema[data-set="mundo-invertido"] { background: #ff0033; box-shadow: 0 0 10px #ff0033; }
+        .btn-tema[data-set="hawkins-83"] { background: #00f0ff; box-shadow: 0 0 10px #00f0ff; }
+        .btn-tema[data-set="arcade"] { background: #39ff14; box-shadow: 0 0 10px #39ff14; }
 
-        /* HEADER & LOGO LOGIC STRANGER THINGS */
+        /* ===================================================
+           CABEÇALHO COM LOGO MONUMENTAL STRANGER THINGS
+           =================================================== */
         header {
             position: relative;
             min-height: 100vh;
+            width: 100%;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 2rem;
+            padding: 60px 20px;
             overflow: hidden;
+            border-bottom: 3px solid var(--red-neon);
+            box-shadow: 0 10px 60px rgba(0, 0, 0, 0.9), 0 0 50px var(--red-glow);
         }
 
-        .bg-video {
+        .header-bg-overlay {
             position: absolute;
-            top: 50%; left: 50%;
-            min-width: 100%; min-height: 100%;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            opacity: 0.25;
-            filter: grayscale(80%) contrast(150%);
-            z-index: -2;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(3, 5, 8, 0.3) 0%, rgba(3, 5, 8, 0.95) 85%);
+            z-index: 2;
         }
 
-        .header-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 20%, var(--cor-fundo-base) 90%);
-            z-index: -1;
+        .header-content {
+            position: relative;
+            z-index: 3;
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
 
-        .st-logo-container {
-            margin-bottom: 2rem;
+        /* LOGO STRANGER THINGS */
+        .st-logo-box {
+            position: relative;
+            margin-bottom: 10px;
         }
 
         h1.st-titulo {
-            font-family: var(--fonte-titulo);
-            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-family: var(--font-title);
+            font-size: clamp(3.2rem, 10vw, 7.5rem);
+            font-weight: 800;
             color: transparent;
-            -webkit-text-stroke: 2px var(--cor-neon);
-            text-shadow: 0 0 10px var(--cor-neon), 0 0 20px var(--cor-neon), 0 0 40px var(--cor-neon-brilho);
+            -webkit-text-stroke: 3px var(--red-neon);
             text-transform: uppercase;
-            letter-spacing: 3px;
-            line-height: 0.9;
-            animation: flickerST 4s infinite alternate;
+            letter-spacing: 4px;
+            line-height: 0.85;
+            text-shadow: 0 0 15px var(--red-neon), 0 0 30px var(--red-neon), 0 0 60px var(--red-glow);
+            animation: flickerNeon 3.5s infinite alternate, flutuarTitulo 6s ease-in-out infinite;
+            position: relative;
         }
 
-        @keyframes flickerST {
-            0%, 100% { opacity: 1; filter: drop-shadow(0 0 15px var(--cor-neon)); }
-            50% { opacity: 0.85; filter: drop-shadow(0 0 5px var(--cor-neon)); }
-            52% { opacity: 0.4; }
-            54% { opacity: 1; }
-            88% { opacity: 0.9; }
-            90% { opacity: 0.3; }
-            92% { opacity: 1; }
+        h1.st-titulo::before {
+            content: '';
+            position: absolute;
+            top: -10px; left: 0; width: 100%; height: 4px;
+            background: var(--red-neon);
+            box-shadow: 0 0 15px var(--red-neon);
+        }
+
+        h1.st-titulo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px; left: 0; width: 100%; height: 4px;
+            background: var(--red-neon);
+            box-shadow: 0 0 15px var(--red-neon);
         }
 
         .subtitulo-hawkins {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.2rem;
-            letter-spacing: 5px;
-            color: var(--texto-suave);
-            margin-top: 1rem;
-            margin-bottom: 2.5rem;
+            font-family: var(--font-sub);
+            font-size: clamp(1.2rem, 3vw, 2.2rem);
+            color: var(--yellow-retro);
+            letter-spacing: 8px;
             text-transform: uppercase;
+            text-shadow: 0 0 15px var(--yellow-glow);
+            margin-top: 15px;
         }
 
+        /* Botões Estilo Retro 80s */
         .btn-retro {
-            background: var(--cor-card-bg);
-            border: 2px solid var(--cor-neon);
-            color: var(--cor-neon-brilho);
-            padding: 0.8rem 2rem;
-            font-family: 'Oswald', sans-serif;
-            font-size: 1rem;
+            position: relative;
+            background: var(--bg-card);
+            color: var(--red-neon);
+            border: 2px solid var(--red-neon);
+            padding: 16px 36px;
+            font-family: var(--font-sub);
+            font-size: 1.1rem;
             font-weight: 700;
             letter-spacing: 3px;
             text-transform: uppercase;
-            border-radius: 2px;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px var(--cor-sombra);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 20px var(--red-glow);
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .btn-retro:hover {
-            background: var(--cor-neon);
-            color: var(--cor-fundo-base);
-            box-shadow: 0 0 25px var(--cor-neon);
-            transform: translateY(-3px);
+            background: var(--red-neon);
+            color: #000;
+            box-shadow: 0 0 40px var(--red-neon), 0 0 80px var(--red-glow);
+            transform: translateY(-4px) scale(1.05);
         }
 
-        nav { margin-top: 3rem; }
+        /* Navegação Encantada */
+        nav { margin-top: 35px; width: 100%; }
         nav ul {
             list-style: none;
             display: flex;
+            gap: 18px;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.2rem;
         }
 
         nav a {
-            color: var(--texto-principal);
+            color: var(--lab-text);
             text-decoration: none;
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
+            font-family: var(--font-sub);
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 12px 24px;
+            border: 1px solid var(--red-neon);
+            border-radius: 4px;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
             text-transform: uppercase;
-            padding: 0.6rem 1.2rem;
-            border-radius: 2px;
-            border: 1px solid transparent;
-            background: var(--cor-card-bg);
+            letter-spacing: 2px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         nav a:hover {
-            border-color: var(--cor-neon);
-            color: var(--cor-neon-brilho);
-            box-shadow: 0 0 10px var(--cor-sombra);
-            transform: translateY(-2px);
+            background: var(--red-neon);
+            color: #000;
+            box-shadow: 0 0 25px var(--red-neon);
+            transform: translateY(-3px);
         }
 
+        /* ===================================================
+           CONTEÚDO PRINCIPAL & TÍTULOS
+           =================================================== */
         main {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        section { margin-bottom: 8rem; }
-
-        h2 {
-            font-family: var(--fonte-titulo);
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            color: var(--texto-principal);
-            text-shadow: 0 0 10px var(--cor-neon);
-            text-align: center;
-            margin-bottom: 3rem;
             position: relative;
-            padding-bottom: 1rem;
-            text-transform: uppercase;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 24px;
         }
 
-        h2::after {
-            content: '▲ ▼ ▲';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.8rem;
-            color: var(--cor-neon);
-            letter-spacing: 5px;
-        }
+        section { margin-bottom: 140px; position: relative; }
 
-        /* PAREDE DE LUZES PISCANTES (ALPHABET WALL) */
-        .secao-parede-luzes {
-            background: var(--cor-card-bg);
-            border: var(--borda-card);
-            border-radius: 8px;
-            padding: 2.5rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+        h2.titulo-secao {
+            font-family: var(--font-title);
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            color: var(--lab-text);
             text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 60px;
+            position: relative;
+            text-shadow: 0 0 20px var(--red-neon);
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .alfabeto-luzes {
+        h2.titulo-secao::after {
+            content: '';
+            display: block;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--red-neon), transparent);
+            margin-top: 10px;
+            box-shadow: 0 0 10px var(--red-neon);
+        }
+
+        /* ===================================================
+           SEÇÃO 1: A PAREDE DE LUZES DE JOYCE (ALPHABET WALL)
+           =================================================== */
+        .secao-parede-luzes {
+            background: rgba(12, 10, 8, 0.95);
+            border: 3px solid #4a3421;
+            border-radius: 12px;
+            padding: 50px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            position: relative;
+            background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 2px, transparent 2px, transparent 4px);
+        }
+
+        .alfabeto-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            margin-top: 2rem;
+            gap: 22px;
+            margin: 40px 0;
         }
 
-        .letra-luz {
+        .letra-luz-box {
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-family: 'EB Garamond', serif;
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--texto-principal);
+            font-family: var(--font-title);
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #d1b894;
         }
 
         .lampada {
-            width: 16px;
-            height: 24px;
+            width: 22px;
+            height: 32px;
             border-radius: 50% 50% 40% 40%;
-            background: #222;
-            margin-bottom: 8px;
-            box-shadow: 0 0 2px #000;
-            transition: background 0.2s, box-shadow 0.2s;
+            background: #26201a;
+            margin-bottom: 10px;
+            box-shadow: inset 0 0 5px #000;
+            transition: all 0.2s ease;
+            position: relative;
         }
 
-        .lampada.ativa {
-            background: #ff0055;
-            box-shadow: 0 0 15px #ff0055, 0 0 30px #ff0055;
+        .lampada::before {
+            content: '';
+            position: absolute;
+            top: -6px; left: 7px; width: 8px; height: 6px;
+            background: #444;
+            border-radius: 2px;
         }
 
-        .lampada.ativa-amarela {
-            background: #ffcc00;
-            box-shadow: 0 0 15px #ffcc00, 0 0 30px #ffcc00;
+        /* Estados das Lâmpadas Piscantes */
+        .lampada.cor-1.ativa { background: #ff0055; box-shadow: 0 0 20px #ff0055, 0 0 40px #ff0055; }
+        .lampada.cor-2.ativa { background: #ffcc00; box-shadow: 0 0 20px #ffcc00, 0 0 40px #ffcc00; }
+        .lampada.cor-3.ativa { background: #00ccff; box-shadow: 0 0 20px #00ccff, 0 0 40px #00ccff; }
+        .lampada.cor-4.ativa { background: #39ff14; box-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14; }
+
+        .input-mensagem-box {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .lampada.ativa-azul {
-            background: #00ccff;
-            box-shadow: 0 0 15px #00ccff, 0 0 30px #00ccff;
+        .input-retro {
+            flex: 1;
+            background: #000;
+            border: 2px solid var(--red-neon);
+            color: var(--yellow-retro);
+            padding: 14px 20px;
+            font-family: var(--font-retro);
+            font-size: 1.8rem;
+            border-radius: 4px;
+            outline: none;
+            box-shadow: inset 0 0 10px rgba(255, 0, 51, 0.4);
         }
 
-        /* GRIDS GERAIS */
-        .card-hawkins {
-            background: var(--cor-card-bg);
-            border: var(--borda-card);
-            border-radius: 6px;
-            padding: 1.8rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card-hawkins:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 20px var(--cor-sombra);
-        }
-
+        /* ===================================================
+           SEÇÃO 2: GRID DE PERSONAGENS 3D (HELLFIRE CLUB)
+           =================================================== */
         .grid-3d {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            gap: 35px;
+            perspective: 1000px;
         }
 
-        .card-foto {
+        .card-personagem {
+            background: var(--bg-card);
+            border: 2px solid rgba(255, 0, 51, 0.4);
+            border-radius: 12px;
+            padding: 30px 22px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-personagem:hover {
+            transform: translateY(-12px) rotateX(4deg) scale(1.02);
+            border-color: var(--red-neon);
+            box-shadow: 0 20px 50px var(--red-glow);
+        }
+
+        .foto-personagem {
             width: 100%;
-            height: 220px;
+            height: 260px;
             object-fit: cover;
-            border-radius: 4px;
-            margin: 1rem 0;
-            border: 1px solid var(--cor-neon);
+            border-radius: 8px;
+            border: 2px solid var(--red-neon);
+            margin-bottom: 20px;
             filter: contrast(110%) brightness(90%);
+            transition: transform 0.5s ease;
         }
 
-        /* REGISTROS CLASSIFICADOS */
-        .registro-item {
-            background: var(--cor-card-bg);
-            border-left: 4px solid var(--cor-neon);
-            padding: 1.2rem 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: 0 6px 6px 0;
+        .card-personagem:hover .foto-personagem {
+            transform: scale(1.05);
+            filter: contrast(120%) brightness(105%);
         }
 
-        .registro-titulo {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.2rem;
-            color: var(--cor-neon-brilho);
+        .card-personagem h3 {
+            font-family: var(--font-sub);
+            font-size: 1.8rem;
+            color: var(--yellow-retro);
+            margin-bottom: 8px;
             text-transform: uppercase;
         }
 
-        /* GALERIA & LIGHTBOX */
+        .card-personagem .funcao {
+            font-family: var(--font-mono);
+            color: var(--red-neon);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .card-personagem p {
+            font-size: 0.95rem;
+            color: #b0baba;
+            line-height: 1.6;
+        }
+
+        /* ===================================================
+           SEÇÃO 3: ARQUIVOS ULTRASSECRETOS DO LABORATORIO
+           =================================================== */
+        .secao-lab-arquivos {
+            background: var(--lab-paper);
+            border: 3px double var(--lab-border);
+            border-radius: 8px;
+            padding: 50px 40px;
+            position: relative;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.95);
+        }
+
+        /* Carimbo CONFIDENCIAL */
+        .secao-lab-arquivos::before {
+            content: 'TOP SECRET';
+            position: absolute;
+            top: 25px; right: 35px;
+            font-family: var(--font-sub);
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--lab-stamp);
+            border: 4px solid var(--lab-stamp);
+            padding: 4px 18px;
+            transform: rotate(-12deg);
+            opacity: 0.85;
+            letter-spacing: 4px;
+            pointer-events: none;
+        }
+
+        .arquivo-item {
+            background: rgba(0,0,0,0.5);
+            border-left: 4px solid var(--red-neon);
+            padding: 20px 25px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .arquivo-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 0, 51, 0.1);
+        }
+
+        .arquivo-titulo {
+            font-family: var(--font-sub);
+            font-size: 1.4rem;
+            color: var(--yellow-retro);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .arquivo-data {
+            font-size: 0.85rem;
+            color: var(--red-neon);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* ===================================================
+           SEÇÃO 4: GALERIA VHS & EVIDÊNCIAS
+           =================================================== */
         .galeria-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
 
-        .galeria-item {
+        .vhs-card {
             position: relative;
-            height: 220px;
-            border-radius: 6px;
+            height: 280px;
+            border-radius: 10px;
             overflow: hidden;
+            border: 2px solid var(--red-neon);
             cursor: pointer;
-            border: var(--borda-card);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+            transition: all 0.4s ease;
         }
 
-        .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
+        .vhs-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%) contrast(120%);
+            transition: transform 0.6s ease, filter 0.6s ease;
+        }
 
-        .galeria-hover {
+        .vhs-overlay {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.88);
+            inset: 0;
+            background: rgba(3, 5, 8, 0.85);
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            font-family: 'Oswald', sans-serif;
-            color: var(--cor-neon-brilho);
+            align-items: center;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
+            padding: 20px;
             text-align: center;
-            padding: 1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
         }
 
-        .galeria-item:hover .galeria-hover { opacity: 1; }
+        .vhs-card:hover {
+            transform: scale(1.05) translateY(-6px);
+            box-shadow: 0 20px 45px var(--red-glow);
+        }
 
+        .vhs-card:hover img {
+            transform: scale(1.15);
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        .vhs-card:hover .vhs-overlay { opacity: 1; }
+
+        .vhs-titulo {
+            font-family: var(--font-sub);
+            font-size: 1.6rem;
+            color: var(--yellow-retro);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Modal Lightbox */
         .lightbox {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            inset: 0;
             background: rgba(0,0,0,0.95);
             z-index: 10000;
             justify-content: center;
             align-items: center;
         }
 
-        .lightbox-body {
+        .lightbox-content {
             max-width: 85%; max-height: 85%;
-            border: 2px solid var(--cor-neon);
-            box-shadow: 0 0 30px var(--cor-neon);
-            border-radius: 6px;
+            border: 3px solid var(--red-neon);
+            box-shadow: 0 0 50px var(--red-glow);
+            border-radius: 8px;
             overflow: hidden;
+            position: relative;
         }
 
-        .lightbox-media { width: 100%; max-height: 80vh; object-fit: contain; }
+        .lightbox-media { width: 100%; max-height: 80vh; object-fit: contain; display: block; }
 
-        .lightbox-close {
-            position: absolute; top: 25px; right: 35px;
-            font-size: 2.5rem; color: #fff; cursor: pointer;
-        }
-
+        /* Rodapé Hawkins */
         footer {
-            background: var(--cor-card-bg);
-            border-top: var(--borda-card);
-            padding: 4rem 2rem 2rem 2rem;
+            border-top: 2px solid var(--red-neon);
+            padding: 40px 20px;
             text-align: center;
+            background: var(--bg-deep);
+            color: #7a8b9e;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
         }
 
-        .hawkins-footer {
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
+        /* ===================================================
+           ANIMAÇÕES KEYFRAMES
+           =================================================== */
+        @keyframes flickerNeon {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 20px var(--red-neon)); }
+            50% { opacity: 0.8; filter: drop-shadow(0 0 10px var(--red-neon)); }
+            52% { opacity: 0.3; }
+            54% { opacity: 1; }
+            80% { opacity: 0.9; }
+            82% { opacity: 0.2; }
+            84% { opacity: 1; }
         }
 
-        #fraseInvertida {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.3rem;
-            color: var(--cor-neon-brilho);
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        @keyframes flutuarTitulo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            main { padding: 60px 16px; }
+            .secao-parede-luzes { padding: 30px 15px; }
+            .input-mensagem-box { flex-direction: column; }
+            .secao-lab-arquivos::before { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- PAINEL DE TROCA DE TEMA -->
+    <!-- PAINEL DE ALTERAÇÃO DE SINAL -->
     <div class="painel-temas">
-        <span><i class="fa-solid fa-radio"></i> Sinal:</span>
+        <span><i class="fa-solid fa-tower-cell"></i> Sinal:</span>
         <button class="btn-tema" data-set="mundo-invertido" title="O Mundo Invertido"></button>
-        <button class="btn-tema" data-set="hawkins-83" title="Hawkins 1983"></button>
-        <button class="btn-tema" data-set="arcade" title="Palace Arcade"></button>
-        <button class="btn-tema" data-set="laboratorio" title="Laboratório de Hawkins"></button>
+        <button class="btn-tema" data-set="hawkins-83" title="Hawkins 1983 Neon"></button>
+        <button class="btn-tema" data-set="arcade" title="Palace Arcade Pixel"></button>
     </div>
 
+    <!-- CANVAS DE ESPOROS FLUTUANTES -->
     <canvas id="sporesCanvas"></canvas>
 
-    <!-- HEADER -->
+    <!-- CABEÇALHO HERO -->
     <header id="inicio">
-        <video class="bg-video" autoplay loop muted playsinline>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-red-abstract-lights-in-the-dark-42880-large.mp4" type="video/mp4">
-        </video>
-
-        <div class="header-overlay"></div>
-
+        <div class="header-bg-overlay"></div>
         <div class="header-content">
-            <div class="st-logo-container">
+            <div class="st-logo-box">
                 <h1 class="st-titulo">Stranger<br>Things</h1>
             </div>
             <p class="subtitulo-hawkins">Hawkins, Indiana — 1983</p>
 
-            <div class="audio-control">
+            <div style="display:flex; gap:15px; flex-wrap:wrap; justify-content:center;">
+                <button id="btnAudio" class="btn-retro">
+                    <i class="fa-solid fa-radio"></i> <span id="txtAudio">Sintetizador: OFF</span>
+                </button>
                 <audio id="audioSintetizador" loop preload="auto">
                     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
                 </audio>
-                <button id="btnAudio" class="btn-retro">
-                    <i class="fa-solid fa-compact-disc"></i> <span id="txtAudio">Sintetizador: OFF</span>
-                </button>
             </div>
 
             <nav>
                 <ul>
-                    <li><a href="#luzes"><i class="fa-solid fa-lightbulb"></i> Comunicação</a></li>
+                    <li><a href="#luzes"><i class="fa-solid fa-lightbulb"></i> Parede de Luzes</a></li>
                     <li><a href="#personagens"><i class="fa-solid fa-users"></i> O Grupo</a></li>
-                    <li><a href="#ameacas"><i class="fa-solid fa-biohazard"></i> Ameaças</a></li>
-                    <li><a href="#registros"><i class="fa-solid fa-folder-open"></i> Arquivos Secretos</a></li>
-                    <li><a href="#galeria"><i class="fa-solid fa-film"></i> Evidências</a></li>
+                    <li><a href="#arquivos"><i class="fa-solid fa-folder-closed"></i> Arquivos do Lab</a></li>
+                    <li><a href="#ameacas"><i class="fa-solid fa-skull"></i> Ameaças</a></li>
+                    <li><a href="#galeria"><i class="fa-solid fa-compact-disc"></i> Evidências VHS</a></li>
                 </ul>
             </nav>
         </div>
@@ -539,285 +725,367 @@
 
     <main>
 
-        <!-- SEÇÃO 1: PAREDE DE LUZES (ALPHABET WALL) -->
+        <!-- SEÇÃO 1: TRANSMISSÃO PELA PAREDE DE LUZES DE JOYCE -->
         <section id="luzes" class="secao-parede-luzes">
-            <h2>Transmissão do Mundo Invertido</h2>
-            <p style="color:var(--texto-suave);">As luzes piscam em resposta às ondas eletromagnéticas da outra dimensão...</p>
-            
-            <div class="alfabeto-luzes" id="alfabetoLuzes">
-                <!-- Gerado via JavaScript -->
+            <h2 class="titulo-secao" style="margin-bottom:15px;">Comunicação Dimensional</h2>
+            <p style="color:#d1b894; font-size:1.1rem;">Digite uma mensagem para transmitir através das luzes pisca-pisca na parede...</p>
+
+            <div class="alfabeto-container" id="alfabetoContainer">
+                <!-- Gerado Dinamicamente via JavaScript -->
             </div>
 
-            <button id="btnTransmitir" class="btn-retro" style="margin-top: 2rem;">
-                <i class="fa-solid fa-bolt"></i> Receber Sinal de Will
-            </button>
+            <div class="input-mensagem-box">
+                <input type="text" id="inputTexto" class="input-retro" placeholder="DIGITE AQUI (EX: CORRA)..." maxlength="20">
+                <button id="btnTransmitir" class="btn-retro"><i class="fa-solid fa-bolt"></i> Transmitir</button>
+            </div>
         </section>
 
-        <!-- SEÇÃO 2: O GRUPO DE HAWKINS -->
+        <!-- SEÇÃO 2: O GRUPO DE HAWKINS (CARDS 3D) -->
         <section id="personagens">
-            <h2>O Grupo de Hawkins</h2>
+            <h2 class="titulo-secao">O Grupo de Hawkins</h2>
             <div class="grid-3d">
-                <div class="card-hawkins" style="text-align:center;">
-                    <img class="card-foto" src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=500&q=80" alt="Eleven">
+                
+                <div class="card-personagem">
+                    <img class="foto-personagem" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600&auto=format&fit=crop" alt="Eleven">
                     <h3>Eleven (011)</h3>
-                    <p style="color:var(--texto-suave); font-style:italic;">"Amigos não mentem."</p>
-                    <p style="font-size:0.85rem; margin-top:0.5rem;">Possui habilidades telecinéticas e psíquicas derivadas de experimentos no Laboratório de Hawkins.</p>
+                    <div class="funcao">A Mágica / Telecinética</div>
+                    <p>Possui imensos poderes psicocinéticos resultantes de experimentos no Laboratório de Hawkins. A principal defesa contra o Mundo Invertido.</p>
                 </div>
 
-                <div class="card-hawkins" style="text-align:center;">
-                    <img class="card-foto" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=500&q=80" alt="Mike Wheeler">
+                <div class="card-personagem">
+                    <img class="foto-personagem" src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=600&auto=format&fit=crop" alt="Mike Wheeler">
                     <h3>Mike Wheeler</h3>
-                    <p style="color:var(--texto-suave); font-style:italic;">O Estrategista do Grupo</p>
-                    <p style="font-size:0.85rem; margin-top:0.5rem;">Líder nas partidas de Dungeons & Dragons e o primeiro a acolher Eleven.</p>
+                    <div class="funcao">O Ladrão / Estrategista</div>
+                    <p>Mestre de Mesa do D&D. Estrategista destemido e o elo de união fundamental do grupo em todas as missões.</p>
                 </div>
 
-                <div class="card-hawkins" style="text-align:center;">
-                    <img class="card-foto" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80" alt="Dustin Henderson">
+                <div class="card-personagem">
+                    <img class="foto-personagem" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop" alt="Dustin Henderson">
                     <h3>Dustin Henderson</h3>
-                    <p style="color:var(--texto-suave); font-style:italic;">O Especialista em Rádio</p>
-                    <p style="font-size:0.85rem; margin-top:0.5rem;">Mestre em comunicação por rádio amador (Cerebro) e lógica científica.</p>
+                    <div class="funcao">O Bardo / Especialista</div>
+                    <p>Mestre da tecnologia, rádio amador (Cerebro) e diplomacia. Responsável pelas maiores descobertas táticas.</p>
                 </div>
 
-                <div class="card-hawkins" style="text-align:center;">
-                    <img class="card-foto" src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=500&q=80" alt="Jim Hopper">
+                <div class="card-personagem">
+                    <img class="foto-personagem" src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=600&auto=format&fit=crop" alt="Jim Hopper">
                     <h3>Jim Hopper</h3>
-                    <p style="color:var(--texto-suave); font-style:italic;">Chefe de Polícia de Hawkins</p>
-                    <p style="font-size:0.85rem; margin-top:0.5rem;">Investigador incansável focado em proteger a cidade e expor o laboratório.</p>
+                    <div class="funcao">Chefe de Polícia</div>
+                    <p>Investigador obstinado que fará qualquer coisa para desmantelar os segredos sombrios do governo e proteger Hawkins.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: ARQUIVOS CONFIDENCIAIS DO LABORATORIO -->
+        <section id="arquivos">
+            <h2 class="titulo-secao">Arquivos Secretos do Laboratório</h2>
+            <div class="secao-lab-arquivos">
+                <div class="arquivo-item">
+                    <span class="arquivo-data">[12 de Novembro, 1983]</span>
+                    <div class="arquivo-titulo">Incidente do Portal Principal</div>
+                    <p style="color:#a0aab5; margin-top:5px;">Abertura inadvertida da fenda subterrânea por contato psíquico de alta energia. Contaminação por esporos detectada no nível -4.</p>
+                </div>
+
+                <div class="arquivo-item">
+                    <span class="arquivo-data">[04 de Outubro, 1984]</span>
+                    <div class="arquivo-titulo">Relatório da Mente de Colmeia</div>
+                    <p style="color:#a0aab5; margin-top:5px;">Análise da entidade parasita 'Devorador de Mentes'. Capacidade de controle biológico sobre organismos infectados na cidade.</p>
+                </div>
+
+                <div class="arquivo-item">
+                    <span class="arquivo-data">[21 de Março, 1986]</span>
+                    <div class="arquivo-titulo">Caso 001 — Pró-Substância Psíquica</div>
+                    <p style="color:#a0aab5; margin-top:5px;">Documentos desclassificados ligando as maldições ativas em Hawkins ao indivíduo original Henry Creel (Vecna).</p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO 3: AMEAÇAS DO MUNDO INVERTIDO -->
+        <!-- SEÇÃO 4: AMEAÇAS DO MUNDO INVERTIDO -->
         <section id="ameacas">
-            <h2>Ameaças Dimensionais</h2>
+            <h2 class="titulo-secao">Ameaças Dimensionais</h2>
             <div class="grid-3d">
-                <div class="card-hawkins">
-                    <h3>Demogorgon</h3>
-                    <p>Predador alfa do Mundo Invertido. Atraído pelo sangue e capaz de rasgar o tecido do espaço-tempo para criar portais temporários.</p>
+                <div class="card-personagem" style="border-color: var(--red-neon);">
+                    <h3 style="color:var(--red-neon);">Demogorgon</h3>
+                    <div class="funcao">Predador Humanoide</div>
+                    <p>Caçador implacável com mandíbula em formato de pétalas. Capaz de cruzar dimensões atraído pelo cheiro de sangue.</p>
                 </div>
-                <div class="card-hawkins">
-                    <h3>O Devorador de Mentes</h3>
-                    <p>Entidade psíquica colossal que governa a mente de colmeia de todas as criaturas da dimensão paralela.</p>
+
+                <div class="card-personagem" style="border-color: var(--purple-mind);">
+                    <h3 style="color:var(--purple-mind);">Devorador de Mentes</h3>
+                    <div class="funcao">Comandante Supremo</div>
+                    <p>Entidade colossal feita de fumaça e sombra que governa a mente coletiva de todas as criaturas do Mundo Invertido.</p>
                 </div>
-                <div class="card-hawkins">
-                    <h3>Vecna (001)</h3>
-                    <p>A entidade original por trás do controle psíquico do Mundo Invertido, capaz de explorar traumas do passado das suas vítimas.</p>
+
+                <div class="card-personagem" style="border-color: var(--yellow-retro);">
+                    <h3 style="color:var(--yellow-retro);">Vecna (001)</h3>
+                    <div class="funcao">Mestre Psíquico</div>
+                    <p>Criatura humanoide ancestral que manipula traumas e sentimentos de culpa para abrir fendas dimensionais mortais.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO 4: REGISTROS CLASSIFICADOS -->
-        <section id="registros">
-            <h2>Arquivos do Laboratório</h2>
-            <div class="registro-item">
-                <span class="registro-titulo">Incidente 001 — O Portal Inicial</span>
-                <p style="color: var(--texto-suave); font-size: 0.9rem;">Abertura involuntária da fenda dimensional no subsolo do Laboratório Nacional de Hawkins.</p>
-            </div>
-            <div class="registro-item">
-                <span class="registro-titulo">Projeto MKUltra — Experimento Psíquico</span>
-                <p style="color: var(--texto-suave); font-size: 0.9rem;">Documentos confidenciais detalhando ampliação de capacidades de percepção extra-sensorial.</p>
-            </div>
-            <div class="registro-item">
-                <span class="registro-titulo">Operação Cerebro — Frequências Rádio</span>
-                <p style="color: var(--texto-suave); font-size: 0.9rem;">Interceptação de transmissões criptografadas de rádio na frequência 440MHz.</p>
-            </div>
-        </section>
-
-        <!-- SEÇÃO 5: GALERIA DE EVIDÊNCIAS -->
+        <!-- SEÇÃO 5: GALERIA VHS DE EVIDÊNCIAS -->
         <section id="galeria">
-            <h2>Galeria de Evidências</h2>
+            <h2 class="titulo-secao">Galeria de Evidências VHS</h2>
             <div class="galeria-grid">
-                <div class="galeria-item" onclick="abrirLightbox(this)">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80" alt="Estrada Noturna de Hawkins">
-                    <div class="galeria-hover">Estrada de Hawkins (23:00)</div>
+                
+                <div class="vhs-card" onclick="abrirLightbox('image', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1200&auto=format&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop" alt="Estrada de Hawkins">
+                    <div class="vhs-overlay">
+                        <div class="vhs-titulo">Fita #01</div>
+                        <p style="color:#d1b894;">Estrada de Hawkins às 22:00h</p>
+                    </div>
                 </div>
-                <div class="galeria-item" onclick="abrirLightbox(this)">
-                    <img src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=800&q=80" alt="Laboratório em Quarentena">
-                    <div class="galeria-hover">Setor de Quarentena</div>
+
+                <div class="vhs-card" onclick="abrirLightbox('image', 'https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=1200&auto=format&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=600&auto=format&fit=crop" alt="Laboratório">
+                    <div class="vhs-overlay">
+                        <div class="vhs-titulo">Fita #02</div>
+                        <p style="color:#d1b894;">Subsolo do Laboratório</p>
+                    </div>
                 </div>
-                <div class="galeria-item" onclick="abrirLightbox(this)">
-                    <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=800&q=80" alt="Floresta das Sombras">
-                    <div class="galeria-hover">A Floresta das Sombras</div>
+
+                <div class="vhs-card" onclick="abrirLightbox('image', 'https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=1200&auto=format&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=600&auto=format&fit=crop" alt="Portal">
+                    <div class="vhs-overlay">
+                        <div class="vhs-titulo">Fita #03</div>
+                        <p style="color:#d1b894;">Anomalia no Bosque</p>
+                    </div>
                 </div>
+
             </div>
         </section>
-
-        <!-- LIGHTBOX -->
-        <div id="lightboxModal" class="lightbox">
-            <span class="lightbox-close" onclick="fecharLightbox()">&times;</span>
-            <div class="lightbox-body">
-                <img id="lightboxImg" class="lightbox-media" src="" alt="Evidência Ampliada">
-            </div>
-        </div>
 
     </main>
 
-    <!-- FOOTER -->
+    <!-- MODAL LIGHTBOX -->
+    <div id="lightboxModal" class="lightbox">
+        <div class="lightbox-content" id="lightboxBody"></div>
+    </div>
+
+    <!-- RODAPÉ -->
     <footer>
-        <div class="hawkins-footer">
-            <p id="fraseInvertida">"R-U-N"</p>
-            <button id="btnInverterMundo" class="btn-retro">Alternar Gravidade Dimensional</button>
-            <p style="font-size:0.8rem; color:var(--texto-suave);">Departamento de Energia dos EUA — Laboratório Nacional de Hawkins.</p>
-        </div>
+        <p> Hawkins National Laboratory &copy; 1983 — Todos os direitos reservados à Divisão de Energia dos EUA.</p>
     </footer>
 
-    <!-- JAVASCRIPT DE INTERATIVIDADE E EFETIVAÇÃO DE TEMA -->
+    <!-- LOGICA JAVASCRIPT DE SUPORTE -->
     <script>
-        // --- 1. Alternador Dinâmico de Temas ---
-        const botoesTema = document.querySelectorAll('.btn-tema');
-        const htmlElem = document.documentElement;
+        // --- 1. SINTETIZADOR 80S STRANGER THINGS & AUDIO ---
+        const audio = document.getElementById('audioSintetizador');
+        const btnAudio = document.getElementById('btnAudio');
+        const txtAudio = document.getElementById('txtAudio');
+        let isPlaying = false;
+        let synthInterval = null;
 
-        botoesTema.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const temaSelecionado = btn.getAttribute('data-set');
-                htmlElem.setAttribute('data-theme', temaSelecionado);
-            });
-        });
+        function startStrangerThingsSynth() {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+            const ctx = new AudioCtx();
+            if (ctx.state === 'suspended') ctx.resume();
 
-        // --- 2. Canvas de Esporos Flutuantes (Mundo Invertido) ---
-        const canvas = document.getElementById('sporesCanvas');
-        const ctx = canvas.getContext('2d');
-        let spores = [];
+            // Arpejo Cmaj7 estilo Synthwave
+            const notes = [
+                { f: 261.63, d: 0.16 },
+                { f: 329.63, d: 0.16 },
+                { f: 392.00, d: 0.16 },
+                { f: 493.88, d: 0.16 },
+                { f: 523.25, d: 0.16 },
+                { f: 493.88, d: 0.16 },
+                { f: 392.00, d: 0.16 },
+                { f: 329.63, d: 0.16 }
+            ];
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        function initSpores() {
-            spores = [];
-            for (let i = 0; i < 65; i++) {
-                spores.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 2.5 + 0.8,
-                    speedX: (Math.random() - 0.5) * 0.8,
-                    speedY: (Math.random() - 0.5) * 1.2,
-                    opacity: Math.random() * 0.7 + 0.3
+            function playArpeggio() {
+                let time = ctx.currentTime;
+                notes.forEach(note => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(note.f, time);
+                    gain.gain.setValueAtTime(0.001, time);
+                    gain.gain.exponentialRampToValueAtTime(0.14, time + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, time + note.d - 0.02);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(time);
+                    osc.stop(time + note.d);
+                    time += note.d + 0.01;
                 });
             }
+
+            playArpeggio();
+            synthInterval = setInterval(playArpeggio, 1360);
         }
-        initSpores();
 
-        function animateSpores() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            const theme = htmlElem.getAttribute('data-theme');
-            let sporeColor = 'rgba(255, 77, 109, ';
-            if (theme === 'hawkins-83') sporeColor = 'rgba(0, 240, 255, ';
-            if (theme === 'arcade') sporeColor = 'rgba(57, 255, 20, ';
-            if (theme === 'laboratorio') sporeColor = 'rgba(255, 170, 0, ';
-
-            spores.forEach(s => {
-                s.x += s.speedX;
-                s.y += s.speedY;
-
-                if (s.x < 0) s.x = canvas.width;
-                if (s.x > canvas.width) s.x = 0;
-                if (s.y < 0) s.y = canvas.height;
-                if (s.y > canvas.height) s.y = 0;
-
-                ctx.beginPath();
-                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-                ctx.fillStyle = sporeColor + s.opacity + ')';
-                ctx.shadowBlur = 6;
-                ctx.shadowColor = sporeColor + '0.8)';
-                ctx.fill();
-            });
-            requestAnimationFrame(animateSpores);
+        function stopStrangerThingsSynth() {
+            if (synthInterval) {
+                clearInterval(synthInterval);
+                synthInterval = null;
+            }
         }
-        animateSpores();
 
-        // --- 3. Parede de Luzes Piscantes ---
-        const alfabetoContainer = document.getElementById('alfabetoLuzes');
-        const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-
-        letras.forEach(letra => {
-            const wrap = document.createElement('div');
-            wrap.className = 'letra-luz';
-            
-            const lamp = document.createElement('div');
-            lamp.className = 'lampada';
-            lamp.id = 'lamp-' + letra;
-
-            const txt = document.createElement('span');
-            txt.textContent = letra;
-
-            wrap.appendChild(lamp);
-            wrap.appendChild(txt);
-            alfabetoContainer.appendChild(wrap);
-        });
-
-        const btnTransmitir = document.getElementById('btnTransmitir');
-        btnTransmitir.addEventListener('click', () => {
-            const mensagem = "CORRA";
-            let index = 0;
-
-            const interval = setInterval(() => {
-                // Apaga todas
-                document.querySelectorAll('.lampada').forEach(l => l.className = 'lampada');
-
-                if (index < mensagem.length) {
-                    const char = mensagem[index];
-                    const target = document.getElementById('lamp-' + char);
-                    if (target) {
-                        target.classList.add('ativa');
-                    }
-                    index++;
-                } else {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        document.querySelectorAll('.lampada').forEach(l => l.className = 'lampada');
-                    }, 1000);
+        btnAudio.addEventListener('click', async () => {
+            if (!isPlaying) {
+                try {
+                    audio.volume = 0.4;
+                    await audio.play();
+                    txtAudio.innerText = 'Sintetizador: ON';
+                    btnAudio.classList.add('active');
+                    isPlaying = true;
+                } catch (err) {
+                    startStrangerThingsSynth();
+                    txtAudio.innerText = 'Sintetizador 80s: ON';
+                    btnAudio.classList.add('active');
+                    isPlaying = true;
                 }
-            }, 600);
-        });
-
-        // --- 4. Áudio Sintetizador ---
-        const btnAudio = document.getElementById('btnAudio');
-        const audioSintetizador = document.getElementById('audioSintetizador');
-        const txtAudio = document.getElementById('txtAudio');
-
-        btnAudio.addEventListener('click', () => {
-            if (audioSintetizador.paused) {
-                audioSintetizador.play();
-                txtAudio.textContent = 'Sintetizador: ON';
-                btnAudio.style.borderColor = 'var(--cor-neon-brilho)';
             } else {
-                audioSintetizador.pause();
-                txtAudio.textContent = 'Sintetizador: OFF';
-                btnAudio.style.borderColor = 'var(--cor-neon)';
+                audio.pause();
+                audio.currentTime = 0;
+                stopStrangerThingsSynth();
+                txtAudio.innerText = 'Sintetizador: OFF';
+                btnAudio.classList.remove('active');
+                isPlaying = false;
             }
         });
 
-        // --- 5. Lightbox ---
-        function abrirLightbox(element) {
-            const modal = document.getElementById('lightboxModal');
-            const imgTarget = document.getElementById('lightboxImg');
-            imgTarget.src = element.querySelector('img').src;
-            modal.style.display = 'flex';
+        // --- 2. TROCA DE TEMA / SINAL ---
+        const btnsTema = document.querySelectorAll('.btn-tema');
+        btnsTema.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tema = btn.getAttribute('data-set');
+                document.documentElement.setAttribute('data-theme', tema);
+            });
+        });
+
+        // --- 3. PAREDE DE LUZES DE JOYCE (ALPHABET WALL) ---
+        const alfabetoContainer = document.getElementById('alfabetoContainer');
+        const inputTexto = document.getElementById('inputTexto');
+        const btnTransmitir = document.getElementById('btnTransmitir');
+        const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+        letras.forEach((letra, index) => {
+            const box = document.createElement('div');
+            box.className = 'letra-luz-box';
+            
+            const corClass = `cor-${(index % 4) + 1}`;
+            box.innerHTML = `
+                <div class="lampada ${corClass}" id="lamp-${letra}"></div>
+                <span>${letra}</span>
+            `;
+            alfabetoContainer.appendChild(box);
+        });
+
+        async function transmitirMensagem() {
+            const msg = inputTexto.value.toUpperCase().replace(/[^A-Z]/g, '');
+            if (!msg) return;
+
+            btnTransmitir.disabled = true;
+            for (let char of msg) {
+                const lamp = document.getElementById(`lamp-${char}`);
+                if (lamp) {
+                    lamp.classList.add('ativa');
+                    await new Promise(res => setTimeout(res, 500));
+                    lamp.classList.remove('ativa');
+                    await new Promise(res => setTimeout(res, 200));
+                }
+            }
+            btnTransmitir.disabled = false;
+        }
+
+        btnTransmitir.addEventListener('click', transmitirMensagem);
+
+        // --- 4. LIGHTBOX ---
+        const lightbox = document.getElementById('lightboxModal');
+        const lightboxBody = document.getElementById('lightboxBody');
+
+        function abrirLightbox(type, src) {
+            lightboxBody.innerHTML = '';
+            if (type === 'video') {
+                lightboxBody.innerHTML = `<video controls autoplay class="lightbox-media"><source src="${src}" type="video/mp4"></video>`;
+            } else {
+                lightboxBody.innerHTML = `<img src="${src}" class="lightbox-media" alt="Mídia Ampliada">`;
+            }
+            lightbox.style.display = 'flex';
         }
 
         function fecharLightbox() {
-            document.getElementById('lightboxModal').style.display = 'none';
+            lightbox.style.display = 'none';
+            lightboxBody.innerHTML = '';
         }
 
-        // --- 6. Botão Inverter Mundo ---
-        const btnInverter = document.getElementById('btnInverterMundo');
-        let invertido = false;
-
-        btnInverter.addEventListener('click', () => {
-            invertido = !invertido;
-            if (invertido) {
-                document.body.style.transform = 'rotate(180deg)';
-                document.getElementById('fraseInvertida').textContent = '"MUNDO INVERTIDO ATIVADO"';
-            } else {
-                document.body.style.transform = 'rotate(0deg)';
-                document.getElementById('fraseInvertida').textContent = '"R-U-N"';
-            }
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) fecharLightbox();
         });
+
+        // --- 5. CARDS TILT 3D ---
+        const cards = document.querySelectorAll('.card-personagem, .vhs-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                card.style.transform = `perspective(1000px) rotateX(${-y / 15}deg) rotateY(${x / 15}deg) translateY(-8px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+            });
+        });
+
+        // --- 6. CANVAS DE ESPOROS DO MUNDO INVERTIDO ---
+        const canvas = document.getElementById('sporesCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            const particles = [];
+            window.addEventListener('mousemove', (e) => {
+                for (let i = 0; i < 2; i++) {
+                    const isNeonRed = Math.random() > 0.5;
+                    const color = isNeonRed 
+                        ? `rgba(255, 0, 51, ${Math.random() * 0.8 + 0.2})` 
+                        : `rgba(0, 240, 255, ${Math.random() * 0.8 + 0.2})`;
+
+                    particles.push({
+                        x: e.clientX,
+                        y: e.clientY,
+                        size: Math.random() * 3 + 1,
+                        speedX: (Math.random() - 0.5) * 1.5,
+                        speedY: (Math.random() - 0.5) * 1.5 - 0.5,
+                        color: color,
+                        life: 1
+                    });
+                }
+            });
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    let p = particles[i];
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.life;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    p.life -= 0.025;
+
+                    if (p.life <= 0) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
     </script>
 </body>
 </html>
