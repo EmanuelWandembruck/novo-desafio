@@ -197,25 +197,78 @@
             margin-bottom: 40px;
         }
 
-        .btn-action {
+        /* WIDGET DE ÁUDIO NEXT-GEN */
+        .audio-widget {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            padding: 16px 36px;
-            background: var(--accent-red);
-            color: #fff;
-            border: none;
-            border-radius: 99px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 10px 30px var(--accent-glow);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .btn-action:hover {
+        .btn-audio-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-glass);
+            border-radius: 99px;
+            color: var(--text-primary);
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            cursor: pointer;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-audio-toggle:hover {
+            border-color: var(--border-hover);
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 40px var(--accent-glow);
+            box-shadow: 0 15px 35px var(--accent-glow);
+        }
+
+        .audio-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #555;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-audio-toggle.active .audio-status-dot {
+            background: #00ff88;
+            box-shadow: 0 0 10px #00ff88;
+        }
+
+        .audio-label strong {
+            color: var(--accent-red);
+        }
+
+        .eq-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 14px;
+        }
+
+        .bar {
+            width: 3px;
+            height: 4px;
+            background: var(--accent-red);
+            border-radius: 2px;
+            transition: height 0.3s ease;
+        }
+
+        .btn-audio-toggle.active .bar {
+            animation: eqPulse 0.8s ease-in-out infinite alternate;
+        }
+
+        .btn-audio-toggle.active .bar:nth-child(2) { animation-delay: 0.2s; }
+        .btn-audio-toggle.active .bar:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes eqPulse {
+            0% { height: 4px; }
+            100% { height: 14px; }
         }
 
         /* Container Layout */
@@ -268,12 +321,12 @@
             transform: translateY(-4px);
         }
 
-        /* Wall Grid Interactive */
         .col-12 { grid-column: span 12; }
         .col-8 { grid-column: span 8; }
         .col-6 { grid-column: span 6; }
         .col-4 { grid-column: span 4; }
 
+        /* Interactive Wall Display */
         .wall-display {
             display: flex;
             flex-wrap: wrap;
@@ -329,6 +382,23 @@
 
         .input-group input:focus {
             border-color: var(--accent-red);
+        }
+
+        .btn-action {
+            padding: 14px 28px;
+            background: var(--accent-red);
+            color: #fff;
+            border: none;
+            border-radius: 99px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 25px var(--accent-glow);
+            transition: all 0.3s ease;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px var(--accent-glow);
         }
 
         /* Glass Cards with Images */
@@ -451,13 +521,23 @@
         <h1 class="hero-title">STRANGER<br>THINGS</h1>
         <p class="hero-desc">Explore arquivos confidenciais, transmissões dimensionais e eventos não explicados da cidade de Hawkins.</p>
         
-        <button class="btn-action" id="btnAudio">
-            <i class="fa-solid fa-play"></i> <span id="txtAudio">Ouvir Trilha Sonora</span>
-        </button>
-
-        <audio id="audioTrack" loop preload="auto">
-            <source src="running-up-that-hill.mp3" type="audio/mpeg">
-        </audio>
+        <!-- WIDGET DE ÁUDIO COM INDICADOR E EQUALIZADOR -->
+        <div class="audio-widget" id="audioWidget">
+            <button class="btn-audio-toggle" id="btnAudio" aria-label="Alternar áudio">
+                <div class="audio-status-dot" id="statusDot"></div>
+                <i class="fa-solid fa-music"></i>
+                <span class="audio-label">MÚSICA: <strong id="txtAudioStatus">OFF</strong></span>
+                
+                <div class="eq-bars" id="eqBars">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </button>
+            <audio id="audioTrack" loop preload="auto">
+                <source src="running-up-that-hill.mp3" type="audio/mpeg">
+            </audio>
+        </div>
     </header>
 
     <main>
@@ -567,26 +647,25 @@
     </footer>
 
     <script>
-        // Audio Player Control
+        // Audio Player Controls with ON/OFF State
         const audio = document.getElementById('audioTrack');
         const btnAudio = document.getElementById('btnAudio');
-        const txtAudio = document.getElementById('txtAudio');
-        let isPlaying = false;
+        const txtStatus = document.getElementById('txtAudioStatus');
 
         btnAudio.addEventListener('click', async () => {
-            if (!isPlaying) {
+            if (audio.paused) {
                 try {
                     audio.volume = 0.5;
                     await audio.play();
-                    txtAudio.innerText = "Pausar Trilha";
-                    isPlaying = true;
+                    txtStatus.innerText = 'ON';
+                    btnAudio.classList.add('active');
                 } catch (e) {
-                    console.log("Erro de reprodução de áudio", e);
+                    console.log("Erro ao reproduzir áudio:", e);
                 }
             } else {
                 audio.pause();
-                txtAudio.innerText = "Ouvir Trilha Sonora";
-                isPlaying = false;
+                txtStatus.innerText = 'OFF';
+                btnAudio.classList.remove('active');
             }
         });
 
@@ -597,7 +676,7 @@
             document.documentElement.setAttribute('data-theme', current === 'cyber' ? 'dark' : 'cyber');
         });
 
-        // Generate Interactive Alphabet Nodes
+        // Interactive Alphabet Nodes
         const wallDisplay = document.getElementById('wallDisplay');
         const wallInput = document.getElementById('wallInput');
         const btnSend = document.getElementById('btnSend');
@@ -607,7 +686,7 @@
             const node = document.createElement('div');
             node.className = 'node-light';
             node.id = `node-${letter}`;
-            node.innerText = letter;>
+            node.innerText = letter;
             wallDisplay.appendChild(node);
         });
 
@@ -628,7 +707,7 @@
             btnSend.disabled = false;
         });
 
-        // Lightbox Functions
+        // Lightbox Control
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
 
