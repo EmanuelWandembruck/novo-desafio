@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stranger Things | Portal Oficial de Hawkins & O Mundo Invertido</title>
     
-    <!-- Google Fonts & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,700;0,800;1,700&family=Oswald:wght@500;700&family=Press+Start+2P&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
@@ -84,10 +83,10 @@
                 radial-gradient(circle at 50% 20%, rgba(120, 0, 25, 0.5), transparent 75%),
                 radial-gradient(circle at 80% 80%, rgba(10, 30, 60, 0.6), transparent 70%),
                 linear-gradient(to bottom, rgba(3, 5, 8, 0.75), rgba(3, 5, 8, 0.98)),
-                url('https://images.alphacoders.com/881/881397.jpg');
+                url('https://upload.wikimedia.org/wikipedia/commons/3/38/Stranger_Things_logo.png');
             background-attachment: fixed;
             background-position: center;
-            background-size: cover;
+            background-size: contain;
             color: var(--lab-text);
             font-family: var(--font-mono);
             min-height: 100vh;
@@ -513,7 +512,6 @@
             box-shadow: 0 25px 70px rgba(0,0,0,0.95);
         }
 
-        /* Carimbo CONFIDENCIAL */
         .secao-lab-arquivos::before {
             content: 'TOP SECRET';
             position: absolute;
@@ -577,12 +575,14 @@
             cursor: pointer;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
             transition: all 0.4s ease;
+            background: #080c14;
         }
 
         .vhs-card img {
             width: 100%; height: 100%;
             object-fit: cover;
-            filter: grayscale(30%) contrast(120%);
+            object-position: center;
+            filter: grayscale(20%) contrast(110%);
             transition: transform 0.6s ease, filter 0.6s ease;
         }
 
@@ -683,7 +683,6 @@
 </head>
 <body>
 
-    <!-- PAINEL DE ALTERAÇÃO DE SINAL -->
     <div class="painel-temas">
         <span><i class="fa-solid fa-tower-cell"></i> Sinal:</span>
         <button class="btn-tema" data-set="mundo-invertido" title="O Mundo Invertido"></button>
@@ -691,10 +690,8 @@
         <button class="btn-tema" data-set="arcade" title="Palace Arcade Pixel"></button>
     </div>
 
-    <!-- CANVAS DE ESPOROS FLUTUANTES -->
     <canvas id="sporesCanvas"></canvas>
 
-    <!-- CABEÇALHO HERO -->
     <header id="inicio">
         <div class="header-bg-overlay"></div>
         <div class="header-content">
@@ -726,14 +723,11 @@
 
     <main>
 
-        <!-- SEÇÃO 1: TRANSMISSÃO PELA PAREDE DE LUZES DE JOYCE -->
         <section id="luzes" class="secao-parede-luzes">
             <h2 class="titulo-secao" style="margin-bottom:15px;">Comunicação Dimensional</h2>
             <p style="color:#d1b894; font-size:1.1rem;">Digite uma mensagem para transmitir através das luzes pisca-pisca na parede...</p>
 
-            <div class="alfabeto-container" id="alfabetoContainer">
-                <!-- Gerado Dinamicamente via JavaScript -->
-            </div>
+            <div class="alfabeto-container" id="alfabetoContainer"></div>
 
             <div class="input-mensagem-box">
                 <input type="text" id="inputTexto" class="input-retro" placeholder="DIGITE AQUI (EX: CORRA)..." maxlength="20">
@@ -741,7 +735,6 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 2: O GRUPO DE HAWKINS (CARDS 3D) -->
         <section id="personagens">
             <h2 class="titulo-secao">O Grupo de Hawkins</h2>
             <div class="grid-3d">
@@ -777,7 +770,6 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 3: ARQUIVOS CONFIDENCIAIS DO LABORATORIO -->
         <section id="arquivos">
             <h2 class="titulo-secao">Arquivos Secretos do Laboratório</h2>
             <div class="secao-lab-arquivos">
@@ -801,59 +793,57 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 4: AMEAÇAS DO MUNDO INVERTIDO -->
         <section id="ameacas">
             <h2 class="titulo-secao">Ameaças Dimensionais</h2>
             <div class="grid-3d">
                 <div class="card-personagem" style="border-color: var(--red-neon);">
-                    <img class="foto-personagem" src="https://images.alphacoders.com/880/880854.jpg" alt="Demogorgon">
-                    <h3 style="color:var(--red-neon);">Demogorgon</h3>
-                    <div class="funcao">Predador Humanoide</div>
-                    <p>Caçador implacável com mandíbula em formato de pétalas. Capaz de cruzar dimensões atraído pelo cheiro de sangue.</p>
+                    <img class="foto-personagem" src="https://upload.wikimedia.org/wikipedia/en/5/52/Eleven_from_Stranger_Things.jpg" alt="Sujeito 011">
+                    <h3 style="color:var(--red-neon);">Sujeito 011</h3>
+                    <div class="funcao">Experimento de Hawkins</div>
+                    <p>Cobaia de laboratório com capacidade de abrir fendas temporais e manipular matéria via telecinese.</p>
                 </div>
 
                 <div class="card-personagem" style="border-color: var(--purple-mind);">
-                    <img class="foto-personagem" src="https://images3.alphacoders.com/881/881389.jpg" alt="Devorador de Mentes">
+                    <img class="foto-personagem" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Stranger_Things_logo.png" alt="O Portal">
                     <h3 style="color:var(--purple-mind);">Devorador de Mentes</h3>
                     <div class="funcao">Comandante Supremo</div>
                     <p>Entidade colossal feita de fumaça e sombra que governa a mente coletiva de todas as criaturas do Mundo Invertido.</p>
                 </div>
 
                 <div class="card-personagem" style="border-color: var(--yellow-retro);">
-                    <img class="foto-personagem" src="https://images2.alphacoders.com/123/1239850.jpg" alt="Vecna">
-                    <h3 style="color:var(--yellow-retro);">Vecna (001)</h3>
-                    <div class="funcao">Mestre Psíquico</div>
-                    <p>Criatura humanoide ancestral que manipula traumas e sentimentos de culpa para abrir fendas dimensionais mortais.</p>
+                    <img class="foto-personagem" src="https://upload.wikimedia.org/wikipedia/en/c/c5/Jim_Hopper_Stranger_Things.png" alt="Jim Hopper em Investigação">
+                    <h3 style="color:var(--yellow-retro);">Jim Hopper</h3>
+                    <div class="funcao">Defensoria de Hawkins</div>
+                    <p>Chefe de polícia atuando na linha de frente contra as ameaças biológicas e governamentais na cidade.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO 5: GALERIA VHS DE EVIDÊNCIAS -->
         <section id="galeria">
             <h2 class="titulo-secao">Galeria de Evidências VHS</h2>
             <div class="galeria-grid">
                 
-                <div class="vhs-card" onclick="abrirLightbox('image', 'https://images.alphacoders.com/881/881397.jpg')">
-                    <img src="https://images.alphacoders.com/881/881397.jpg" alt="Bicicletas na Estrada">
+                <div class="vhs-card" onclick="abrirLightbox('image', 'https://upload.wikimedia.org/wikipedia/commons/3/38/Stranger_Things_logo.png')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Stranger_Things_logo.png" alt="Sinal de Transmissão">
                     <div class="vhs-overlay">
                         <div class="vhs-titulo">Fita #01</div>
-                        <p style="color:#d1b894;">Estrada de Hawkins às 22:00h</p>
+                        <p style="color:#d1b894;">Sinal Oficial de Hawkins</p>
                     </div>
                 </div>
 
-                <div class="vhs-card" onclick="abrirLightbox('image', 'https://images2.alphacoders.com/881/881393.jpg')">
-                    <img src="https://images2.alphacoders.com/881/881393.jpg" alt="O Portal no Bosque">
+                <div class="vhs-card" onclick="abrirLightbox('image', 'https://upload.wikimedia.org/wikipedia/en/5/52/Eleven_from_Stranger_Things.jpg')">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/5/52/Eleven_from_Stranger_Things.jpg" alt="Registro 011">
                     <div class="vhs-overlay">
                         <div class="vhs-titulo">Fita #02</div>
-                        <p style="color:#d1b894;">Subsolo do Laboratório</p>
+                        <p style="color:#d1b894;">Registro do Sujeito 011</p>
                     </div>
                 </div>
 
-                <div class="vhs-card" onclick="abrirLightbox('image', 'https://images.alphacoders.com/880/880854.jpg')">
-                    <img src="https://images.alphacoders.com/880/880854.jpg" alt="Sombra no Céu">
+                <div class="vhs-card" onclick="abrirLightbox('image', 'https://upload.wikimedia.org/wikipedia/en/c/c5/Jim_Hopper_Stranger_Things.png')">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/c/c5/Jim_Hopper_Stranger_Things.png" alt="Arquivo Policial">
                     <div class="vhs-overlay">
                         <div class="vhs-titulo">Fita #03</div>
-                        <p style="color:#d1b894;">Anomalia em Hawkins</p>
+                        <p style="color:#d1b894;">Evidências do Chefe Hopper</p>
                     </div>
                 </div>
 
@@ -862,19 +852,16 @@
 
     </main>
 
-    <!-- MODAL LIGHTBOX -->
     <div id="lightboxModal" class="lightbox">
         <div class="lightbox-content" id="lightboxBody"></div>
     </div>
 
-    <!-- RODAPÉ -->
     <footer>
-        <p> Hawkins National Laboratory &copy; 1983 — Todos os direitos reservados à Divisão de Energia dos EUA.</p>
+        <p>Hawkins National Laboratory &copy; 1983 — Todos os direitos reservados à Divisão de Energia dos EUA.</p>
     </footer>
 
-    <!-- LOGICA JAVASCRIPT DE SUPORTE -->
     <script>
-        // --- 1. SINTETIZADOR 80S STRANGER THINGS & AUDIO ---
+        // --- 1. SINTETIZADOR DE ÁUDIO STRANGER THINGS ---
         const audio = document.getElementById('audioSintetizador');
         const btnAudio = document.getElementById('btnAudio');
         const txtAudio = document.getElementById('txtAudio');
@@ -887,7 +874,6 @@
             const ctx = new AudioCtx();
             if (ctx.state === 'suspended') ctx.resume();
 
-            // Arpejo Cmaj7 estilo Synthwave
             const notes = [
                 { f: 261.63, d: 0.16 },
                 { f: 329.63, d: 0.16 },
@@ -952,7 +938,7 @@
             }
         });
 
-        // --- 2. TROCA DE TEMA / SINAL ---
+        // --- 2. TROCA DE TEMAS ---
         const btnsTema = document.querySelectorAll('.btn-tema');
         btnsTema.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -961,7 +947,7 @@
             });
         });
 
-        // --- 3. PAREDE DE LUZES DE JOYCE (ALPHABET WALL) ---
+        // --- 3. PAREDE DE LUZES DE JOYCE ---
         const alfabetoContainer = document.getElementById('alfabetoContainer');
         const inputTexto = document.getElementById('inputTexto');
         const btnTransmitir = document.getElementById('btnTransmitir');
@@ -1036,7 +1022,7 @@
             });
         });
 
-        // --- 6. CANVAS DE ESPOROS DO MUNDO INVERTIDO ---
+        // --- 6. CANVAS DE ESPOROS ---
         const canvas = document.getElementById('sporesCanvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
