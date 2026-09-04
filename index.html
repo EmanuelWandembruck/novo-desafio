@@ -81,10 +81,10 @@
         body {
             background-color: var(--bg-deep);
             background-image: 
-                radial-gradient(circle at 50% 20%, rgba(120, 0, 25, 0.4), transparent 75%),
-                radial-gradient(circle at 80% 80%, rgba(10, 30, 60, 0.5), transparent 70%),
-                linear-gradient(to bottom, rgba(3, 5, 8, 0.7), rgba(3, 5, 8, 0.98)),
-                url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=1920&auto=format&fit=crop');
+                radial-gradient(circle at 50% 20%, rgba(120, 0, 25, 0.5), transparent 75%),
+                radial-gradient(circle at 80% 80%, rgba(10, 30, 60, 0.6), transparent 70%),
+                linear-gradient(to bottom, rgba(3, 5, 8, 0.75), rgba(3, 5, 8, 0.98)),
+                url('https://images.alphacoders.com/881/881397.jpg');
             background-attachment: fixed;
             background-position: center;
             background-size: cover;
@@ -463,12 +463,13 @@
 
         .foto-personagem {
             width: 100%;
-            height: 260px;
+            height: 320px;
             object-fit: cover;
+            object-position: top center;
             border-radius: 8px;
             border: 2px solid var(--red-neon);
             margin-bottom: 20px;
-            filter: contrast(110%) brightness(90%);
+            filter: contrast(110%) brightness(95%);
             transition: transform 0.5s ease;
         }
 
@@ -746,28 +747,28 @@
             <div class="grid-3d">
                 
                 <div class="card-personagem">
-                    <img class="foto-personagem" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600&auto=format&fit=crop" alt="Eleven">
+                    <img class="foto-personagem" src="https://upload.wikimedia.org/wikipedia/en/5/52/Eleven_from_Stranger_Things.jpg" alt="Eleven">
                     <h3>Eleven (011)</h3>
                     <div class="funcao">A Mágica / Telecinética</div>
                     <p>Possui imensos poderes psicocinéticos resultantes de experimentos no Laboratório de Hawkins. A principal defesa contra o Mundo Invertido.</p>
                 </div>
 
                 <div class="card-personagem">
-                    <img class="foto-personagem" src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=600&auto=format&fit=crop" alt="Mike Wheeler">
+                    <img class="foto-personagem" src="https://upload.wikimedia.org/wikipedia/en/a/a2/Mike_Wheeler_Stranger_Things.jpg" alt="Mike Wheeler">
                     <h3>Mike Wheeler</h3>
                     <div class="funcao">O Ladrão / Estrategista</div>
                     <p>Mestre de Mesa do D&D. Estrategista destemido e o elo de união fundamental do grupo em todas as missões.</p>
                 </div>
 
                 <div class="card-personagem">
-                    <img class="foto-personagem" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop" alt="Dustin Henderson">
+                    <img class="foto-personagem" src="https://upload.wikimedia.org/wikipedia/en/3/37/Dustin_Henderson_Stranger_Things.jpg" alt="Dustin Henderson">
                     <h3>Dustin Henderson</h3>
                     <div class="funcao">O Bardo / Especialista</div>
                     <p>Mestre da tecnologia, rádio amador (Cerebro) e diplomacia. Responsável pelas maiores descobertas táticas.</p>
                 </div>
 
                 <div class="card-personagem">
-                    <img class="foto-personagem" src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=600&auto=format&fit=crop" alt="Jim Hopper">
+                    <img class="foto-personagem" src="https://upload.wikimedia.org/wikipedia/en/c/c5/Jim_Hopper_Stranger_Things.png" alt="Jim Hopper">
                     <h3>Jim Hopper</h3>
                     <div class="funcao">Chefe de Polícia</div>
                     <p>Investigador obstinado que fará qualquer coisa para desmantelar os segredos sombrios do governo e proteger Hawkins.</p>
@@ -805,18 +806,21 @@
             <h2 class="titulo-secao">Ameaças Dimensionais</h2>
             <div class="grid-3d">
                 <div class="card-personagem" style="border-color: var(--red-neon);">
+                    <img class="foto-personagem" src="https://images.alphacoders.com/880/880854.jpg" alt="Demogorgon">
                     <h3 style="color:var(--red-neon);">Demogorgon</h3>
                     <div class="funcao">Predador Humanoide</div>
                     <p>Caçador implacável com mandíbula em formato de pétalas. Capaz de cruzar dimensões atraído pelo cheiro de sangue.</p>
                 </div>
 
                 <div class="card-personagem" style="border-color: var(--purple-mind);">
+                    <img class="foto-personagem" src="https://images3.alphacoders.com/881/881389.jpg" alt="Devorador de Mentes">
                     <h3 style="color:var(--purple-mind);">Devorador de Mentes</h3>
                     <div class="funcao">Comandante Supremo</div>
                     <p>Entidade colossal feita de fumaça e sombra que governa a mente coletiva de todas as criaturas do Mundo Invertido.</p>
                 </div>
 
                 <div class="card-personagem" style="border-color: var(--yellow-retro);">
+                    <img class="foto-personagem" src="https://images2.alphacoders.com/123/1239850.jpg" alt="Vecna">
                     <h3 style="color:var(--yellow-retro);">Vecna (001)</h3>
                     <div class="funcao">Mestre Psíquico</div>
                     <p>Criatura humanoide ancestral que manipula traumas e sentimentos de culpa para abrir fendas dimensionais mortais.</p>
@@ -829,27 +833,27 @@
             <h2 class="titulo-secao">Galeria de Evidências VHS</h2>
             <div class="galeria-grid">
                 
-                <div class="vhs-card" onclick="abrirLightbox('image', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1200&auto=format&fit=crop')">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop" alt="Estrada de Hawkins">
+                <div class="vhs-card" onclick="abrirLightbox('image', 'https://images.alphacoders.com/881/881397.jpg')">
+                    <img src="https://images.alphacoders.com/881/881397.jpg" alt="Bicicletas na Estrada">
                     <div class="vhs-overlay">
                         <div class="vhs-titulo">Fita #01</div>
                         <p style="color:#d1b894;">Estrada de Hawkins às 22:00h</p>
                     </div>
                 </div>
 
-                <div class="vhs-card" onclick="abrirLightbox('image', 'https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=1200&auto=format&fit=crop')">
-                    <img src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=600&auto=format&fit=crop" alt="Laboratório">
+                <div class="vhs-card" onclick="abrirLightbox('image', 'https://images2.alphacoders.com/881/881393.jpg')">
+                    <img src="https://images2.alphacoders.com/881/881393.jpg" alt="O Portal no Bosque">
                     <div class="vhs-overlay">
                         <div class="vhs-titulo">Fita #02</div>
                         <p style="color:#d1b894;">Subsolo do Laboratório</p>
                     </div>
                 </div>
 
-                <div class="vhs-card" onclick="abrirLightbox('image', 'https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=1200&auto=format&fit=crop')">
-                    <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=600&auto=format&fit=crop" alt="Portal">
+                <div class="vhs-card" onclick="abrirLightbox('image', 'https://images.alphacoders.com/880/880854.jpg')">
+                    <img src="https://images.alphacoders.com/880/880854.jpg" alt="Sombra no Céu">
                     <div class="vhs-overlay">
                         <div class="vhs-titulo">Fita #03</div>
-                        <p style="color:#d1b894;">Anomalia no Bosque</p>
+                        <p style="color:#d1b894;">Anomalia em Hawkins</p>
                     </div>
                 </div>
 
