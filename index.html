@@ -1,39 +1,75 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="mundo-invertido">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hogwarts & O Mundo Mágico | Portal Arcano</title>
+    <title>Stranger Things | Portal Hawkins & O Mundo Invertido</title>
     
     <!-- Google Fonts & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700;800&family=Fauna+One&family=MedievalSharp&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,700;0,800;1,700&family=Oswald:wght@500;700&family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root {
-            --cor-fundo-base: #06050a;
-            --cor-card-bg: rgba(18, 14, 28, 0.85);
-            --ouro-arcano: #dfb15b;
-            --ouro-brilhante: #fef1ac;
-            --ouro-sombra: rgba(223, 177, 91, 0.3);
-            --texto-principal: #e3ded6;
-            --texto-suave: #a9a297;
-            --pergaminho-bg: #d8c29d;
-            --pergaminho-texto: #1a1612;
-            
-            --grifinoria-red: #740001;
-            --grifinoria-gold: #eeba30;
-            --sonserina-green: #1a472a;
-            --sonserina-silver: #aaaaaa;
-            --corvinal-blue: #0e1a40;
-            --corvinal-bronze: #946b2d;
-            --lufalufa-yellow: #ecb939;
-            --lufalufa-dark: #372e29;
-            
-            --borda-pergaminho: 1px solid rgba(223, 177, 91, 0.3);
-            --transicao-suave: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        /* ==========================================================================
+           1. VARIÁVEIS DE TEMA DINÂMICAS (STRANGER THINGS)
+           ========================================================================== */
+        
+        /* Tema 1: O Mundo Invertido (Padrão) */
+        [data-theme="mundo-invertido"] {
+            --cor-fundo-base: #05070a;
+            --cor-card-bg: rgba(12, 16, 24, 0.88);
+            --cor-neon: #ff0033;
+            --cor-neon-brilho: #ff4d6d;
+            --cor-sombra: rgba(255, 0, 51, 0.4);
+            --texto-principal: #e1e6ed;
+            --texto-suave: #8a96a3;
+            --borda-card: 1px solid rgba(255, 0, 51, 0.3);
+            --fundo-gradiente: radial-gradient(circle at 50% 20%, rgba(40, 5, 15, 0.7), transparent 70%), radial-gradient(circle at 80% 80%, rgba(10, 20, 35, 0.8), transparent 70%);
+            --fonte-titulo: 'EB Garamond', serif;
+        }
+
+        /* Tema 2: Hawkins 1983 (Retro Neon 80s) */
+        [data-theme="hawkins-83"] {
+            --cor-fundo-base: #0b0714;
+            --cor-card-bg: rgba(22, 12, 38, 0.9);
+            --cor-neon: #00f0ff;
+            --cor-neon-brilho: #ff00aa;
+            --cor-sombra: rgba(0, 240, 255, 0.4);
+            --texto-principal: #f0f4f8;
+            --texto-suave: #b388ff;
+            --borda-card: 1px solid rgba(0, 240, 255, 0.4);
+            --fundo-gradiente: radial-gradient(circle at 50% 30%, rgba(120, 0, 180, 0.35), transparent 70%), linear-gradient(180deg, #0b0714 0%, #15002a 100%);
+            --fonte-titulo: 'Oswald', sans-serif;
+        }
+
+        /* Tema 3: Palace Arcade (80s Pixel Art) */
+        [data-theme="arcade"] {
+            --cor-fundo-base: #0a1108;
+            --cor-card-bg: rgba(15, 28, 18, 0.92);
+            --cor-neon: #39ff14;
+            --cor-neon-brilho: #ccff00;
+            --cor-sombra: rgba(57, 255, 20, 0.3);
+            --texto-principal: #e0ffe0;
+            --texto-suave: #73b373;
+            --borda-card: 2px solid #39ff14;
+            --fundo-gradiente: radial-gradient(circle at 50% 50%, rgba(20, 50, 20, 0.5), transparent 80%);
+            --fonte-titulo: 'Press Start 2P', cursive;
+        }
+
+        /* Tema 4: Laboratório de Hawkins (Alerta Vermelho) */
+        [data-theme="laboratorio"] {
+            --cor-fundo-base: #121212;
+            --cor-card-bg: rgba(28, 28, 28, 0.95);
+            --cor-neon: #ffaa00;
+            --cor-neon-brilho: #ff3300;
+            --cor-sombra: rgba(255, 170, 0, 0.4);
+            --texto-principal: #f5f5f5;
+            --texto-suave: #a0a0a0;
+            --borda-card: 1px solid #ffaa00;
+            --fundo-gradiente: linear-gradient(135deg, #1f0000 0%, #0a0a0a 100%);
+            --fonte-titulo: 'Share Tech Mono', monospace;
         }
 
         * {
@@ -41,41 +77,78 @@
             padding: 0;
             box-sizing: border-box;
             scroll-behavior: smooth;
+            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
         }
 
         body {
             background-color: var(--cor-fundo-base);
             color: var(--texto-principal);
-            font-family: 'Fauna One', serif;
+            font-family: 'Share Tech Mono', monospace;
             overflow-x: hidden;
             line-height: 1.7;
-            background-image: 
-                radial-gradient(circle at 50% 20%, rgba(30, 20, 50, 0.6), transparent 70%),
-                radial-gradient(circle at 80% 80%, rgba(15, 30, 45, 0.5), transparent 70%);
+            background-image: var(--fundo-gradiente);
         }
 
-        #magicCanvas {
+        #sporesCanvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             pointer-events: none;
             z-index: 9999;
         }
 
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #030206;
-        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--cor-fundo-base); }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--ouro-arcano), #4a3818);
+            background: var(--cor-neon);
             border-radius: 5px;
         }
 
-        /* HEADER */
+        /* ==========================================================================
+           2. PAINEL DE SELEÇÃO DE TEMA
+           ========================================================================== */
+        .painel-temas {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            background: var(--cor-card-bg);
+            border: var(--borda-card);
+            border-radius: 30px;
+            padding: 0.4rem 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 15px var(--cor-sombra);
+            backdrop-filter: blur(8px);
+        }
+
+        .painel-temas span {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--cor-neon-brilho);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 4px;
+        }
+
+        .btn-tema {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-tema:hover { transform: scale(1.25); }
+        .btn-tema[data-set="mundo-invertido"] { background: #ff0033; border-color: #05070a; }
+        .btn-tema[data-set="hawkins-83"] { background: #00f0ff; border-color: #ff00aa; }
+        .btn-tema[data-set="arcade"] { background: #39ff14; border-color: #0a1108; }
+        .btn-tema[data-set="laboratorio"] { background: #ffaa00; border-color: #121212; }
+
+        /* HEADER & LOGO LOGIC STRANGER THINGS */
         header {
             position: relative;
             min-height: 100vh;
@@ -83,126 +156,119 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            overflow: hidden;
             padding: 2rem;
+            overflow: hidden;
         }
 
         .bg-video {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
+            top: 50%; left: 50%;
+            min-width: 100%; min-height: 100%;
             transform: translate(-50%, -50%);
             object-fit: cover;
-            opacity: 0.35;
-            filter: contrast(120%) brightness(70%);
+            opacity: 0.25;
+            filter: grayscale(80%) contrast(150%);
             z-index: -2;
         }
 
         .header-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(6,5,10,0.3) 0%, rgba(6,5,10,0.95) 90%);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, var(--cor-fundo-base) 90%);
             z-index: -1;
         }
 
-        .header-content {
-            max-width: 1000px;
-            z-index: 2;
+        .st-logo-container {
+            margin-bottom: 2rem;
         }
 
-        .brasao-hogwarts {
-            font-size: 4.5rem;
-            color: var(--ouro-arcano);
-            margin-bottom: 1rem;
-            text-shadow: 0 0 25px var(--ouro-sombra);
-            animation: haloPulse 3s infinite alternate;
-        }
-
-        @keyframes haloPulse {
-            0% { transform: scale(1); filter: drop-shadow(0 0 10px var(--ouro-arcano)); }
-            100% { transform: scale(1.08); filter: drop-shadow(0 0 25px var(--ouro-brilhante)); }
-        }
-
-        h1 {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: clamp(3rem, 7vw, 6rem);
-            color: var(--ouro-brilhante);
-            letter-spacing: 4px;
+        h1.st-titulo {
+            font-family: var(--fonte-titulo);
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            color: transparent;
+            -webkit-text-stroke: 2px var(--cor-neon);
+            text-shadow: 0 0 10px var(--cor-neon), 0 0 20px var(--cor-neon), 0 0 40px var(--cor-neon-brilho);
             text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(223, 177, 91, 0.5), 2px 2px 4px #000;
-        }
-
-        .subtitulo-lema {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
             letter-spacing: 3px;
-            color: var(--texto-suave);
-            margin-bottom: 2.5rem;
-            font-style: italic;
+            line-height: 0.9;
+            animation: flickerST 4s infinite alternate;
         }
 
-        .btn-magic {
-            background: linear-gradient(135deg, rgba(223, 177, 91, 0.2), rgba(20, 15, 30, 0.8));
-            border: 1px solid var(--ouro-arcano);
-            color: var(--ouro-brilhante);
+        @keyframes flickerST {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 15px var(--cor-neon)); }
+            50% { opacity: 0.85; filter: drop-shadow(0 0 5px var(--cor-neon)); }
+            52% { opacity: 0.4; }
+            54% { opacity: 1; }
+            88% { opacity: 0.9; }
+            90% { opacity: 0.3; }
+            92% { opacity: 1; }
+        }
+
+        .subtitulo-hawkins {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            color: var(--texto-suave);
+            margin-top: 1rem;
+            margin-bottom: 2.5rem;
+            text-transform: uppercase;
+        }
+
+        .btn-retro {
+            background: var(--cor-card-bg);
+            border: 2px solid var(--cor-neon);
+            color: var(--cor-neon-brilho);
             padding: 0.8rem 2rem;
-            font-family: 'Cinzel', serif;
-            font-size: 0.95rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
             font-weight: 700;
-            letter-spacing: 2px;
-            border-radius: 4px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 2px;
             cursor: pointer;
-            transition: var(--transicao-suave);
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--cor-sombra);
             display: inline-flex;
             align-items: center;
             gap: 10px;
         }
 
-        .btn-magic:hover {
-            background: var(--ouro-arcano);
-            color: #000;
-            box-shadow: 0 0 25px var(--ouro-arcano);
+        .btn-retro:hover {
+            background: var(--cor-neon);
+            color: var(--cor-fundo-base);
+            box-shadow: 0 0 25px var(--cor-neon);
             transform: translateY(-3px);
         }
 
-        nav {
-            margin-top: 3rem;
-        }
-
+        nav { margin-top: 3rem; }
         nav ul {
             list-style: none;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 1.2rem;
         }
 
         nav a {
             color: var(--texto-principal);
             text-decoration: none;
-            font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95rem;
             letter-spacing: 1px;
+            text-transform: uppercase;
             padding: 0.6rem 1.2rem;
-            border-radius: 3px;
+            border-radius: 2px;
             border: 1px solid transparent;
-            transition: var(--transicao-suave);
+            background: var(--cor-card-bg);
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(10, 8, 18, 0.5);
         }
 
         nav a:hover {
-            border-color: var(--ouro-arcano);
-            color: var(--ouro-brilhante);
-            background: rgba(223, 177, 91, 0.1);
+            border-color: var(--cor-neon);
+            color: var(--cor-neon-brilho);
+            box-shadow: 0 0 10px var(--cor-sombra);
             transform: translateY(-2px);
         }
 
@@ -212,202 +278,96 @@
             padding: 4rem 2rem;
         }
 
-        section {
-            margin-bottom: 8rem;
-        }
+        section { margin-bottom: 8rem; }
 
         h2 {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: clamp(2rem, 4vw, 3rem);
-            color: var(--ouro-arcano);
+            font-family: var(--fonte-titulo);
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            color: var(--texto-principal);
+            text-shadow: 0 0 10px var(--cor-neon);
             text-align: center;
             margin-bottom: 3rem;
             position: relative;
             padding-bottom: 1rem;
+            text-transform: uppercase;
         }
 
         h2::after {
-            content: '✦ ✧ ✦';
+            content: '▲ ▼ ▲';
             position: absolute;
             bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 1rem;
-            color: var(--ouro-arcano);
-            opacity: 0.7;
-        }
-
-        /* ==========================================================================
-           RESTRUCTURING: O PROFETA DIÁRIO (VINTAGE PARCHMENT LOOK)
-           ========================================================================== */
-        .secao-jornal {
-            background-color: var(--pergaminho-bg);
-            background-image: 
-                radial-gradient(rgba(0,0,0,0.08) 1px, transparent 0),
-                linear-gradient(to bottom, rgba(0,0,0,0.15), transparent 15%, transparent 85%, rgba(0,0,0,0.25));
-            background-size: 20px 20px, 100% 100%;
-            color: var(--pergaminho-texto);
-            border: 8px double #4a3818;
-            border-radius: 4px;
-            padding: 2.5rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.9), inset 0 0 50px rgba(74, 56, 24, 0.4);
-            position: relative;
-        }
-
-        .jornal-header {
-            text-align: center;
-            border-bottom: 4px double #2c1d0c;
-            padding-bottom: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .jornal-edicao {
-            display: flex;
-            justify-content: space-between;
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: #4a3a28;
-            border-bottom: 2px solid #2c1d0c;
-            padding-bottom: 0.4rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-        }
-
-        .jornal-titulo {
-            font-family: 'UnifrakturMaguntia', 'MedievalSharp', cursive;
-            font-size: clamp(3rem, 8vw, 5.5rem);
-            color: #110d08;
-            letter-spacing: 1px;
-            line-height: 1;
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.4);
-            margin: 0.5rem 0;
-        }
-
-        .jornal-subcabecalho {
-            font-family: 'Cinzel', serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            color: #3b2b1a;
-            text-transform: uppercase;
-        }
-
-        .jornal-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-        }
-
-        @media (max-width: 960px) {
-            .jornal-grid { grid-template-columns: 1fr; }
-        }
-
-        /* CARD DE NOTÍCIA DO JORNAL */
-        .jornal-card {
-            background: rgba(255, 255, 255, 0.25);
-            border: 1px solid #7a6343;
-            padding: 1.2rem;
-            box-shadow: 2px 3px 10px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .jornal-card h3 {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: 1.6rem;
-            color: #110d08;
-            line-height: 1.2;
-        }
-
-        .jornal-card .autor {
-            font-family: 'Cinzel', serif;
             font-size: 0.8rem;
-            font-weight: 700;
-            color: #6b5133;
-            text-transform: uppercase;
-            border-bottom: 1px solid #a38c6d;
-            padding-bottom: 0.4rem;
+            color: var(--cor-neon);
+            letter-spacing: 5px;
         }
 
-        .jornal-card p {
-            font-size: 0.95rem;
-            color: #211a13;
-            text-align: justify;
+        /* PAREDE DE LUZES PISCANTES (ALPHABET WALL) */
+        .secao-parede-luzes {
+            background: var(--cor-card-bg);
+            border: var(--borda-card);
+            border-radius: 8px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            text-align: center;
         }
 
-        /* FOTO MÁGICA EM MOVIMENTO */
-        .moldura-foto-magica {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-            border: 3px solid #2c1d0c;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
-            background-color: #000;
+        .alfabeto-luzes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 2rem;
         }
 
-        .moldura-foto-magica.secundarias {
-            height: 180px;
-        }
-
-        .foto-magica-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(80%) sepia(50%) contrast(120%);
-            animation: movimentoMagico 12s infinite alternate ease-in-out;
-            transition: var(--transicao-suave);
-        }
-
-        .jornal-card:hover .foto-magica-img {
-            filter: grayscale(20%) sepia(20%) contrast(110%);
-        }
-
-        @keyframes movimentoMagico {
-            0% { transform: scale(1) translate(0, 0); }
-            50% { transform: scale(1.12) translate(-10px, -5px); }
-            100% { transform: scale(1.05) translate(8px, 5px); }
-        }
-
-        .selo-urgente {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #8b0000;
-            color: #fff;
-            font-family: 'Cinzel', serif;
-            font-size: 0.7rem;
-            font-weight: 800;
-            padding: 0.3rem 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 1px solid #ffcc00;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-            z-index: 5;
-        }
-
-        .noticias-secundarias-jornal {
+        .letra-luz {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            align-items: center;
+            font-family: 'EB Garamond', serif;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--texto-principal);
         }
 
-        /* OUTRAS SEÇÕES */
-        .card-arcano {
+        .lampada {
+            width: 16px;
+            height: 24px;
+            border-radius: 50% 50% 40% 40%;
+            background: #222;
+            margin-bottom: 8px;
+            box-shadow: 0 0 2px #000;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+
+        .lampada.ativa {
+            background: #ff0055;
+            box-shadow: 0 0 15px #ff0055, 0 0 30px #ff0055;
+        }
+
+        .lampada.ativa-amarela {
+            background: #ffcc00;
+            box-shadow: 0 0 15px #ffcc00, 0 0 30px #ffcc00;
+        }
+
+        .lampada.ativa-azul {
+            background: #00ccff;
+            box-shadow: 0 0 15px #00ccff, 0 0 30px #00ccff;
+        }
+
+        /* GRIDS GERAIS */
+        .card-hawkins {
             background: var(--cor-card-bg);
-            backdrop-filter: blur(10px);
-            border: var(--borda-pergaminho);
-            border-radius: 8px;
+            border: var(--borda-card);
+            border-radius: 6px;
             padding: 1.8rem;
-            transition: var(--transicao-suave);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .card-arcano:hover {
-            border-color: var(--ouro-arcano);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px var(--ouro-sombra);
+        .card-hawkins:hover {
             transform: translateY(-5px);
+            box-shadow: 0 0 20px var(--cor-sombra);
         }
 
         .grid-3d {
@@ -416,41 +376,30 @@
             gap: 2rem;
         }
 
-        .casa-card { text-align: center; }
-        .casa-icon { font-size: 3rem; margin-bottom: 1rem; }
-        .grifinoria .casa-icon { color: var(--grifinoria-gold); }
-        .sonserina .casa-icon { color: #2ecc71; }
-        .corvinal .casa-icon { color: #3498db; }
-        .lufa-lufa .casa-icon { color: var(--lufalufa-yellow); }
-
-        .personagem-foto {
+        .card-foto {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
-            border-radius: 6px;
+            border-radius: 4px;
             margin: 1rem 0;
-            border: 1px solid rgba(223, 177, 91, 0.3);
+            border: 1px solid var(--cor-neon);
+            filter: contrast(110%) brightness(90%);
         }
 
-        /* FEITIÇOS */
-        .feiticos-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .feitico-item {
-            background: rgba(15, 12, 25, 0.8);
-            border-left: 4px solid var(--ouro-arcano);
+        /* REGISTROS CLASSIFICADOS */
+        .registro-item {
+            background: var(--cor-card-bg);
+            border-left: 4px solid var(--cor-neon);
             padding: 1.2rem 1.5rem;
-            border-radius: 0 8px 8px 0;
+            margin-bottom: 1rem;
+            border-radius: 0 6px 6px 0;
         }
 
-        .nome-feitico {
-            font-family: 'Cinzel', serif;
+        .registro-titulo {
+            font-family: 'Oswald', sans-serif;
             font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--ouro-brilhante);
+            color: var(--cor-neon-brilho);
+            text-transform: uppercase;
         }
 
         /* GALERIA & LIGHTBOX */
@@ -463,70 +412,66 @@
         .galeria-item {
             position: relative;
             height: 220px;
-            border-radius: 8px;
+            border-radius: 6px;
             overflow: hidden;
             cursor: pointer;
-            border: 1px solid rgba(223, 177, 91, 0.3);
+            border: var(--borda-card);
         }
 
-        .galeria-item img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: var(--transicao-suave);
-        }
+        .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
 
         .galeria-hover {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(6, 5, 10, 0.85);
+            background: rgba(0, 0, 0, 0.88);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Cinzel Decorative', serif;
-            color: var(--ouro-brilhante);
+            font-family: 'Oswald', sans-serif;
+            color: var(--cor-neon-brilho);
             opacity: 0;
-            transition: var(--transicao-suave);
+            transition: opacity 0.3s ease;
             text-align: center;
             padding: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        .galeria-item:hover img { transform: scale(1.1); }
         .galeria-item:hover .galeria-hover { opacity: 1; }
 
         .lightbox {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.92);
+            background: rgba(0,0,0,0.95);
             z-index: 10000;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(8px);
         }
 
         .lightbox-body {
             max-width: 85%; max-height: 85%;
-            border: 2px solid var(--ouro-arcano);
-            border-radius: 8px;
+            border: 2px solid var(--cor-neon);
+            box-shadow: 0 0 30px var(--cor-neon);
+            border-radius: 6px;
             overflow: hidden;
         }
 
-        .lightbox-media {
-            width: 100%; max-height: 80vh; object-fit: contain; display: block;
-        }
+        .lightbox-media { width: 100%; max-height: 80vh; object-fit: contain; }
 
         .lightbox-close {
             position: absolute; top: 25px; right: 35px;
-            font-size: 2.5rem; color: var(--ouro-brilhante); cursor: pointer;
+            font-size: 2.5rem; color: #fff; cursor: pointer;
         }
 
         footer {
-            background: linear-gradient(180deg, transparent, #030205);
-            border-top: 1px solid rgba(223, 177, 91, 0.2);
+            background: var(--cor-card-bg);
+            border-top: var(--borda-card);
             padding: 4rem 2rem 2rem 2rem;
             text-align: center;
         }
 
-        .maroto-footer {
+        .hawkins-footer {
             max-width: 600px;
             margin: 0 auto;
             display: flex;
@@ -535,48 +480,58 @@
             gap: 1.5rem;
         }
 
-        #fraseMaroto {
-            font-family: 'MedievalSharp', cursive;
-            font-size: 1.4rem;
-            color: var(--ouro-arcano);
+        #fraseInvertida {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            color: var(--cor-neon-brilho);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="magicCanvas"></canvas>
+    <!-- PAINEL DE TROCA DE TEMA -->
+    <div class="painel-temas">
+        <span><i class="fa-solid fa-radio"></i> Sinal:</span>
+        <button class="btn-tema" data-set="mundo-invertido" title="O Mundo Invertido"></button>
+        <button class="btn-tema" data-set="hawkins-83" title="Hawkins 1983"></button>
+        <button class="btn-tema" data-set="arcade" title="Palace Arcade"></button>
+        <button class="btn-tema" data-set="laboratorio" title="Laboratório de Hawkins"></button>
+    </div>
+
+    <canvas id="sporesCanvas"></canvas>
 
     <!-- HEADER -->
     <header id="inicio">
         <video class="bg-video" autoplay loop muted playsinline>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-starry-night-sky-with-clouds-26330-large.mp4" type="video/mp4">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-red-abstract-lights-in-the-dark-42880-large.mp4" type="video/mp4">
         </video>
 
         <div class="header-overlay"></div>
 
         <div class="header-content">
-            <div class="brasao-hogwarts">
-                <i class="fa-solid fa-hat-wizard"></i>
+            <div class="st-logo-container">
+                <h1 class="st-titulo">Stranger<br>Things</h1>
             </div>
-            <h1>Hogwarts</h1>
-            <p class="subtitulo-lema">Draco Dormiens Nunquam Titillandus</p>
+            <p class="subtitulo-hawkins">Hawkins, Indiana — 1983</p>
 
             <div class="audio-control">
-                <audio id="audioAmbiente" loop preload="auto">
-                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                <audio id="audioSintetizador" loop preload="auto">
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
                 </audio>
-                <button id="btnAudio" class="btn-magic">
-                    <i class="fa-solid fa-music"></i> <span id="txtAudio">Atmosfera Arcana: OFF</span>
+                <button id="btnAudio" class="btn-retro">
+                    <i class="fa-solid fa-compact-disc"></i> <span id="txtAudio">Sintetizador: OFF</span>
                 </button>
             </div>
 
             <nav>
                 <ul>
-                    <li><a href="#jornal"><i class="fa-solid fa-newspaper"></i> O Profeta Diário</a></li>
-                    <li><a href="#casas"><i class="fa-solid fa-shield-halved"></i> As Casas</a></li>
-                    <li><a href="#personagens"><i class="fa-solid fa-user-ninja"></i> Bruxos Notáveis</a></li>
-                    <li><a href="#feiticos"><i class="fa-solid fa-wand-magic-sparkles"></i> Grimório</a></li>
-                    <li><a href="#galeria"><i class="fa-solid fa-images"></i> Relíquias</a></li>
+                    <li><a href="#luzes"><i class="fa-solid fa-lightbulb"></i> Comunicação</a></li>
+                    <li><a href="#personagens"><i class="fa-solid fa-users"></i> O Grupo</a></li>
+                    <li><a href="#ameacas"><i class="fa-solid fa-biohazard"></i> Ameaças</a></li>
+                    <li><a href="#registros"><i class="fa-solid fa-folder-open"></i> Arquivos Secretos</a></li>
+                    <li><a href="#galeria"><i class="fa-solid fa-film"></i> Evidências</a></li>
                 </ul>
             </nav>
         </div>
@@ -584,149 +539,105 @@
 
     <main>
 
-        <!-- SEÇÃO 1: O PROFETA DIÁRIO (REDESENHADO COM FOTOS MÁGICAS VIVAS) -->
-        <section id="jornal" class="secao-jornal">
-            <div class="jornal-header">
-                <div class="jornal-edicao">
-                    <span>Edição Extraordinária — Nº 4.812</span>
-                    <span>Preço: 5 Nuques</span>
-                    <span>Londres, Reino Unido</span>
-                </div>
-                <h2 class="jornal-titulo">O Profeta Diário</h2>
-                <div class="jornal-subcabecalho">O Jornal Oficial do Mundo Mágico</div>
+        <!-- SEÇÃO 1: PAREDE DE LUZES (ALPHABET WALL) -->
+        <section id="luzes" class="secao-parede-luzes">
+            <h2>Transmissão do Mundo Invertido</h2>
+            <p style="color:var(--texto-suave);">As luzes piscam em resposta às ondas eletromagnéticas da outra dimensão...</p>
+            
+            <div class="alfabeto-luzes" id="alfabetoLuzes">
+                <!-- Gerado via JavaScript -->
             </div>
 
-            <div class="jornal-grid">
-                <!-- Notícia Principal -->
-                <article class="jornal-card principal">
-                    <div class="moldura-foto-magica">
-                        <span class="selo-urgente">Alerta Máximo</span>
-                        <img class="foto-magica-img" 
-                             src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=80" 
-                             alt="Expresso de Hogwarts Noturno">
-                    </div>
-                    <h3>Expresso de Hogwarts Enfrenta Tempestade Arcana Inesperada</h3>
-                    <p class="autor">Por Rita Skeeter | Pena de Repetição Rápida</p>
-                    <p>Passageiros do Expresso de Hogwarts relataram fenômenos luminescentes e anomalias gravitacionais durante a travessia das montanhas escocesas. O Ministério da Magia enviou uma patrulha de Aurores para investigar se o incidente foi provocado por magia das trevas descontrolada ou interferência de criaturas mágicas migratórias.</p>
-                </article>
-
-                <!-- Notícias Secundárias -->
-                <div class="noticias-secundarias-jornal">
-                    <article class="jornal-card">
-                        <div class="moldura-foto-magica secundarias">
-                            <img class="foto-magica-img" 
-                                 src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=600&q=80" 
-                                 alt="Torre de Astronomia">
-                        </div>
-                        <h3>Alinhamento em Órion Altera Feitiços de Proteção</h3>
-                        <p class="autor">Por Bernardo Cuffe</p>
-                        <p>Astrofísicos bruxos da Torre de Astronomia confirmam que a convergência estelar aumentará a potência dos feitiços defensivos ao longo de toda a semana.</p>
-                    </article>
-
-                    <article class="jornal-card">
-                        <div class="moldura-foto-magica secundarias">
-                            <img class="foto-magica-img" 
-                                 src="https://images.unsplash.com/photo-1547756536-cde3673fa2e5?auto=format&fit=crop&w=600&q=80" 
-                                 alt="Beco Diagonal">
-                        </div>
-                        <h3>Novos Elixires Revelados no Beco Diagonal</h3>
-                        <p class="autor">Por Celestina Warbeck</p>
-                        <p>O Beline's Apothecary abriu pré-venda para poções raras de clarividência, atraindo filas de bruxos desde a madrugada.</p>
-                    </article>
-                </div>
-            </div>
+            <button id="btnTransmitir" class="btn-retro" style="margin-top: 2rem;">
+                <i class="fa-solid fa-bolt"></i> Receber Sinal de Will
+            </button>
         </section>
 
-        <!-- SEÇÃO 2: CASAS -->
-        <section id="casas">
-            <h2>Casas de Hogwarts</h2>
-            <div class="grid-3d">
-                <div class="card-arcano casa-card grifinoria">
-                    <i class="fa-solid fa-shield-cat casa-icon"></i>
-                    <img class="personagem-foto" src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=500&q=80" alt="Grifinória">
-                    <h3>Grifinória</h3>
-                    <p style="color:var(--texto-suave); font-style:italic;">"Onde habitam os corajosos de coração."</p>
-                </div>
-
-                <div class="card-arcano casa-card sonserina">
-                    <i class="fa-solid fa-staff-snake casa-icon"></i>
-                    <img class="personagem-foto" src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=500&q=80" alt="Sonserina">
-                    <h3>Sonserina</h3>
-                    <p style="color:var(--texto-suave); font-style:italic;">"Usarão quaisquer meios para atingir seus fins."</p>
-                </div>
-
-                <div class="card-arcano casa-card corvinal">
-                    <i class="fa-solid fa-crow casa-icon"></i>
-                    <img class="personagem-foto" src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=500&q=80" alt="Corvinal">
-                    <h3>Corvinal</h3>
-                    <p style="color:var(--texto-suave); font-style:italic;">"A mente sem limites é o maior tesouro."</p>
-                </div>
-
-                <div class="card-arcano casa-card lufa-lufa">
-                    <i class="fa-solid fa-paw casa-icon"></i>
-                    <img class="personagem-foto" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=500&q=80" alt="Lufa-Lufa">
-                    <h3>Lufa-Lufa</h3>
-                    <p style="color:var(--texto-suave); font-style:italic;">"Onde seus membros são justos e leais."</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SEÇÃO 3: BRUXOS NOTÁVEIS -->
+        <!-- SEÇÃO 2: O GRUPO DE HAWKINS -->
         <section id="personagens">
-            <h2>Bruxos Notáveis</h2>
+            <h2>O Grupo de Hawkins</h2>
             <div class="grid-3d">
-                <div class="card-arcano">
-                    <img class="personagem-foto" src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=500&q=80" alt="Alvo Dumbledore">
-                    <h3>Alvo Dumbledore</h3>
-                    <p>Diretor de Hogwarts, detentor da Varinha das Varinhas e fundador da Ordem da Fênix.</p>
+                <div class="card-hawkins" style="text-align:center;">
+                    <img class="card-foto" src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=500&q=80" alt="Eleven">
+                    <h3>Eleven (011)</h3>
+                    <p style="color:var(--texto-suave); font-style:italic;">"Amigos não mentem."</p>
+                    <p style="font-size:0.85rem; margin-top:0.5rem;">Possui habilidades telecinéticas e psíquicas derivadas de experimentos no Laboratório de Hawkins.</p>
                 </div>
-                <div class="card-arcano">
-                    <img class="personagem-foto" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Hermione Granger">
-                    <h3>Hermione Granger</h3>
-                    <p>A bruxa mais brilhante de sua era, mestra em feitiçaria avançada e lógica arcanista.</p>
+
+                <div class="card-hawkins" style="text-align:center;">
+                    <img class="card-foto" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=500&q=80" alt="Mike Wheeler">
+                    <h3>Mike Wheeler</h3>
+                    <p style="color:var(--texto-suave); font-style:italic;">O Estrategista do Grupo</p>
+                    <p style="font-size:0.85rem; margin-top:0.5rem;">Líder nas partidas de Dungeons & Dragons e o primeiro a acolher Eleven.</p>
                 </div>
-                <div class="card-arcano">
-                    <img class="personagem-foto" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" alt="Severo Snape">
-                    <h3>Severo Snape</h3>
-                    <p>Mestre das Poções, criador de feitiços autorais e mestre supremo em Oclumência.</p>
+
+                <div class="card-hawkins" style="text-align:center;">
+                    <img class="card-foto" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80" alt="Dustin Henderson">
+                    <h3>Dustin Henderson</h3>
+                    <p style="color:var(--texto-suave); font-style:italic;">O Especialista em Rádio</p>
+                    <p style="font-size:0.85rem; margin-top:0.5rem;">Mestre em comunicação por rádio amador (Cerebro) e lógica científica.</p>
+                </div>
+
+                <div class="card-hawkins" style="text-align:center;">
+                    <img class="card-foto" src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=500&q=80" alt="Jim Hopper">
+                    <h3>Jim Hopper</h3>
+                    <p style="color:var(--texto-suave); font-style:italic;">Chefe de Polícia de Hawkins</p>
+                    <p style="font-size:0.85rem; margin-top:0.5rem;">Investigador incansável focado em proteger a cidade e expor o laboratório.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO 4: FEITIÇOS -->
-        <section id="feiticos">
-            <h2>Grimório de Feitiços</h2>
-            <div class="feiticos-container">
-                <div class="feitico-item">
-                    <span class="nome-feitico">Expecto Patronum</span>
-                    <p style="color: var(--texto-suave); font-size: 0.9rem;">Materializa um guardião de luz pura movido por memórias felizes.</p>
+        <!-- SEÇÃO 3: AMEAÇAS DO MUNDO INVERTIDO -->
+        <section id="ameacas">
+            <h2>Ameaças Dimensionais</h2>
+            <div class="grid-3d">
+                <div class="card-hawkins">
+                    <h3>Demogorgon</h3>
+                    <p>Predador alfa do Mundo Invertido. Atraído pelo sangue e capaz de rasgar o tecido do espaço-tempo para criar portais temporários.</p>
                 </div>
-                <div class="feitico-item">
-                    <span class="nome-feitico">Sectumsempra</span>
-                    <p style="color: var(--texto-suave); font-size: 0.9rem;">Causa lacerações severas no alvo como por uma lâmina invisível.</p>
+                <div class="card-hawkins">
+                    <h3>O Devorador de Mentes</h3>
+                    <p>Entidade psíquica colossal que governa a mente de colmeia de todas as criaturas da dimensão paralela.</p>
                 </div>
-                <div class="feitico-item">
-                    <span class="nome-feitico">Protego Maxima</span>
-                    <p style="color: var(--texto-suave); font-size: 0.9rem;">Conjura um escudo massivo capaz de desintegrar ameaças em contato.</p>
+                <div class="card-hawkins">
+                    <h3>Vecna (001)</h3>
+                    <p>A entidade original por trás do controle psíquico do Mundo Invertido, capaz de explorar traumas do passado das suas vítimas.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO 5: GALERIA -->
+        <!-- SEÇÃO 4: REGISTROS CLASSIFICADOS -->
+        <section id="registros">
+            <h2>Arquivos do Laboratório</h2>
+            <div class="registro-item">
+                <span class="registro-titulo">Incidente 001 — O Portal Inicial</span>
+                <p style="color: var(--texto-suave); font-size: 0.9rem;">Abertura involuntária da fenda dimensional no subsolo do Laboratório Nacional de Hawkins.</p>
+            </div>
+            <div class="registro-item">
+                <span class="registro-titulo">Projeto MKUltra — Experimento Psíquico</span>
+                <p style="color: var(--texto-suave); font-size: 0.9rem;">Documentos confidenciais detalhando ampliação de capacidades de percepção extra-sensorial.</p>
+            </div>
+            <div class="registro-item">
+                <span class="registro-titulo">Operação Cerebro — Frequências Rádio</span>
+                <p style="color: var(--texto-suave); font-size: 0.9rem;">Interceptação de transmissões criptografadas de rádio na frequência 440MHz.</p>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 5: GALERIA DE EVIDÊNCIAS -->
         <section id="galeria">
-            <h2>Galeria Mágica de Relíquias</h2>
+            <h2>Galeria de Evidências</h2>
             <div class="galeria-grid">
                 <div class="galeria-item" onclick="abrirLightbox(this)">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80" alt="Expresso Noturno">
-                    <div class="galeria-hover">Plataforma 9 ¾ — Expresso</div>
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80" alt="Estrada Noturna de Hawkins">
+                    <div class="galeria-hover">Estrada de Hawkins (23:00)</div>
                 </div>
                 <div class="galeria-item" onclick="abrirLightbox(this)">
-                    <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=800&q=80" alt="Castelo ao Luar">
-                    <div class="galeria-hover">Castelo ao Luar</div>
+                    <img src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=800&q=80" alt="Laboratório em Quarentena">
+                    <div class="galeria-hover">Setor de Quarentena</div>
                 </div>
                 <div class="galeria-item" onclick="abrirLightbox(this)">
-                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=800&q=80" alt="Biblioteca Restrita">
-                    <div class="galeria-hover">Seção Restrita</div>
+                    <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=800&q=80" alt="Floresta das Sombras">
+                    <div class="galeria-hover">A Floresta das Sombras</div>
                 </div>
             </div>
         </section>
@@ -735,7 +646,7 @@
         <div id="lightboxModal" class="lightbox">
             <span class="lightbox-close" onclick="fecharLightbox()">&times;</span>
             <div class="lightbox-body">
-                <img id="lightboxImg" class="lightbox-media" src="" alt="Ampliação Mágica">
+                <img id="lightboxImg" class="lightbox-media" src="" alt="Evidência Ampliada">
             </div>
         </div>
 
@@ -743,19 +654,30 @@
 
     <!-- FOOTER -->
     <footer>
-        <div class="maroto-footer">
-            <p id="fraseMaroto">"Juro solenemente não fazer nada de bom."</p>
-            <button id="btnRevelarMapa" class="btn-magic">Revelar Segredos do Mapa</button>
-            <p style="font-size:0.8rem; color:var(--texto-suave);">Propriedade do Ministério da Magia — Direitos Autorais Reservados aos Bruxos.</p>
+        <div class="hawkins-footer">
+            <p id="fraseInvertida">"R-U-N"</p>
+            <button id="btnInverterMundo" class="btn-retro">Alternar Gravidade Dimensional</button>
+            <p style="font-size:0.8rem; color:var(--texto-suave);">Departamento de Energia dos EUA — Laboratório Nacional de Hawkins.</p>
         </div>
     </footer>
 
-    <!-- JS INTERATIVO -->
+    <!-- JAVASCRIPT DE INTERATIVIDADE E EFETIVAÇÃO DE TEMA -->
     <script>
-        // Rastro de Varinha
-        const canvas = document.getElementById('magicCanvas');
+        // --- 1. Alternador Dinâmico de Temas ---
+        const botoesTema = document.querySelectorAll('.btn-tema');
+        const htmlElem = document.documentElement;
+
+        botoesTema.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const temaSelecionado = btn.getAttribute('data-set');
+                htmlElem.setAttribute('data-theme', temaSelecionado);
+            });
+        });
+
+        // --- 2. Canvas de Esporos Flutuantes (Mundo Invertido) ---
+        const canvas = document.getElementById('sporesCanvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
+        let spores = [];
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -764,61 +686,113 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        window.addEventListener('mousemove', (e) => {
-            for (let i = 0; i < 2; i++) {
-                particles.push({
-                    x: e.clientX,
-                    y: e.clientY,
-                    size: Math.random() * 3.5 + 1,
-                    color: `hsl(${Math.random() * 40 + 40}, 100%, 75%)`,
-                    vx: (Math.random() - 0.5) * 2,
-                    vy: (Math.random() - 0.5) * 2 - 1,
-                    alpha: 1
+        function initSpores() {
+            spores = [];
+            for (let i = 0; i < 65; i++) {
+                spores.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2.5 + 0.8,
+                    speedX: (Math.random() - 0.5) * 0.8,
+                    speedY: (Math.random() - 0.5) * 1.2,
+                    opacity: Math.random() * 0.7 + 0.3
                 });
             }
+        }
+        initSpores();
+
+        function animateSpores() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const theme = htmlElem.getAttribute('data-theme');
+            let sporeColor = 'rgba(255, 77, 109, ';
+            if (theme === 'hawkins-83') sporeColor = 'rgba(0, 240, 255, ';
+            if (theme === 'arcade') sporeColor = 'rgba(57, 255, 20, ';
+            if (theme === 'laboratorio') sporeColor = 'rgba(255, 170, 0, ';
+
+            spores.forEach(s => {
+                s.x += s.speedX;
+                s.y += s.speedY;
+
+                if (s.x < 0) s.x = canvas.width;
+                if (s.x > canvas.width) s.x = 0;
+                if (s.y < 0) s.y = canvas.height;
+                if (s.y > canvas.height) s.y = 0;
+
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                ctx.fillStyle = sporeColor + s.opacity + ')';
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = sporeColor + '0.8)';
+                ctx.fill();
+            });
+            requestAnimationFrame(animateSpores);
+        }
+        animateSpores();
+
+        // --- 3. Parede de Luzes Piscantes ---
+        const alfabetoContainer = document.getElementById('alfabetoLuzes');
+        const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+        letras.forEach(letra => {
+            const wrap = document.createElement('div');
+            wrap.className = 'letra-luz';
+            
+            const lamp = document.createElement('div');
+            lamp.className = 'lampada';
+            lamp.id = 'lamp-' + letra;
+
+            const txt = document.createElement('span');
+            txt.textContent = letra;
+
+            wrap.appendChild(lamp);
+            wrap.appendChild(txt);
+            alfabetoContainer.appendChild(wrap);
         });
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, index) => {
-                p.x += p.vx;
-                p.y += p.vy;
-                p.alpha -= 0.025;
+        const btnTransmitir = document.getElementById('btnTransmitir');
+        btnTransmitir.addEventListener('click', () => {
+            const mensagem = "CORRA";
+            let index = 0;
 
-                ctx.save();
-                ctx.globalAlpha = p.alpha;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.shadowBlur = 8;
-                ctx.shadowColor = p.color;
-                ctx.fill();
-                ctx.restore();
+            const interval = setInterval(() => {
+                // Apaga todas
+                document.querySelectorAll('.lampada').forEach(l => l.className = 'lampada');
 
-                if (p.alpha <= 0) particles.splice(index, 1);
-            });
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
+                if (index < mensagem.length) {
+                    const char = mensagem[index];
+                    const target = document.getElementById('lamp-' + char);
+                    if (target) {
+                        target.classList.add('ativa');
+                    }
+                    index++;
+                } else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.querySelectorAll('.lampada').forEach(l => l.className = 'lampada');
+                    }, 1000);
+                }
+            }, 600);
+        });
 
-        // Controle de Áudio
+        // --- 4. Áudio Sintetizador ---
         const btnAudio = document.getElementById('btnAudio');
-        const audioAmbiente = document.getElementById('audioAmbiente');
+        const audioSintetizador = document.getElementById('audioSintetizador');
         const txtAudio = document.getElementById('txtAudio');
 
         btnAudio.addEventListener('click', () => {
-            if (audioAmbiente.paused) {
-                audioAmbiente.play();
-                txtAudio.textContent = 'Atmosfera Arcana: ON';
-                btnAudio.style.borderColor = '#2ecc71';
+            if (audioSintetizador.paused) {
+                audioSintetizador.play();
+                txtAudio.textContent = 'Sintetizador: ON';
+                btnAudio.style.borderColor = 'var(--cor-neon-brilho)';
             } else {
-                audioAmbiente.pause();
-                txtAudio.textContent = 'Atmosfera Arcana: OFF';
-                btnAudio.style.borderColor = 'var(--ouro-arcano)';
+                audioSintetizador.pause();
+                txtAudio.textContent = 'Sintetizador: OFF';
+                btnAudio.style.borderColor = 'var(--cor-neon)';
             }
         });
 
-        // Lightbox
+        // --- 5. Lightbox ---
         function abrirLightbox(element) {
             const modal = document.getElementById('lightboxModal');
             const imgTarget = document.getElementById('lightboxImg');
@@ -830,17 +804,18 @@
             document.getElementById('lightboxModal').style.display = 'none';
         }
 
-        // Mapa do Maroto
-        const btnRevelar = document.getElementById('btnRevelarMapa');
-        const fraseMaroto = document.getElementById('fraseMaroto');
+        // --- 6. Botão Inverter Mundo ---
+        const btnInverter = document.getElementById('btnInverterMundo');
+        let invertido = false;
 
-        btnRevelar.addEventListener('click', () => {
-            if (fraseMaroto.textContent.includes('solenemente')) {
-                fraseMaroto.textContent = '"Malfeito Feito!" — O Mapa foi ocultado aos Trouxas.';
-                btnRevelar.textContent = 'Restaurar Mapa';
+        btnInverter.addEventListener('click', () => {
+            invertido = !invertido;
+            if (invertido) {
+                document.body.style.transform = 'rotate(180deg)';
+                document.getElementById('fraseInvertida').textContent = '"MUNDO INVERTIDO ATIVADO"';
             } else {
-                fraseMaroto.textContent = '"Juro solenemente não fazer nada de bom."';
-                btnRevelar.textContent = 'Revelar Segredos do Mapa';
+                document.body.style.transform = 'rotate(0deg)';
+                document.getElementById('fraseInvertida').textContent = '"R-U-N"';
             }
         });
     </script>
