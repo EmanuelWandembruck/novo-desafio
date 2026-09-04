@@ -1,42 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;800;900&family=Fauna+One&family=MedievalSharp&family=UnifrakturMaguntia&family=Pinyon+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,700;0,800;1,700&family=Oswald:wght@500;700&family=Press+Start+2P&family=Share+Tech+Mono&family=VT323&display=swap');
 
 /* ===================================================
-   SISTEMA DE VARIÁVEIS DE ALTA MAGIA E ILUMINAÇÃO
+   SISTEMA DE VARIÁVEIS - MUNDO INVERTIDO & HAWKINS 1983
    =================================================== */
 :root {
-    --bg-deep: #020105;
-    --bg-card: rgba(12, 8, 22, 0.92);
-    --gold-primary: #d4af37;
-    --gold-bright: #fff3c4;
-    --gold-dark: #8a6d1c;
-    --gold-glow: rgba(212, 175, 55, 0.7);
-    --purple-magic: rgba(147, 51, 234, 0.55);
-    --cyan-spell: rgba(56, 189, 248, 0.6);
-    --red-spell: rgba(220, 38, 38, 0.6);
+    --bg-deep: #030508;
+    --bg-card: rgba(8, 12, 20, 0.94);
+    --red-neon: #ff0033;
+    --red-glow: rgba(255, 0, 51, 0.85);
+    --red-dark: #660014;
+    --blue-upside: #00f0ff;
+    --blue-glow: rgba(0, 240, 255, 0.65);
+    --yellow-retro: #ffd700;
+    --yellow-glow: rgba(255, 215, 0, 0.75);
+    --purple-mind: #9d00ff;
+    --purple-glow: rgba(157, 0, 255, 0.7);
 
-    /* Jornal O Profeta Diário */
-    --jornal-bg: #e6d5b8;
-    --jornal-bg-dark: #bc9e73;
-    --jornal-ink: #120d09;
-    --jornal-border: #2a1c0e;
-    --jornal-accent: #781c1c;
+    /* Pasta de Arquivos do Laboratório de Hawkins */
+    --lab-paper: #161a22;
+    --lab-border: #ff3333;
+    --lab-stamp: #d92626;
+    --lab-text: #e1e7ed;
 
-    /* Casas de Hogwarts */
-    --gryff-red: #8b0000;
-    --gryff-gold: #ffc83b;
-    --gryff-glow: rgba(218, 165, 32, 0.9);
-
-    --slyth-green: #0a4d25;
-    --slyth-silver: #e2e8f0;
-    --slyth-glow: rgba(16, 185, 129, 0.9);
-
-    --raven-blue: #0f2b48;
-    --raven-bronze: #cd7f32;
-    --raven-glow: rgba(56, 189, 248, 0.9);
-
-    --huff-yellow: #eab308;
-    --huff-dark: #1c1917;
-    --huff-glow: rgba(250, 204, 21, 0.9);
+    /* Fontes Temáticas */
+    --font-title: 'EB Garamond', serif;
+    --font-sub: 'Oswald', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-retro: 'VT323', monospace;
+    --font-pixel: 'Press Start 2P', cursive;
 }
 
 *, *::before, *::after {
@@ -45,142 +36,110 @@
     box-sizing: border-box;
 }
 
-/* Cursor Customizado de Varinha Mágica */
+/* Cursor Customizado Retro */
 html, body, a, button, input {
-    cursor: url('https://cur.cursors-4u.net/user/use-1/use153.cur'), auto !important;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23ff0033"><path d="M12 2L2 22l10-4 10 4z"/></svg>'), auto !important;
     scroll-behavior: smooth;
     color-scheme: dark;
 }
 
+::selection {
+    background: var(--red-neon);
+    color: #000;
+    text-shadow: 0 0 10px var(--red-glow);
+}
+
 /* ===================================================
-   PLANO DE FUNDO ATMOSFÉRICO, CASTELO E POEIRA MÁGICA
+   PLANO DE FUNDO ATMOSFÉRICO & EFEITO CRT SCANLINE
    =================================================== */
 body {
     background-color: var(--bg-deep);
     background-image: 
-        linear-gradient(to bottom, rgba(2, 1, 5, 0.65), rgba(2, 1, 5, 0.95)),
-        url('https://images.unsplash.com/photo-1547756536-cde3673fa2e5?q=80&w=1920&auto=format&fit=crop'); /* Imagem do Castelo Estilo Hogwarts */
+        radial-gradient(circle at 50% 20%, rgba(120, 0, 25, 0.45), transparent 75%),
+        radial-gradient(circle at 80% 80%, rgba(10, 30, 60, 0.55), transparent 70%),
+        linear-gradient(to bottom, rgba(3, 5, 8, 0.75), rgba(3, 5, 8, 0.98)),
+        url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=1920&auto=format&fit=crop');
     background-attachment: fixed;
-    background-position: center top;
+    background-position: center;
     background-size: cover;
-    color: #ebdcc4;
-    font-family: 'Fauna One', serif;
+    color: var(--lab-text);
+    font-family: var(--font-mono);
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
+    line-height: 1.6;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
 }
 
-::selection {
-    background: var(--gold-primary);
-    color: var(--bg-deep);
-    text-shadow: 0 0 10px var(--gold-bright);
-}
-
-/* Neblina Dupla e Partículas de Luz */
+/* Overlay de Linhas de Monitor Tubo (CRT Scanlines) */
 body::before {
-    content: '';
+    content: " ";
+    display: block;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 100%;
-    background: url('https://raw.githubusercontent.com/daniel-hug/fog-effect/master/fog-1.png') repeat-x;
-    background-size: 50% 100%;
-    opacity: 0.25;
-    z-index: 0;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: 
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%), 
+        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    z-index: 999;
+    background-size: 100% 4px, 6px 100%;
     pointer-events: none;
-    will-change: transform;
-    animation: moverNeblina 40s linear infinite;
+    opacity: 0.7;
 }
 
+/* Poeira de Esporos Flutuantes do Mundo Invertido */
 body::after {
     content: '';
     position: fixed;
     inset: 0;
     background-image: 
-        radial-gradient(rgba(255, 243, 196, 0.3) 1px, transparent 1px),
-        radial-gradient(rgba(147, 51, 234, 0.3) 1.5px, transparent 1.5px);
-    background-size: 50px 50px, 90px 90px;
-    background-position: 0 0, 25px 25px;
+        radial-gradient(rgba(255, 0, 51, 0.4) 1px, transparent 1px),
+        radial-gradient(rgba(0, 240, 255, 0.3) 1.5px, transparent 1.5px);
+    background-size: 60px 60px, 110px 110px;
+    background-position: 0 0, 35px 35px;
     z-index: 0;
     pointer-events: none;
-    animation: poeiraEstelar 15s ease-in-out infinite alternate;
-}
-
-/* Orbes de Luz Mágica Flutuantes no Fundo */
-.orb-magica {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    pointer-events: none;
-    z-index: 1;
-    animation: orbitaFlutuante 12s ease-in-out infinite alternate;
-}
-
-.orb-1 {
-    top: 10%;
-    left: 15%;
-    width: 320px;
-    height: 320px;
-    background: var(--purple-magic);
-}
-
-.orb-2 {
-    top: 60%;
-    right: 10%;
-    width: 400px;
-    height: 400px;
-    background: var(--gold-glow);
-    animation-delay: -5s;
-}
-
-.orb-3 {
-    bottom: 5%;
-    left: 20%;
-    width: 350px;
-    height: 350px;
-    background: var(--cyan-spell);
-    animation-delay: -8s;
+    animation: esporosFlutuantes 18s ease-in-out infinite alternate;
 }
 
 /* Barra de Rolagem */
 ::-webkit-scrollbar {
-    width: 14px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-track {
     background: var(--bg-deep);
-    border-left: 1px solid var(--gold-dark);
+    border-left: 1px solid var(--red-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--gold-dark), var(--gold-bright), var(--gold-dark));
-    border-radius: 8px;
-    border: 3px solid var(--bg-deep);
-    box-shadow: 0 0 15px var(--gold-glow);
+    background: linear-gradient(180deg, var(--red-dark), var(--red-neon), var(--red-dark));
+    border-radius: 6px;
+    border: 2px solid var(--bg-deep);
+    box-shadow: 0 0 15px var(--red-glow);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--gold-bright);
-    box-shadow: 0 0 25px var(--gold-bright), 0 0 40px var(--gold-primary);
+    background: var(--red-neon);
+    box-shadow: 0 0 25px var(--red-neon), 0 0 40px var(--red-glow);
 }
 
 /* ===================================================
-   CABEÇALHO MONUMENTAL COM EFEITO CASTELO & RAIO
+   CABEÇALHO MONUMENTAL COM LOGO STRANGER THINGS
    =================================================== */
 header {
     position: relative;
     min-height: 100vh;
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    border-bottom: 4px solid var(--gold-primary);
-    box-shadow: 0 20px 100px rgba(0, 0, 0, 0.95), 0 0 80px var(--gold-glow);
+    text-align: center;
     padding: 60px 20px;
+    overflow: hidden;
+    border-bottom: 3px solid var(--red-neon);
+    box-shadow: 0 10px 60px rgba(0, 0, 0, 0.95), 0 0 50px var(--red-glow);
 }
 
 .header-hero-bg {
@@ -189,689 +148,488 @@ header {
     background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1920&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
-    filter: brightness(40%) contrast(140%) saturate(120%);
+    filter: brightness(35%) contrast(140%);
     z-index: 1;
-    transform: scale(1.05);
-    animation: zoomCinematico 25s ease-in-out infinite alternate;
+    animation: zoomCinematico 30s ease-in-out infinite alternate;
 }
 
 .header-overlay {
     position: absolute;
     inset: 0;
-    background: 
-        radial-gradient(ellipse at center, rgba(5, 3, 10, 0.2) 0%, rgba(2, 1, 5, 0.95) 85%),
-        linear-gradient(to bottom, rgba(5, 3, 10, 0.6) 0%, transparent 40%, rgba(2, 1, 5, 0.98) 100%);
+    background: radial-gradient(ellipse at center, rgba(3, 5, 8, 0.3) 0%, rgba(3, 5, 8, 0.95) 85%);
     z-index: 2;
-    pointer-events: none;
-}
-
-/* Moldura Ornamental Dourada Dupla com Pulso de Energia */
-.header-overlay::after {
-    content: '';
-    position: absolute;
-    inset: 20px;
-    border: 2px solid var(--gold-primary);
-    border-radius: 16px;
-    box-shadow: inset 0 0 40px var(--gold-glow), 0 0 35px var(--gold-glow);
-    pointer-events: none;
-    outline: 2px dashed var(--gold-bright);
-    outline-offset: -12px;
-    animation: bordaPulsante 4s ease-in-out infinite alternate;
 }
 
 .header-content {
     position: relative;
     z-index: 3;
-    text-align: center;
-    max-width: 1100px;
+    max-width: 1200px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 25px;
+    gap: 20px;
 }
 
+/* LOGO STRANGER THINGS */
 header h1 {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: clamp(3.2rem, 9vw, 6.8rem);
-    background: linear-gradient(135deg, #ffffff 0%, var(--gold-bright) 25%, var(--gold-primary) 65%, var(--gold-dark) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-family: var(--font-title);
+    font-size: clamp(3.2rem, 10vw, 7.5rem);
+    font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 3px var(--red-neon);
     text-transform: uppercase;
-    letter-spacing: 10px;
-    line-height: 1.05;
+    letter-spacing: 4px;
+    line-height: 0.85;
+    text-shadow: 0 0 15px var(--red-neon), 0 0 30px var(--red-neon), 0 0 60px var(--red-glow);
+    animation: flickerNeon 3.5s infinite alternate, flutuar 6s ease-in-out infinite;
     position: relative;
-    filter: drop-shadow(0 0 35px rgba(212, 175, 55, 0.9));
-    animation: auraMagicaSuprema 4s infinite alternate, flutuar 5s ease-in-out infinite;
+}
+
+header h1::before {
+    content: '';
+    position: absolute;
+    top: -10px; left: 0; width: 100%; height: 4px;
+    background: var(--red-neon);
+    box-shadow: 0 0 15px var(--red-neon);
+}
+
+header h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; left: 0; width: 100%; height: 4px;
+    background: var(--red-neon);
+    box-shadow: 0 0 15px var(--red-neon);
 }
 
 header p {
-    font-family: 'Pinyon Script', cursive;
-    font-size: clamp(2rem, 4.5vw, 3.4rem);
-    color: var(--gold-bright);
-    text-shadow: 0 0 20px rgba(0, 0, 0, 0.9), 0 0 30px var(--gold-glow);
-    margin-top: -10px;
+    font-family: var(--font-sub);
+    font-size: clamp(1.2rem, 3vw, 2.2rem);
+    color: var(--yellow-retro);
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px var(--yellow-glow);
+    margin-top: 15px;
 }
 
-/* Botões Mágicos Com Efeito de Varredura e Luz Intensa */
-.btn-magic {
+/* Botões Estilo Retro 80s */
+.btn-magic, .btn-retro {
     position: relative;
-    background: linear-gradient(135deg, rgba(25, 15, 45, 0.95) 0%, rgba(5, 3, 10, 0.98) 100%);
-    color: var(--gold-bright);
-    border: 2px solid var(--gold-primary);
-    padding: 16px 42px;
-    font-family: 'Cinzel', serif;
+    background: var(--bg-card);
+    color: var(--red-neon);
+    border: 2px solid var(--red-neon);
+    padding: 16px 36px;
+    font-family: var(--font-sub);
     font-size: 1.1rem;
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: 3px;
-    border-radius: 50px;
+    text-transform: uppercase;
+    border-radius: 4px;
     cursor: pointer;
-    backdrop-filter: blur(12px);
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.25);
+    transition: all 0.4s ease;
+    box-shadow: 0 0 20px var(--red-glow);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.btn-magic::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -100%;
-    width: 100%;
-    height: 200%;
-    background: linear-gradient(90deg, transparent, rgba(255, 243, 196, 0.8), transparent);
-    transform: rotate(25deg);
-    transition: left 0.7s ease;
+.btn-magic:hover, .btn-retro:hover {
+    background: var(--red-neon);
+    color: #000;
+    box-shadow: 0 0 40px var(--red-neon), 0 0 80px var(--red-glow);
+    transform: translateY(-4px) scale(1.05);
 }
 
-.btn-magic:hover::before {
-    left: 120%;
-}
-
-.btn-magic:hover {
-    background: var(--gold-primary);
-    color: #030206;
-    box-shadow: 0 0 45px var(--gold-bright), 0 0 80px var(--gold-primary);
-    transform: scale(1.1) translateY(-4px);
-    border-color: #ffffff;
-}
-
-/* Navegação Encantada */
+/* Navegação Encantada Synthwave */
 nav {
-    margin-top: 30px;
+    margin-top: 35px;
     width: 100%;
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    gap: 22px;
+    gap: 18px;
     flex-wrap: wrap;
     justify-content: center;
 }
 
 nav a {
-    position: relative;
-    color: var(--gold-bright);
+    color: var(--lab-text);
     text-decoration: none;
-    font-family: 'Cinzel', serif;
-    font-size: 1.05rem;
+    font-family: var(--font-sub);
+    font-size: 1rem;
     font-weight: 700;
-    padding: 14px 28px;
-    border: 1.5px solid var(--gold-primary);
-    border-radius: 12px;
-    background: rgba(12, 8, 22, 0.88);
-    backdrop-filter: blur(12px);
-    transition: all 0.4s ease;
-    overflow: hidden;
+    padding: 12px 24px;
+    border: 1px solid var(--red-neon);
+    border-radius: 4px;
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     display: inline-block;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-}
-
-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--gold-primary), var(--gold-bright));
-    transition: all 0.4s ease;
-    transform: translateX(-50%);
-    box-shadow: 0 0 15px var(--gold-bright);
 }
 
 nav a:hover {
-    color: #030206;
-    background: var(--gold-primary);
-    box-shadow: 0 0 35px var(--gold-bright), 0 12px 25px rgba(0,0,0,0.7);
-    transform: translateY(-5px);
-}
-
-nav a:hover::after {
-    width: 100%;
+    background: var(--red-neon);
+    color: #000;
+    box-shadow: 0 0 25px var(--red-neon);
+    transform: translateY(-3px);
 }
 
 /* ===================================================
-   CONTEÚDO PRINCIPAL & TÍTULOS MAGNÍFICOS
+   CONTEÚDO PRINCIPAL & TÍTULOS
    =================================================== */
 main {
     position: relative;
     z-index: 2;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 120px 24px;
+    padding: 100px 24px;
 }
 
 section {
-    margin-bottom: 160px;
+    margin-bottom: 140px;
     position: relative;
 }
 
 h2 {
-    font-family: 'Cinzel Decorative', serif;
-    color: var(--gold-bright);
+    font-family: var(--font-title);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    color: var(--lab-text);
     text-align: center;
-    font-size: clamp(2.4rem, 5vw, 4rem);
-    margin-bottom: 70px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 60px;
     position: relative;
+    text-shadow: 0 0 20px var(--red-neon);
     display: table;
     margin-left: auto;
     margin-right: auto;
-    text-shadow: 0 0 30px var(--gold-glow);
 }
 
-h2::before, h2::after {
-    content: '⚡';
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--gold-primary);
-    font-size: 2rem;
-    filter: drop-shadow(0 0 10px var(--gold-bright));
-    animation: brilhoEstelar 2s infinite alternate;
+h2::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--red-neon), transparent);
+    margin-top: 10px;
+    box-shadow: 0 0 10px var(--red-neon);
 }
-
-h2::before { left: -55px; }
-h2::after { right: -55px; }
 
 /* ===================================================
-   SEÇÃO O PROFETA DIÁRIO (AUTÊNTICO JORNAL BRUXO)
+   SEÇÃO DOSSIÊ SECRET DO LABORATÓRIO DE HAWKINS
    =================================================== */
-.secao-jornal {
-    background: 
-        radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%),
-        linear-gradient(135deg, var(--jornal-bg) 0%, var(--jornal-bg-dark) 100%);
-    color: var(--jornal-ink);
-    border: 12px double var(--jornal-border);
-    border-radius: 6px;
-    padding: 60px 45px;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), inset 0 0 50px rgba(0, 0, 0, 0.4);
+.secao-jornal, .secao-lab-arquivos {
+    background: var(--lab-paper);
+    border: 3px double var(--lab-border);
+    border-radius: 8px;
+    padding: 50px 40px;
     position: relative;
-    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.95);
 }
 
-.secao-jornal::before {
-    content: '';
+/* Carimbo CONFIDENCIAL / TOP SECRET */
+.secao-jornal::before, .secao-lab-arquivos::before {
+    content: 'TOP SECRET';
     position: absolute;
-    inset: 0;
-    background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 2px, transparent 2px, transparent 4px);
+    top: 25px; right: 35px;
+    font-family: var(--font-sub);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--lab-stamp);
+    border: 4px solid var(--lab-stamp);
+    padding: 4px 18px;
+    transform: rotate(-12deg);
+    opacity: 0.85;
+    letter-spacing: 4px;
     pointer-events: none;
 }
 
 .jornal-header {
     text-align: center;
-    margin-bottom: 45px;
-    border-bottom: 4px double var(--jornal-border);
-    padding-bottom: 25px;
+    margin-bottom: 35px;
+    border-bottom: 2px solid var(--red-dark);
+    padding-bottom: 20px;
 }
 
 .jornal-edicao {
-    font-family: 'Cinzel', serif;
-    font-weight: 800;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    color: var(--jornal-accent);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--red-neon);
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid var(--jornal-border);
-    padding-bottom: 6px;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
 }
 
 .jornal-titulo {
-    font-family: 'UnifrakturMaguntia', cursive;
-    font-size: clamp(3.8rem, 10vw, 7rem);
-    color: var(--jornal-ink);
-    margin: 5px 0;
-    line-height: 0.9;
-    text-shadow: 3px 3px 0px rgba(0,0,0,0.15);
-    letter-spacing: -1px;
+    font-family: var(--font-title);
+    font-size: clamp(2.8rem, 7vw, 4.8rem);
+    color: var(--yellow-retro);
+    text-transform: uppercase;
+    text-shadow: 0 0 15px var(--yellow-glow);
+    line-height: 1;
 }
 
 .jornal-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 45px;
+    gap: 35px;
 }
 
-.noticia-card {
-    border-right: 1px solid rgba(42, 28, 14, 0.35);
-    padding-right: 30px;
+.noticia-card, .arquivo-item {
+    background: rgba(0, 0, 0, 0.5);
+    border-left: 4px solid var(--red-neon);
+    padding: 22px 25px;
+    border-radius: 0 8px 8px 0;
+    transition: transform 0.3s ease, background 0.3s ease;
 }
 
-.noticia-card:last-child {
-    border-right: none;
-    padding-right: 0;
+.noticia-card:hover, .arquivo-item:hover {
+    transform: translateX(10px);
+    background: rgba(255, 0, 51, 0.1);
 }
 
 .noticia-conteudo h3 {
-    font-family: 'Cinzel', serif;
-    font-size: 1.7rem;
-    font-weight: 900;
-    margin-top: 20px;
-    margin-bottom: 14px;
-    color: var(--jornal-ink);
-    line-height: 1.25;
-}
-
-.noticia-conteudo h3::first-letter {
-    font-size: 2.5rem;
-    float: left;
-    line-height: 0.8;
-    margin-right: 8px;
-    color: var(--jornal-accent);
-    font-family: 'UnifrakturMaguntia', cursive;
-}
-
-.noticia-conteudo .autor {
-    font-style: italic;
-    font-weight: 700;
-    font-size: 0.9rem;
-    margin-bottom: 14px;
-    color: var(--jornal-accent);
-    border-bottom: 1px dashed var(--jornal-border);
-    padding-bottom: 6px;
+    font-family: var(--font-sub);
+    font-size: 1.6rem;
+    color: var(--yellow-retro);
+    text-transform: uppercase;
+    margin-bottom: 10px;
 }
 
 .noticia-conteudo p {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: #1a120b;
-    text-align: justify;
+    font-size: 0.95rem;
+    color: var(--lab-text);
+    line-height: 1.6;
 }
 
-/* Molduras Mágicas Douradas */
+/* Molduras CRT para Vídeos/Imagens */
 .moldura-magica-video, .moldura-magica {
     position: relative;
-    border: 4px solid var(--jornal-border);
+    border: 2px solid var(--red-neon);
+    border-radius: 8px;
     overflow: hidden;
     background: #000;
-    box-shadow: 6px 6px 20px rgba(0,0,0,0.6);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .moldura-magica-video:hover, .moldura-magica:hover {
-    transform: scale(1.04) rotate(-1deg);
-    box-shadow: 10px 15px 30px rgba(0,0,0,0.8);
+    transform: scale(1.03);
+    box-shadow: 0 0 35px var(--red-glow);
 }
 
 .video-magico, .moldura-magica img {
     width: 100%;
     height: 260px;
     object-fit: cover;
-    filter: sepia(75%) contrast(135%) brightness(85%);
-    transition: filter 0.8s ease, transform 0.8s ease;
+    filter: contrast(110%) brightness(90%);
+    transition: filter 0.5s ease;
 }
 
 .moldura-magica-video:hover .video-magico, .moldura-magica:hover img {
-    filter: sepia(0%) contrast(110%) brightness(105%);
-    transform: scale(1.08);
-}
-
-.selo-magico {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    background: var(--jornal-accent);
-    color: var(--gold-bright);
-    font-size: 0.8rem;
-    font-weight: 800;
-    padding: 5px 14px;
-    border-radius: 4px;
-    font-family: 'Cinzel', serif;
-    letter-spacing: 1.5px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.7);
+    filter: contrast(125%) brightness(105%);
 }
 
 /* ===================================================
-   GRID DE CARDS 3D HIPER-DETALHADOS (CASAS)
+   GRID DE CARDS 3D (O GRUPO DE HAWKINS & CASAS)
    =================================================== */
 .grid-3d {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
-    perspective: 1200px;
+    gap: 35px;
+    perspective: 1000px;
 }
 
-.casa-card {
-    position: relative;
+.casa-card, .card-personagem {
     background: var(--bg-card);
-    border: 2px solid rgba(212, 175, 55, 0.35);
-    border-radius: 24px;
-    padding: 35px 26px;
+    border: 2px solid rgba(255, 0, 51, 0.4);
+    border-radius: 12px;
+    padding: 30px 22px;
     text-align: center;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     transform-style: preserve-3d;
+    position: relative;
     overflow: hidden;
 }
 
-/* Efeito Borda Brilhante Giratória */
-.casa-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 24px;
-    padding: 2px;
-    background: linear-gradient(135deg, transparent, var(--gold-bright), transparent);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0.4;
-    transition: opacity 0.5s ease;
+.casa-card:hover, .card-personagem:hover {
+    transform: translateY(-12px) rotateX(4deg) scale(1.02);
+    border-color: var(--red-neon);
+    box-shadow: 0 20px 50px var(--red-glow);
 }
 
-.casa-card:hover::after {
-    opacity: 1;
-}
-
-.personagem-foto, .video-frame-p img {
+.personagem-foto {
     width: 100%;
-    height: 270px;
+    height: 260px;
     object-fit: cover;
-    border-radius: 16px;
-    border: 2px solid var(--gold-primary);
-    margin-bottom: 22px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.95);
-    transition: transform 0.5s ease, border-color 0.5s ease;
+    border-radius: 8px;
+    border: 2px solid var(--red-neon);
+    margin-bottom: 20px;
+    filter: contrast(110%) brightness(90%);
+    transition: transform 0.5s ease;
 }
 
 .casa-card:hover .personagem-foto {
-    transform: translateZ(30px) scale(1.04);
+    transform: scale(1.05);
+    filter: contrast(120%) brightness(105%);
 }
 
-.casa-card h3 {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.9rem;
-    margin-bottom: 14px;
-    color: var(--gold-bright);
-    transition: transform 0.3s ease;
+.casa-card h3, .card-personagem h3 {
+    font-family: var(--font-sub);
+    font-size: 1.8rem;
+    color: var(--yellow-retro);
+    margin-bottom: 8px;
+    text-transform: uppercase;
 }
 
-.casa-card p {
-    font-size: 1rem;
-    line-height: 1.65;
-    color: #e0d4c0;
-    margin-bottom: 12px;
+.casa-card p, .card-personagem p {
+    font-size: 0.95rem;
+    color: var(--lab-text);
+    line-height: 1.6;
 }
-
-/* Estilização Individual das Casas */
-.grifinoria:hover {
-    border-color: var(--gryff-gold);
-    box-shadow: 0 25px 60px rgba(139, 0, 0, 0.95), 0 0 45px var(--gryff-glow);
-    transform: translateY(-15px) rotateX(6deg) rotateY(-3deg);
-}
-.grifinoria h3 { color: var(--gryff-gold); }
-
-.sonserina:hover {
-    border-color: var(--slyth-silver);
-    box-shadow: 0 25px 60px rgba(10, 77, 37, 0.95), 0 0 45px var(--slyth-glow);
-    transform: translateY(-15px) rotateX(6deg) rotateY(3deg);
-}
-.sonserina h3 { color: #82ecad; }
-
-.corvinal:hover {
-    border-color: var(--raven-bronze);
-    box-shadow: 0 25px 60px rgba(15, 43, 72, 0.95), 0 0 45px var(--raven-glow);
-    transform: translateY(-15px) rotateX(-6deg) rotateY(-3deg);
-}
-.corvinal h3 { color: #80c2ff; }
-
-.lufa-lufa:hover {
-    border-color: var(--huff-yellow);
-    box-shadow: 0 25px 60px rgba(234, 179, 8, 0.85), 0 0 45px var(--huff-glow);
-    transform: translateY(-15px) rotateX(-6deg) rotateY(3deg);
-}
-.lufa-lufa h3 { color: var(--huff-yellow); }
 
 /* ===================================================
-   GALERIA MÁGICA COM EFEITO DE LUZ INTENSA
+   GALERIA VHS & EVIDÊNCIAS
    =================================================== */
 .galeria-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 35px;
+    gap: 30px;
 }
 
-.galeria-item {
+.galeria-item, .vhs-card {
     position: relative;
-    height: 300px;
-    border-radius: 20px;
+    height: 280px;
+    border-radius: 10px;
     overflow: hidden;
-    border: 2px solid var(--gold-primary);
+    border: 2px solid var(--red-neon);
     cursor: pointer;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.4s ease;
 }
 
-.galeria-item video, .galeria-item img {
-    width: 100%;
-    height: 100%;
+.galeria-item video, .galeria-item img, .vhs-card img {
+    width: 100%; height: 100%;
     object-fit: cover;
-    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+    filter: grayscale(20%) contrast(110%);
+    transition: transform 0.6s ease, filter 0.6s ease;
 }
 
-.galeria-hover {
+.galeria-hover, .vhs-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle, rgba(147, 51, 234, 0.8) 0%, rgba(5, 3, 10, 0.95) 100%);
+    background: rgba(3, 5, 8, 0.85);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--gold-bright);
     opacity: 0;
     transition: opacity 0.4s ease;
-    text-shadow: 0 0 20px var(--gold-bright);
+    padding: 20px;
+    text-align: center;
 }
 
-.galeria-item:hover {
-    transform: scale(1.06) translateY(-8px);
-    box-shadow: 0 25px 50px var(--purple-magic), 0 0 40px var(--gold-glow);
-    border-color: var(--gold-bright);
+.galeria-item:hover, .vhs-card:hover {
+    transform: scale(1.05) translateY(-6px);
+    box-shadow: 0 20px 45px var(--red-glow);
 }
 
-.galeria-item:hover video, .galeria-item:hover img {
-    transform: scale(1.18);
-    filter: brightness(115%);
+.galeria-item:hover video, .galeria-item:hover img, .vhs-card:hover img {
+    transform: scale(1.15);
+    filter: grayscale(0%) contrast(100%);
 }
 
-.galeria-item:hover .galeria-hover {
+.galeria-item:hover .galeria-hover, .vhs-card:hover .vhs-overlay {
     opacity: 1;
 }
 
 /* ===================================================
-   GRIMÓRIO DE FEITIÇOS COM BRILHO DE VARINHA
+   GRIMÓRIO DE PODERES & EVENTOS PARANORMAIS
    =================================================== */
 .feiticos-container {
-    background: linear-gradient(160deg, #1d0f38 0%, #090417 100%);
-    border: 2px solid var(--gold-primary);
-    border-radius: 24px;
-    padding: 55px;
-    box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.95), 0 0 50px var(--purple-magic);
-    position: relative;
+    background: var(--bg-card);
+    border: 2px solid var(--red-neon);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), inset 0 0 30px rgba(255, 0, 51, 0.2);
 }
 
 .feitico-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 24px;
-    border-bottom: 1px dashed rgba(212, 175, 55, 0.35);
+    padding: 20px 24px;
+    border-bottom: 1px dashed var(--red-dark);
     gap: 20px;
-    position: relative;
-    transition: all 0.4s ease;
-    border-radius: 12px;
-}
-
-.feitico-item::before {
-    content: '🪄';
-    position: absolute;
-    left: -15px;
-    opacity: 0;
     transition: all 0.3s ease;
-    font-size: 1.4rem;
-    filter: drop-shadow(0 0 10px var(--gold-bright));
-}
-
-.feitico-item:last-child {
-    border-bottom: none;
+    border-radius: 6px;
 }
 
 .feitico-item:hover {
-    background: rgba(212, 175, 55, 0.16);
-    padding-left: 45px;
-    box-shadow: inset 0 0 25px rgba(212, 175, 55, 0.2);
-}
-
-.feitico-item:hover::before {
-    opacity: 1;
-    left: 15px;
+    background: rgba(255, 0, 51, 0.15);
+    padding-left: 32px;
 }
 
 .nome-feitico {
-    font-family: 'Cinzel', serif;
-    color: var(--gold-bright);
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    text-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+    font-family: var(--font-sub);
+    color: var(--yellow-retro);
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .efeito-feitico {
-    color: #ded0b8;
-    font-style: italic;
-    font-size: 1.15rem;
+    color: var(--blue-upside);
+    font-family: var(--font-mono);
+    font-size: 1rem;
     text-align: right;
 }
 
 /* ===================================================
-   KEYFRAMES E ANIMAÇÕES MÁGICAS
+   ANIMAÇÕES KEYFRAMES
    =================================================== */
-@keyframes moverNeblina {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(-50%, 0, 0); }
+@keyframes flickerNeon {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 20px var(--red-neon)); }
+    50% { opacity: 0.8; filter: drop-shadow(0 0 10px var(--red-neon)); }
+    52% { opacity: 0.3; }
+    54% { opacity: 1; }
+    80% { opacity: 0.9; }
+    82% { opacity: 0.2; }
+    84% { opacity: 1; }
 }
 
-@keyframes poeiraEstelar {
+@keyframes esporosFlutuantes {
     0% { transform: translateY(0) scale(1); }
-    100% { transform: translateY(-40px) scale(1.05); }
-}
-
-@keyframes orbitaFlutuante {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(60px, -40px) scale(1.15); }
-    100% { transform: translate(-40px, 50px) scale(0.9); }
+    100% { transform: translateY(-30px) scale(1.08); }
 }
 
 @keyframes zoomCinematico {
     0% { transform: scale(1); }
-    100% { transform: scale(1.18); }
-}
-
-@keyframes auraMagicaSuprema {
-    0% {
-        filter: drop-shadow(0 0 20px var(--gold-primary)) drop-shadow(0 0 40px rgba(139, 0, 0, 0.8));
-    }
-    50% {
-        filter: drop-shadow(0 0 35px var(--gold-bright)) drop-shadow(0 0 65px rgba(147, 51, 234, 0.95));
-    }
-    100% {
-        filter: drop-shadow(0 0 25px var(--gold-primary)) drop-shadow(0 0 50px rgba(56, 189, 248, 0.9));
-    }
-}
-
-@keyframes bordaPulsante {
-    0% { box-shadow: inset 0 0 25px var(--gold-glow), 0 0 20px var(--gold-glow); }
-    100% { box-shadow: inset 0 0 50px var(--gold-bright), 0 0 45px var(--gold-bright); }
+    100% { transform: scale(1.15); }
 }
 
 @keyframes flutuar {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-18px); }
-}
-
-@keyframes brilhoEstelar {
-    0% { opacity: 0.3; transform: translateY(-50%) scale(0.8) rotate(0deg); }
-    100% { opacity: 1; transform: translateY(-50%) scale(1.4) rotate(180deg); }
+    50% { transform: translateY(-12px); }
 }
 
 /* ===================================================
-   RESPONSIVIDADE COMPLETA (MOBILE & TABLET)
+   RESPONSIVIDADE COMPLETA
    =================================================== */
 @media (max-width: 768px) {
-    main {
-        padding: 60px 16px;
-    }
-
-    section {
-        margin-bottom: 100px;
-    }
-
-    h2::before, h2::after {
-        display: none;
-    }
-
-    .secao-jornal {
-        padding: 35px 20px;
-    }
-
-    .jornal-edicao {
-        flex-direction: column;
-        gap: 6px;
-        align-items: center;
-    }
-
-    .noticia-card {
-        border-right: none;
-        border-bottom: 1px dashed var(--jornal-border);
-        padding-right: 0;
-        padding-bottom: 30px;
-    }
-
-    .feitico-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-
-    .efeito-feitico {
-        text-align: left;
-    }
-
-    nav ul {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    nav a {
-        text-align: center;
-    }
+    main { padding: 60px 16px; }
+    section { margin-bottom: 90px; }
+    .secao-jornal, .secao-lab-arquivos { padding: 30px 18px; }
+    .secao-jornal::before, .secao-lab-arquivos::before { display: none; }
+    .feitico-item { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .efeito-feitico { text-align: left; }
+    nav ul { flex-direction: column; align-items: stretch; }
+    nav a { text-align: center; }
 }
